@@ -6,8 +6,6 @@ export default class Welcome extends Component {
     return (
       <div>
         <h1>this is welcome</h1>
-        <button type="button">Signup</button>
-        <button type="button">Login</button>
       </div>
     )
   }
