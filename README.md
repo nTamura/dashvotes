@@ -25,14 +25,14 @@
 
 ```
 Welcome 
-├─Login
-└─Signin
+├─Signup
+└─Login
   └─Main page 
-    ├─Poll 1 
+    └─Poll 1 
       └─Vote page
-    ├─Poll 2
+    └─Poll 2
       └─Vote page 
-    ├─Admin
+    └─Admin
       └─Shows live results 
     └─Results (disabled)
       └─Chart page 
