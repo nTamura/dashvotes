@@ -1,6 +1,5 @@
 # React voting app 
 
-
 ## MVP
 - main page 
 - vote 1 page
@@ -18,22 +17,18 @@
 - admin can always see results 
 
 # TODOS 
+- NPM font awesome
 
 ## 
 
 ## Screens 
-
 ```
-Welcome 
-├─Signup
-└─Login
+~/App
+  ├─Navbar (login, username)
+  └─Signin (if signed in... then )
   └─Main page 
-    └─Poll 1 
-      └─Vote page
-    └─Poll 2
-      └─Vote page 
-    └─Admin
-      └─Shows live results 
-    └─Results (disabled)
-      └─Chart page 
+    └─Poll 1 to '/poll1'
+    └─Poll 2 to '/poll2'
+    └─Admin to '/admin' (live results, current state, user count)
+    └─Results to '/results' (final result)
 ```
