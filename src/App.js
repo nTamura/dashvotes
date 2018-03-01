@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom'
+import Welcome from './components/Welcome'
+import Main from './components/Main'
 import fire from './initialize'
 import logo from './logo.svg';
 import './App.css';
@@ -48,6 +51,16 @@ class App extends Component {
           {renderMsg}
         </ul>
       </form> */}
+
+      <Switch>
+        <Route exact path="/" render={() => {
+          return <Welcome />
+        }} />
+        <Route path="/main" render={() => {
+          return <Main />
+        }} />
+      </Switch>
+
       </div>
     );
   }
