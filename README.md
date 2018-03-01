@@ -8,18 +8,27 @@
 - firebase post to db
 - results page from db 
 
-
 ## Nice to have 
 - firebase login
 - charts.js
 - admin page 
-- ability to toggle show results page
+- ability to toggle show results page if admin
 - admin can always see results 
+- admin can create polls
+  - poll title
+  - add option 
 
 # TODOS 
-- NPM font awesome
+- font awesome
+- Bootstrap 
+- color palete 
 
-## 
+
+## Notes
+- Main page gets data from db
+  - maps out polls
+  - dynamic route '/:pollId'
+
 
 ## Screens 
 ```
