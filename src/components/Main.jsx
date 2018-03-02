@@ -7,7 +7,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        <h1>hello *name</h1>
+        <h1>hello name</h1>
 
         <Link to="/main/polls">
           <button>POLLS boi</button>
@@ -18,7 +18,7 @@ export default class Main extends Component {
 
         <Switch>
           <Route path="/main/polls" render={() => {
-            return <Poll />
+            return <Poll votePoll={this.props.votePoll} />
           }} />
           <Route path="/main/results" render={() => {
             return <Results />

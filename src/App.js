@@ -15,7 +15,8 @@ class App extends Component {
       fireRedirect: false,      
       isLoggedIn: false, 
       user: '',
-      polls: []
+      polls: [] 
+      //dont need this until we create dynamic polls
     }    
   }
 
@@ -27,14 +28,19 @@ class App extends Component {
     })
   }
 
-  votePoll(e){
-    e.preventDefault();
-    console.log(e);
-    
-    /* Send the polls to Firebase */
-    // fire.database().ref('polls').push( vote );
-    // this.inputEl.value = ''; // <- clear the input
+  votePoll = (vote) => {
+    fire.database().ref('polls/' + vote.pollId).push( vote )
+    .then(
+      console.log(vote, 'success')
+    )
   }
+
+  getVotes = () => {
+    // fire.database.ref('polls/')
+    // get POLLNAME.pollId.userVote.reduce
+    // push to each array, display to results 
+  }
+
 
   render() {
 
