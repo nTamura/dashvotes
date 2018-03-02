@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Register from './components/Register'
+import Signin from './components/Signin'
 import fire from './firebase'
 import './App.css';
 
@@ -112,22 +113,32 @@ class App extends Component {
         <Navbar 
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
+<div className="container">
 
         <Switch>
-          {/* Route for sign up */}
+          {/* should render register on /, then login on /login */}
+
           <Route exact path="/" render={() => {
-            return <Home
-                      {...this.state}
-                      isLoggedIn={this.state.isLoggedIn}
-                      login={this.login}
-                      hacker={this.hacker}
-                      votePoll={this.votePoll}
-                      />
-          }} />
-          <Route path="/register" render={() => {
-            return <Register register={this.register}/>
-          }} />
+            return (this.state.isLoggedIn) ? (
+              <Home
+              {...this.state}
+              isLoggedIn={this.state.isLoggedIn}
+              login={this.login}
+              hacker={this.hacker}
+              votePoll={this.votePoll}
+              />
+            ) : (
+              <Register register={this.register}/>
+            )}
+          } />
+          <Route exact path="/login" render={() => {
+            return <Signin login={this.login}/>
+          }}  />
         </Switch>
+          </div>
+
+            what the fuuuuuck manmnmn
+
 
       </div>
     );

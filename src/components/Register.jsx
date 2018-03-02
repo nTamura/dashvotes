@@ -5,6 +5,7 @@ export default class Register extends Component {
   render() {
     return (
       <Form onSubmit={this.props.register}>
+      register
         <FormGroup>
           <Label for="userForm">Please enter your e-mail address</Label>
           <Input required name="userEmail" placeholder="E-mail" />

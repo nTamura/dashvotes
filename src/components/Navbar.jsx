@@ -8,30 +8,30 @@ export default class Navbar extends Component {
     return (
       <div style={styles.navBar}
         className="container-fluid" >
-          {(this.props.isLoggedIn) &&
-        <nav className="navbar navbar-light">
         
-        {/* why the fuck does this not appear until you click login */}
-        {/* only show if you are on /:something, not on root */}
-          <Link to="/">
-          <FontAwesomeIcon 
-              size='2x' 
+        {(this.props.isLoggedIn) &&
+          <nav className="navbar navbar-light">
+        
+          <Link to="/" >
+            {/* <FontAwesomeIcon size='2x' 
               style={styles.backIcon}
-              icon="caret-square-left"/>
+              icon="caret-square-left"/> */}
+              <button>
+                back
+              </button>
+              
           </Link>
 
-        {(this.props.isLoggedIn) &&
-          <Link to="/">
-            <button 
-              style={styles.login}
-              onClick={this.props.logout}>
-              Logout
-            </button>
-          </Link>
-          }
+            <Link to="/">
+              <button 
+                style={styles.login}
+                onClick={this.props.logout}>
+                Logout
+              </button>
+            </Link>
         </nav>
-          }
-      </div>
+        }
+        </div>
     )
   }
 }

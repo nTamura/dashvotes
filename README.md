@@ -60,3 +60,11 @@ if user has voted (userId in array), poll is greyed and cannot vote anymore
       └─Admin to '/admin' (live results, current state, user count)
       └─Results to '/results' (final result)
 ```
+
+/ 
+  if not login
+    show register 
+      /login
+
+
+  else show main
