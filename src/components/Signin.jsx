@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 import { Redirect } from 'react-router-dom'
 
 export default class Signup extends Component {
@@ -7,13 +8,24 @@ export default class Signup extends Component {
     const { from } = this.props.location || '/'
     const { fireRedirect } = this.props
 
+    const styles = {
+
+    }
+
     return (
       <div className="container">
         <h1>Please sign up</h1>
-        <form action="" 
-              onSubmit={this.props.submitForm}>
-          <input type="text" name="" id=""/>
-        </form>
+        <Form onSubmit={this.props.submitForm}>
+          <FormGroup>
+            <Label for="userForm">Please enter a username!</Label>
+            <Input name="username" id="userForm" placeholder="Name or Username" />
+          </FormGroup>
+          <FormGroup>
+            <Label for="emailForm">E-mail pls</Label>
+            <Input name="email" id="emailForm" placeholder="E-mail Address" />
+          </FormGroup>
+          <Button size="lg" block>Block level button</Button>
+        </Form>
         {fireRedirect && (
           <Redirect to={from || '/main'} />
         )}
