@@ -29,7 +29,7 @@ class App extends Component {
 
   votePoll(e){
     e.preventDefault();
-    console.log(e.target.radio1);
+    console.log(e.target.radio.value);
     
     /* Send the polls to Firebase */
     // fire.database().ref('polls').push( vote );
