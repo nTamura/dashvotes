@@ -19,13 +19,6 @@ class App extends Component {
   
   login = (e) => {
     e.preventDefault()
-<<<<<<< HEAD
-    let user = {
-      username: e.target.userName.value,
-      email: e.target.userEmail.value,
-      userVoted: false
-    }
-=======
     // let user = {
     //   username: e.target.userName.value,
     //   email: e.target.userEmail.value
@@ -56,7 +49,6 @@ class App extends Component {
         // ...
       }
     });
->>>>>>> ab0ebd5b584cc0a06eba179b08a2055318feef8c
     this.setState({
       isLoggedIn: true, 
       // user: user,
