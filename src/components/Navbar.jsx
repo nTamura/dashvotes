@@ -29,14 +29,6 @@ export default class Navbar extends Component {
             </button>
           </Link>
           }
-
-            <Link to="/">
-              <button 
-                style={styles.login}
-                onClick={this.props.logout}>
-                Logout
-              </button>
-            </Link>
         </nav>
           }
       </div>
