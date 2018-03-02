@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
-import { Redirect } from 'react-router-dom'
 
 export default class Signup extends Component {
   render() {
-    const { from } = this.props.location || '/'
-    const { fireRedirect } = this.props
 
     return (
-      <div className="container-fluid" style={styles.signIn}>
+      <div className="container">
         <h1>Sign up to get started</h1>
 
         <Form onSubmit={this.props.login}>
@@ -29,11 +26,5 @@ export default class Signup extends Component {
         )} */}
       </div>
     )
-  }
-}
-
-const styles = {
-  signIn: {
-    background: '#E1BEE7'
   }
 }

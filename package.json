@@ -5,6 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.4",
     "@fortawesome/react-fontawesome": "0.0.17",
+    "bootstrap": "^4.0.0",
     "chart.js": "^2.7.2",
     "firebase": "^4.10.1",
     "react": "^16.2.0",

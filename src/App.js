@@ -4,30 +4,54 @@ import Navbar from './components/Navbar'
 import Main from './components/Main'
 import Signin from './components/Signin'
 import fire from './firebase'
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state={
-      fireRedirect: false,      
+    this.state={    
       isLoggedIn: false, 
       user: '',
       // polls: [] 
       //dont need this until we create dynamic polls
     }    
   }
-
+  
   login = (e) => {
     e.preventDefault()
-    let user = {
-      username: e.target.userName.value,
-      email: e.target.userEmail.value
-    }
+    // let user = {
+    //   username: e.target.userName.value,
+    //   email: e.target.userEmail.value
+    // }
+    let email = e.target.userName.value
+    let password = e.target.userEmail.value
+    fire.auth().createUserWithEmailAndPassword(email, password)
+      .catch(function (err) {
+        console.log('signed up')
+      })
+    fire.auth().signInWithEmailAndPassword(email, password)
+      .catch(function (err) {
+        console.log('logged in')
+      })
+    fire.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log(user)
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
     this.setState({
       isLoggedIn: true, 
-      user: user,
+      // user: user,
     }, () => {
       console.log('isLoggedIn:', this.state.isLoggedIn)
       console.log(this.state);
