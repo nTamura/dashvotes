@@ -22,11 +22,19 @@ class App extends Component {
   register = (e) => {
     e.preventDefault()
     let email = e.target.userEmail.value
-    let password = e.target.userPassword.value
-    fire.auth().createUserWithEmailAndPassword(email, password)
-      .catch(function (err) {
-        console.log('signed up')
-      })
+    // let password = e.target.userPassword.value
+    // fire.auth().createUserWithEmailAndPassword(email, password)
+    //   .catch(function (err) {
+    //     console.log('signed up')
+    //   })
+    this.setState({
+      user: email, 
+      isLoggedIn: true
+    }, () => {
+      console.log(this.state);
+      console.log(email, 'is logged in');
+      this.triggerLoggedInAlert()
+    })
   }
 
   // Log in to app
@@ -79,10 +87,6 @@ class App extends Component {
   }
 
   triggerLoggedInAlert = () => {
-    // (isLoggedIn) 
-    // this.setState({
-    //   i dunno show bootstra alert for success login
-    // })
     return (
       <Alert color="primary">
         This is a primary alert — check it out!
@@ -121,27 +125,25 @@ class App extends Component {
         
         <div className="container">
 
-        <Switch>
-          {/* should render register on /, then login on /login */}
-
-          <Route exact path="/" render={() => {
-            return (this.state.isLoggedIn) ? (
-              <Home
-              {...this.state}
-              isLoggedIn={this.state.isLoggedIn}
-              login={this.login}
-              hacker={this.hacker}
-              votePoll={this.votePoll}
-              />
-            ) : (
-              <Register register={this.register}/>
-            )}
-          } />
-          <Route exact path="/login" render={() => {
-            return <Signin login={this.login}/>
-          }}  />
-        </Switch>
-          </div>
+          <Switch>
+            <Route exact path="/" render={() => {
+              return (this.state.isLoggedIn) ? (
+                <Home
+                {...this.state}
+                isLoggedIn={this.state.isLoggedIn}
+                login={this.login}
+                hacker={this.hacker}
+                votePoll={this.votePoll}
+                />
+              ) : (
+                <Register register={this.register} />
+              )}
+            } />
+            {/* <Route exact path="/login" render={() => {
+              return <Signin login={this.login}/>
+            }}  /> */}
+          </Switch>
+        </div>
       </div>
     );
   }

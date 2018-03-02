@@ -14,12 +14,13 @@ export default class Register extends Component {
           <FormGroup>
             <Input required autoFocus name="userEmail" placeholder="E-mail" />
           </FormGroup>
-          <FormGroup>
+          {/* <FormGroup>
             <Input type="password" required name="userPassword" placeholder="Password" />
-          </FormGroup>
+          </FormGroup> */}
           <Button type="submit" size="lg" block outline 
             style={styles.button} >
-            Register</Button>
+            Register
+          </Button>
         </Form>
       </div>
     )
