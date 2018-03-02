@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Topbar from './components/Topbar'
 import Home from './components/Home'
 import Register from './components/Register'
 import Signin from './components/Signin'
 import fire from './firebase'
 import './App.css';
-
+import { Alert } from 'reactstrap';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -83,6 +83,11 @@ class App extends Component {
     // this.setState({
     //   i dunno show bootstra alert for success login
     // })
+    return (
+      <Alert color="primary">
+        This is a primary alert — check it out!
+      </Alert>
+    )
   }
   
   submitForm = (ev) => {
@@ -110,10 +115,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar 
+        <Topbar 
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
-<div className="container">
+        
+        <div className="container">
 
         <Switch>
           {/* should render register on /, then login on /login */}
@@ -136,10 +142,6 @@ class App extends Component {
           }}  />
         </Switch>
           </div>
-
-            what the fuuuuuck manmnmn
-
-
       </div>
     );
   }

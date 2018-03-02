@@ -2,11 +2,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
+  font-size: 1.2em;
+  background: transparent;
+  color: white;
+
 }
 
 html {
   min-height: 100%;
-  background: #acb6e5;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #86fde8, #acb6e5);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #86fde8, #acb6e5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #4568DC;
+  background: -webkit-linear-gradient(to bottom, #B06AB3, #4568DC);  
+  background: linear-gradient(to bottom, #B06AB3, #4568DC); 
 }
