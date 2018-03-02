@@ -20,6 +20,12 @@ class App extends Component {
     }    
   }
 
+  login = () => {
+    this.setState({
+      isLoggedIn: true, 
+      user: 'Poop',
+    })
+  }
 
   submitForm = (ev) => {
     ev.preventDefault()
@@ -46,7 +52,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar isLoggedIn={this.state.isLoggedIn}/>
+        <Navbar login={this.login} isLoggedIn={this.state.isLoggedIn} />
         {/* <form onSubmit={this.addMessage.bind(this)}>
         <input type="text" ref={ el => this.inputEl = el }/>
         <input type="submit"/>
@@ -54,18 +60,40 @@ class App extends Component {
           {renderMsg}
         </ul>
       </form> */}
-      <Switch>
+        {(!this.state.isLoggedIn) ? (
+          <div>
+            'you must log in here'
+            <form onSubmit={this.login}> 
+              <input type="text" 
+                placeholder="Username" 
+                name="userName"/>
+              <input type="text" 
+                placeholder="Email" 
+                name="userEmail"/>
+              <button type="submit" />
+            </form>
+          </div>
+        ):(
+          'you are logged in' 
+        )
+      }
+      {/* <Switch>
+        {(!this.state.isLoggedIn) ? (
+          <Route path="/" render={() => {
+            <Signin 
+              submitForm={this.submitForm}
+              fireRedirect={this.state.fireRedirect}/>
+          }} />
+        ) : (
         <Route exact path="/" render={() => {
           return <Welcome />
-        }} />
-        <Route path="/signin" render={() => {
-          return <Signin submitForm={this.submitForm}
-                         fireRedirect={this.state.fireRedirect}/>
-        }} />
+          }} />
+        )}
+  
         <Route path="/main" render={() => {
           return <Main votePoll={this.votePoll} />
         }} />
-      </Switch>
+      </Switch> */}
 
       </div>
     );
