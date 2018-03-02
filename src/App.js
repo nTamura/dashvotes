@@ -12,6 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state={
+      fireRedirect: false,      
       isLoggedIn: false, 
       user: '',
       polls: []
@@ -19,17 +20,13 @@ class App extends Component {
   }
 
 
-  componentWillMount(){
-    /* Create reference to polls in Firebase */
-
-    // let pollsRef = fire.database()
-    // .ref('polls').orderByKey().limitToLast(100);
-    // pollssRef.on('child_added', snapshot => {
-    //   /* Update React state when polls is added at Firebase Database */
-    //   let polls = { text: snapshot.val(), id: snapshot.key };
-    //   this.setState({ pollss: [polls].concat(this.state.polls) });
-    // })
+  submitForm = (ev) => {
+    ev.preventDefault()
+    this.setState({
+      fireRedirect: true
+    })
   }
+
   votePoll(e){
     e.preventDefault();
     console.log(e);
@@ -39,21 +36,28 @@ class App extends Component {
     // this.inputEl.value = ''; // <- clear the input
   }
 
-
   render() {
 
     return (
       <div className="App">
-        <Navbar />
+        <Navbar isLoggedIn={this.state.isLoggedIn}/>
+        {/* <form onSubmit={this.addMessage.bind(this)}>
+        <input type="text" ref={ el => this.inputEl = el }/>
+        <input type="submit"/>
+        <ul>
+          {renderMsg}
+        </ul>
+      </form> */}
       <Switch>
         <Route exact path="/" render={() => {
           return <Welcome />
         }} />
+        <Route path="/signin" render={() => {
+          return <Signin submitForm={this.submitForm}
+                         fireRedirect={this.state.fireRedirect}/>
+        }} />
         <Route path="/main" render={() => {
           return <Main votePoll={this.votePoll} />
-        }} />
-        <Route path="/signin" render={() => {
-          return <Signin />
         }} />
       </Switch>
 
