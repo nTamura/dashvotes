@@ -36,7 +36,7 @@ has multiple polls
 ```
 APP
 └─polls 
-  └─pollId
+  └─pollId 
     ├─usersVoted: [array of userIds] 
     └─userVoted.count()
   users

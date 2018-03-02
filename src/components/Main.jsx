@@ -7,7 +7,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        <h1>hello *name</h1>
+        <h1>hello name</h1>
 
         <Link to="/main/polls">
           <button>POLLS boi</button>

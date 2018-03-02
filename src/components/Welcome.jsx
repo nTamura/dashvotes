@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 
 export default class Welcome extends Component {
   render() {
-    return (
-      <div>
-        <h1>DASHVOTES</h1>
 
+    const styles = {
+      landing: {
+        background: '#E1BEE7'
+      }
+    }
+
+    return (
+      <div style={styles.landing}>
+        <h1>DASHVOTES</h1>
+        <img src="./img/bolt.png" alt="logo"/>
         <p>Please sign in to continue</p>
       </div>
     )
