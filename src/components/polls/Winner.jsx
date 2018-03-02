@@ -14,7 +14,6 @@ export default class Winner extends Component {
     this.state={
       pollId: '',
       user: this.props.user,
-      userVoted: false
       // get userID from logged in user props 
     }
   }
@@ -24,14 +23,13 @@ export default class Winner extends Component {
     e.preventDefault()
     let vote = ""
     this.setState({
-      pollId: '1st',
-      userVote: e.target.radio.value
+      pollId: 'winningVote',
+      userVote: e.target.radio.value,
+      user: this.props.user.userVoted = true
     }, () => {
       vote = this.state
       this.props.votePoll(vote)
     })
-
-    
   }
 
   render() {
@@ -41,7 +39,6 @@ export default class Winner extends Component {
         <hr/>
         {/* if voted, show result, else show form  */}
 
-
         {/* <Form onClick={()=>{this.props.votePoll(e)}}>
           <input type="text" name="username" placeholder="What's your name?" /> */}
       <Form 
@@ -50,7 +47,7 @@ export default class Winner extends Component {
         onSubmit={(e)=>{this.handleSubmit(e)}}
       >
         <FormGroup tag="fieldset">
-          <p>Vote for the team that demonstrated </p>
+          <p>Choose wisely for the team that deserves the BEST HACKATHON EVER AWARD </p>
           <FormGroup check>
             <Label check>
               <Input type="radio" name="radio" value="noodleBabies" />{' '}

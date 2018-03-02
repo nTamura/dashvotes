@@ -20,8 +20,24 @@ class App extends Component {
   // Register user to Firebase
   register = (e) => {
     e.preventDefault()
+<<<<<<< HEAD
     let email = e.target.userEmail.value
     let password = e.target.userPassword.value
+=======
+<<<<<<< HEAD
+    let user = {
+      username: e.target.userName.value,
+      email: e.target.userEmail.value,
+      userVoted: false
+    }
+=======
+    // let user = {
+    //   username: e.target.userName.value,
+    //   email: e.target.userEmail.value
+    // }
+    let email = e.target.userName.value
+    let password = e.target.userEmail.value
+>>>>>>> eb58b27782f58a65ebab00cbcc23da6cfe1bd8f9
     fire.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (err) {
         console.log('signed up')
@@ -43,6 +59,7 @@ class App extends Component {
         let errorMessage = error.message;
         console.log(errorCode, errorMessage)
     });
+>>>>>>> ab0ebd5b584cc0a06eba179b08a2055318feef8c
     this.setState({
       isLoggedIn: true,
       user: user
@@ -77,6 +94,13 @@ class App extends Component {
     })
   }
 
+  triggerLoggedInAlert = () => {
+    // (isLoggedIn) 
+    // this.setState({
+    //   i dunno show bootstra alert for success login
+    // })
+  }
+  
   submitForm = (ev) => {
     ev.preventDefault()
     this.setState({
@@ -106,6 +130,7 @@ class App extends Component {
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
 
+<<<<<<< HEAD
         <Switch>
           {/* Route for sign up */}
           <Route path="/" render={() => {
@@ -124,6 +149,10 @@ class App extends Component {
 
         {/* {(!this.state.isLoggedIn) ? (
           <Signin hacker={this.hacker}/>
+=======
+        {(!this.state.isLoggedIn) ? (
+          <Signin login={this.login} hacker={this.hacker}/>
+>>>>>>> eb58b27782f58a65ebab00cbcc23da6cfe1bd8f9
         ):(
           <Main 
             {...this.state}

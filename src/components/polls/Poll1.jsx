@@ -18,7 +18,6 @@ export default class Poll1 extends Component {
       // get userID from logged in user props 
     }
   }
-  
 
   handleSubmit = (e) => {
     e.preventDefault()
@@ -30,9 +29,7 @@ export default class Poll1 extends Component {
     }, () => {
       vote = this.state
       this.props.votePoll(vote)
-    })
-
-    
+    }) 
   }
 
   render() {
@@ -41,7 +38,6 @@ export default class Poll1 extends Component {
         <h1>Which bear is best</h1>
         <hr/>
         {/* if voted, show result, else show form  */}
-
 
         {/* <Form onClick={()=>{this.props.votePoll(e)}}>
           <input type="text" name="username" placeholder="What's your name?" /> */}
