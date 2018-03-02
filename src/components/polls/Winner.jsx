@@ -25,7 +25,7 @@ export default class Winner extends Component {
     this.setState({
       pollId: 'winningVote',
       userVote: e.target.radio.value,
-      user: this.props.user.userVoted = true
+      user: this.props.user
     }, () => {
       vote = this.state
       this.props.votePoll(vote)
@@ -37,48 +37,43 @@ export default class Winner extends Component {
       <div>
         <h1>Overall Best Vote</h1>
         <hr/>
-        {/* if voted, show result, else show form  */}
-
-        {/* <Form onClick={()=>{this.props.votePoll(e)}}>
-          <input type="text" name="username" placeholder="What's your name?" /> */}
-      <Form 
-        style={styles.form}
-        // onSubmit={(e)=>{this.props.votePoll(e)}}
-        onSubmit={(e)=>{this.handleSubmit(e)}}
-      >
-        <FormGroup tag="fieldset">
-          <p>Choose wisely for the team that deserves the BEST HACKATHON EVER AWARD </p>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio" value="noodleBabies" />{' '}
-              Noodle Babies
-            </Label>
+        <Form 
+          style={styles.form}
+          // onSubmit={(e)=>{this.props.votePoll(e)}}
+          onSubmit={(e)=>{this.handleSubmit(e)}}
+        >
+          <FormGroup tag="fieldset">
+            <p>Choose wisely for the team that deserves the BEST HACKATHON EVER AWARD </p>
+            <FormGroup check>
+              <Label check>
+                <Input type="radio" name="radio" value="noodleBabies" />{' '}
+                Noodle Babies
+              </Label>
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input type="radio" name="radio" value="unicornHub" />{' '}
+                Unicorn Hub
+              </Label>
+            </FormGroup>
+            <FormGroup check disabled>
+              <Label check>
+                <Input type="radio" name="radio" value="hackstreetBoys" />{' '}
+                Hackstreet Boys
+              </Label>
+            </FormGroup>
+            <Button type="submit">Submit Vote</Button>
           </FormGroup>
-          <FormGroup check>
-            <Label check>
-              <Input type="radio" name="radio" value="unicornHub" />{' '}
-              Unicorn Hub
-            </Label>
-          </FormGroup>
-          <FormGroup check disabled>
-            <Label check>
-              <Input type="radio" name="radio" value="hackstreetBoys" />{' '}
-              Hackstreet Boys
-            </Label>
-          </FormGroup>
-          <Button type="submit">Submit Vote</Button>
-        </FormGroup>
-      </Form>
+        </Form>
 
       </div>
     )
   }
 }
- const styles = {
-   form: {
-
-     textAlign: 'left',
-     fontSize: 20,
-     padding: 30
-   }
- }
+const styles = {
+  form: {
+    textAlign: 'left',
+    fontSize: 20,
+    padding: 30
+  }
+}

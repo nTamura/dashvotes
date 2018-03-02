@@ -13,7 +13,7 @@ class App extends Component {
     this.state={    
       isLoggedIn: false, 
       user: '',
-      // polls: [] 
+      pollData: ''
       //dont need this until we create dynamic polls
     }    
   }
@@ -104,7 +104,8 @@ class App extends Component {
   votePoll = (vote) => {
     fire.database().ref('polls/' + vote.pollId).push( vote )
     .then(
-      console.log(vote, 'success')
+      console.log(vote, 'Successfully posted')
+      
     )
   }
 
@@ -114,6 +115,9 @@ class App extends Component {
     // push to each array, display to results 
   }
 
+  getPollData = () => {
+    // this.state.pollData
+  }
 
   render() {
 

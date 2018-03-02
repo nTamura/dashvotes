@@ -41,14 +41,20 @@ export default class Home extends Component {
 
         {/* replace all buttons here with /routes, 
         on endppoint should show back button now */}
-          {/* <Switch> */}
+          <Switch>
             <Route path="/winner" render={() => {
               return 
                 <Winner {...this.props}
                   votePoll={this.props.votePoll}
                 />
             }} />
-          {/* </Switch> */}
+            <Route path="/winner" render={() => {
+              return 
+                <Winner {...this.props}
+                  votePoll={this.props.votePoll}
+                />
+            }} />
+          </Switch>
       </div>
     )
   }
