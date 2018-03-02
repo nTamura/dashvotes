@@ -13,18 +13,22 @@ export default class Navbar extends Component {
         
         {/* why the fuck does this not appear until you click login */}
         {/* only show if you are on /:something, not on root */}
-          
-          <Link to="/" >
-            {/* <FontAwesomeIcon size='2x' 
+          <Link to="/">
+          <FontAwesomeIcon 
+              size='2x' 
               style={styles.backIcon}
-              icon="caret-square-left"/> */}
-              <button>
-                back
-              </button>
-              
+              icon="caret-square-left"/>
           </Link>
 
-          <img src="./img/logo.png" style={styles.logo} alt="" />
+        {(this.props.isLoggedIn) &&
+          <Link to="/">
+            <button 
+              style={styles.login}
+              onClick={this.props.logout}>
+              Logout
+            </button>
+          </Link>
+          }
 
             <Link to="/">
               <button 
