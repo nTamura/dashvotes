@@ -9,7 +9,7 @@ export default class Main extends Component {
       <div>
         <h1>hello *name</h1>
 
-        <Link to="/main/poll">
+        <Link to="/main/polls">
           <button>POLLS boi</button>
         </Link>
         <Link to="/main/results">

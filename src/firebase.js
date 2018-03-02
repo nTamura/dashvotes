@@ -1,7 +1,5 @@
 import firebase from 'firebase'
-
-  // Initialize Firebase
-  var config = {
+const config = {
     apiKey: "AIzaSyC1NTvMKijfs5NPtlVaqUtPFGtFW2hOht0",
     authDomain: "resumebuilder-ba30f.firebaseapp.com",
     databaseURL: "https://resumebuilder-ba30f.firebaseio.com",
@@ -9,6 +7,5 @@ import firebase from 'firebase'
     storageBucket: "resumebuilder-ba30f.appspot.com",
     messagingSenderId: "545274843599"
   };
-
-var fire = firebase.initializeApp(config);
-export default fire;
+firebase.initializeApp(config);
+export default firebase;
