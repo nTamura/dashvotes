@@ -18,7 +18,7 @@ export default class Main extends Component {
 
         <Switch>
           <Route path="/main/polls" render={() => {
-            return <Poll />
+            return <Poll votePoll={this.props.votePoll} />
           }} />
           <Route path="/main/results" render={() => {
             return <Results />
