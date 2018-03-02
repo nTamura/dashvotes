@@ -18,6 +18,8 @@ export default class Main extends Component {
         </Link>
 
         <Switch>
+          {/* create dynamic polls, eventually pull polls from fb */}
+          {/* <Route path="/polls/:pollId" render={() => { */}
           <Route path="/polls" render={() => {
             return <Winner {...this.props} votePoll={this.props.votePoll} />
           }} />

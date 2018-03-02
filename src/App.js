@@ -4,7 +4,6 @@ import Navbar from './components/Navbar'
 import Main from './components/Main'
 import Signin from './components/Signin'
 import fire from './firebase'
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +22,8 @@ class App extends Component {
     e.preventDefault()
     let user = {
       username: e.target.userName.value,
-      email: e.target.userEmail.value
+      email: e.target.userEmail.value,
+      userVoted: false
     }
     this.setState({
       isLoggedIn: true, 
@@ -59,6 +59,13 @@ class App extends Component {
     })
   }
 
+  triggerLoggedInAlert = () => {
+    // (isLoggedIn) 
+    // this.setState({
+    //   i dunno show bootstra alert for success login
+    // })
+  }
+  
   submitForm = (ev) => {
     ev.preventDefault()
     this.setState({
@@ -87,7 +94,7 @@ class App extends Component {
         <Navbar 
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
-        
+
         {(!this.state.isLoggedIn) ? (
           <Signin login={this.login} hacker={this.hacker}/>
         ):(

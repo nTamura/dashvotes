@@ -1,39 +1,40 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+// import logo from '../logo.png';
 
 export default class Navbar extends Component {
   render() {
-
     return (
-      <div 
-        className="container-fluid" 
-        style={styles.navBar}>
-
+      <div style={styles.navBar}
+        className="container-fluid" >
+          {(this.props.isLoggedIn) &&
         <nav className="navbar navbar-light">
         
-        {/* if logged in */}
-
         {/* why the fuck does this not appear until you click login */}
         {/* only show if you are on /:something, not on root */}
-          <Link to="/">
-          <FontAwesomeIcon size='2x' 
+          
+          <Link to="/" >
+            {/* <FontAwesomeIcon size='2x' 
               style={styles.backIcon}
-            icon="caret-square-left"/>
+              icon="caret-square-left"/> */}
+              <button>
+                back
+              </button>
+              
           </Link>
 
-        {(this.props.isLoggedIn) &&
-          <Link to="/">
-            <button 
-              style={styles.login}
-              onClick={this.props.logout}
-              >
-              Logout
-            </button>
-          </Link>
-          }
+          <img src="./img/logo.png" style={styles.logo} alt="" />
 
+            <Link to="/">
+              <button 
+                style={styles.login}
+                onClick={this.props.logout}>
+                Logout
+              </button>
+            </Link>
         </nav>
+          }
       </div>
     )
   }
@@ -48,6 +49,11 @@ const styles = {
     float: 'left'
   },
   login: {
+    heigt: 40,
     float: 'right'
+  },
+  logo: {
+    float: 'center'
   }
+
 }
