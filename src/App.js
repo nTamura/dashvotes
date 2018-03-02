@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom'
 import Topbar from './components/Topbar'
 import Home from './components/Home'
 import Register from './components/Register'
+import Winner from './components/polls/Winner'
+import Results from './components/Results'
 import Signin from './components/Signin'
 import fire from './firebase'
 import './App.css';
@@ -128,25 +130,27 @@ class App extends Component {
           isLoggedIn={this.state.isLoggedIn} />
         
         <div className="container">
-
+          {(this.state.isLoggedIn) ? (
           <Switch>
-            <Route path="/" render={() => {
-              return (this.state.isLoggedIn) ? (
-                <Home
+            <Route exact path="/" render={() => {
+              return <Home
                 {...this.state}
                 isLoggedIn={this.state.isLoggedIn}
                 login={this.login}
                 hacker={this.hacker}
                 votePoll={this.votePoll}
                 />
-              ) : (
-                <Register register={this.register} />
-              )}
-            } />
-            {/* <Route exact path="/login" render={() => {
-              return <Signin login={this.login}/>
-            }}  /> */}
-          </Switch>
+              }} />
+              <Route path="/results" render={() => {
+                return <Results pollData={this.state.pollData}/>
+              }} />
+              <Route path="/winner" render={() => {
+                return <Winner {...this.state} votePoll={this.votePoll}/>
+              }} />
+          </Switch> 
+          ) : (
+            <Register register={this.register} />
+          )}
         </div>
       </div>
     );
