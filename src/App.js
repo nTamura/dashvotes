@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Main from './components/Main'
-import Signin from './components/Signin'
+import Home from './components/Home'
+import Register from './components/Register'
 import fire from './firebase'
 import './App.css';
 
@@ -17,47 +17,41 @@ class App extends Component {
     }    
   }
   
-  login = (e) => {
+  // Register user to Firebase
+  register = (e) => {
     e.preventDefault()
-    // let user = {
-    //   username: e.target.userName.value,
-    //   email: e.target.userEmail.value
-    // }
-    let email = e.target.userName.value
-    let password = e.target.userEmail.value
+    let email = e.target.userEmail.value
+    let password = e.target.userPassword.value
     fire.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (err) {
         console.log('signed up')
       })
+  }
+
+  // Log in to app
+  login = (e) => {
+    let email = e.target.userEmail.value
+    let password = e.target.userPassword.value
+    let user = {
+      email: e.target.userEmail.value,
+      password: e.target.userPassword.value
+    }
     fire.auth().signInWithEmailAndPassword(email, password)
-      .catch(function (err) {
-        console.log('logged in')
-      })
-    fire.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        console.log(user)
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        // ...
-      } else {
-        // User is signed out.
-        // ...
-      }
+      .catch(function (error) {
+      // Handle Errors here.
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log(errorCode, errorMessage)
     });
     this.setState({
-      isLoggedIn: true, 
-      // user: user,
+      isLoggedIn: true,
+      user: user
     }, () => {
       console.log('isLoggedIn:', this.state.isLoggedIn)
       console.log(this.state);
-      // need to store login to local storage 
     })
   }
+
   hacker = () => {
     // e.preventDefault()
     let user = {
@@ -111,14 +105,30 @@ class App extends Component {
         <Navbar 
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
-        
-        {(!this.state.isLoggedIn) ? (
-          <Signin login={this.login} hacker={this.hacker}/>
+
+        <Switch>
+          {/* Route for sign up */}
+          <Route path="/" render={() => {
+            return <Home
+                      {...this.state}
+                      isLoggedIn={this.state.isLoggedIn}
+                      login={this.login}
+                      hacker={this.hacker}
+                      votePoll={this.votePoll}
+                      />
+          }} />
+          <Route path="/register" render={() => {
+            return <Register register={this.register}/>
+          }} />
+        </Switch>
+
+        {/* {(!this.state.isLoggedIn) ? (
+          <Signin hacker={this.hacker}/>
         ):(
           <Main 
             {...this.state}
             votePoll={this.votePoll} />
-        )}
+        )} */}
       </div>
     );
   }

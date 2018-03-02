@@ -17,17 +17,17 @@ export default class Navbar extends Component {
         {/* why the fuck does this not appear until you click login */}
         {/* only show if you are on /:something, not on root */}
           <Link to="/">
-          <FontAwesomeIcon size='2x' 
+          <FontAwesomeIcon 
+              size='2x' 
               style={styles.backIcon}
-            icon="caret-square-left"/>
+              icon="caret-square-left"/>
           </Link>
 
         {(this.props.isLoggedIn) &&
           <Link to="/">
             <button 
               style={styles.login}
-              onClick={this.props.logout}
-              >
+              onClick={this.props.logout}>
               Logout
             </button>
           </Link>

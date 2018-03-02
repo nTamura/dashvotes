@@ -6,6 +6,8 @@ import Results from './Results'
 
 export default class Main extends Component {
   render() {
+    console.log(this.props);
+    
     return (
       <div>
         <h1>hello {this.props.user.username}</h1>
