@@ -17,38 +17,38 @@ export default class Home extends Component {
 
         <div style={styles.buttonContainer}>
 
-        <Link to="/winner">
-          <Button type="button" size="lg" block outline 
-            style={styles.button} >
-            Go to 'Hackathon Winner'
-          </Button>
-        </Link>
+          <Link to="/winner">
+            <Button type="button" size="lg" block outline 
+              style={styles.button} >
+              Go to 'Hackathon Winner'
+            </Button>
+          </Link>
 
-        <Link to="/Poll1">
-          <Button type="button" size="lg" block outline 
-            style={styles.button} >
-            Go to 'Sample Poll'
-          </Button>
-        </Link>
-        
-        <Link to="/results">
-          <Button type="button" size="lg" block outline 
-            style={styles.buttonResults} >
-            See Results
-          </Button>
-        </Link>
-            </div>
+          <Link to="/Poll1">
+            <Button type="button" size="lg" block outline 
+              style={styles.button} >
+              Go to 'Sample Poll'
+            </Button>
+          </Link>
+          
+          <Link to="/results">
+            <Button type="button" size="lg" block outline 
+              style={styles.buttonResults} >
+              See Results
+            </Button>
+          </Link>
+        </div>
 
         {/* replace all buttons here with /routes, 
         on endppoint should show back button now */}
-          <Switch>
+          {/* <Switch> */}
             <Route path="/winner" render={() => {
               return 
                 <Winner {...this.props}
                   votePoll={this.props.votePoll}
                 />
             }} />
-          </Switch>
+          {/* </Switch> */}
       </div>
     )
   }

@@ -126,7 +126,7 @@ class App extends Component {
         <div className="container">
 
           <Switch>
-            <Route exact path="/" render={() => {
+            <Route path="/" render={() => {
               return (this.state.isLoggedIn) ? (
                 <Home
                 {...this.state}
