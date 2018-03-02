@@ -12,15 +12,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state={
-      isLoggedIn: false
+      isLoggedIn: false,
+      fireRedirect: false
     }    
+  }
+
+  submitForm = (ev) => {
+    ev.preventDefault()
+    this.setState({
+      fireRedirect: true
+    })
   }
 
   render() {
 
     return (
       <div className="App">
-        <Navbar />
+        <Navbar isLoggedIn={this.state.isLoggedIn}/>
         {/* <form onSubmit={this.addMessage.bind(this)}>
         <input type="text" ref={ el => this.inputEl = el }/>
         <input type="submit"/>
@@ -32,11 +40,12 @@ class App extends Component {
         <Route exact path="/" render={() => {
           return <Welcome />
         }} />
+        <Route path="/signin" render={() => {
+          return <Signin submitForm={this.submitForm}
+                         fireRedirect={this.state.fireRedirect}/>
+        }} />
         <Route path="/main" render={() => {
           return <Main />
-        }} />
-        <Route path="/signin" render={() => {
-          return <Signin />
         }} />
       </Switch>
 
