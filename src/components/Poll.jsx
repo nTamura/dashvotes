@@ -12,24 +12,27 @@ export default class Poll extends Component {
   constructor(props) {
     super(props);
     this.state={
+      pollId: '',
       userId: '',
       userVote: ''
+      // get userID from logged in user props 
     }
   }
   
 
   handleSubmit = (e) => {
     e.preventDefault()
-    // let vote = this.state
-console.log(e.target);
-
+    let vote = ""
     this.setState({
-      userId: 'Nic',
-      userVote: ''
+      pollId: '1st',
+      userId: 'Ant',
+      userVote: e.target.radio.value
+    }, () => {
+      vote = this.state
+      this.props.votePoll(vote)
     })
-    // console.log(this.state);
+
     
-    // this.props.votePoll(e)
   }
 
   render() {
@@ -37,6 +40,9 @@ console.log(e.target);
       <div>
         <h1>Overall Best Vote</h1>
         <hr/>
+        {/* if voted, show result, else show form  */}
+
+
         {/* <Form onClick={()=>{this.props.votePoll(e)}}>
           <input type="text" name="username" placeholder="What's your name?" /> */}
       <Form 
@@ -48,19 +54,19 @@ console.log(e.target);
           <p>Vote for the team that demonstrated </p>
           <FormGroup check>
             <Label check>
-              <Input type="radio" name="radio" value="option1" />{' '}
+              <Input type="radio" name="radio" value="noodleBabies" />{' '}
               Noodle Babies
             </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Input type="radio" name="radio" value="option2" />{' '}
+              <Input type="radio" name="radio" value="unicornHub" />{' '}
               Unicorn Hub
             </Label>
           </FormGroup>
           <FormGroup check disabled>
             <Label check>
-              <Input type="radio" name="radio" value="option3" />{' '}
+              <Input type="radio" name="radio" value="hackstreetBoys" />{' '}
               Hackstreet Boys
             </Label>
           </FormGroup>
