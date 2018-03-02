@@ -20,17 +20,8 @@ class App extends Component {
   // Register user to Firebase
   register = (e) => {
     e.preventDefault()
-<<<<<<< HEAD
-    // let user = {
-    //   username: e.target.userName.value,
-    //   email: e.target.userEmail.value
-    // }
-    let email = e.target.userName.value
-    let password = e.target.userEmail.value
-=======
     let email = e.target.userEmail.value
     let password = e.target.userPassword.value
->>>>>>> 857e833760c7f3b8f1128c4ea3df6b238ba0db11
     fire.auth().createUserWithEmailAndPassword(email, password)
       .catch(function (err) {
         console.log('signed up')
