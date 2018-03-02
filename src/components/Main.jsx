@@ -9,18 +9,18 @@ export default class Main extends Component {
       <div>
         <h1>hello name</h1>
 
-        <Link to="/main/polls">
+        <Link to="/polls">
           <button>POLLS boi</button>
         </Link>
-        <Link to="/main/results">
+        <Link to="/results">
           <button>RESULTS boi</button>
         </Link>
 
         <Switch>
-          <Route path="/main/polls" render={() => {
+          <Route path="/polls" render={() => {
             return <Poll votePoll={this.props.votePoll} />
           }} />
-          <Route path="/main/results" render={() => {
+          <Route path="/results" render={() => {
             return <Results />
           }} />
         </Switch>

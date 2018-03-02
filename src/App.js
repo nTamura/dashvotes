@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Welcome from './components/Welcome'
 import Main from './components/Main'
 import Signin from './components/Signin'
 import fire from './firebase'
@@ -20,11 +19,17 @@ class App extends Component {
     }    
   }
 
-  login = () => {
-    this.setState({
-      isLoggedIn: true, 
-      user: 'Poop',
-    })
+  login = (e) => {
+    e.preventDefault
+    console.log(e.target);
+    
+    // this.setState({
+    //   isLoggedIn: !this.state.isLoggedIn, 
+    //   user: 'Poop',
+    // }, () => {
+    //   console.log('isLoggedIn:', this.state.isLoggedIn)
+    //   console.log('YOU ARE LOGGED IN');
+    // })
   }
 
   submitForm = (ev) => {
@@ -52,7 +57,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Navbar login={this.login} isLoggedIn={this.state.isLoggedIn} />
+        <Navbar 
+          login={this.login} 
+          isLoggedIn={this.state.isLoggedIn} />
         {/* <form onSubmit={this.addMessage.bind(this)}>
         <input type="text" ref={ el => this.inputEl = el }/>
         <input type="submit"/>
@@ -61,20 +68,10 @@ class App extends Component {
         </ul>
       </form> */}
         {(!this.state.isLoggedIn) ? (
-          <div>
-            'you must log in here'
-            <form onSubmit={this.login}> 
-              <input type="text" 
-                placeholder="Username" 
-                name="userName"/>
-              <input type="text" 
-                placeholder="Email" 
-                name="userEmail"/>
-              <button type="submit" />
-            </form>
-          </div>
+          <Signin />
         ):(
           'you are logged in' 
+          // render switch here, main as '/'
         )
       }
       {/* <Switch>
