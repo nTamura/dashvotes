@@ -55,7 +55,7 @@ export default class Poll1 extends Component {
           <FormGroup check>
             <Label check>
               <Input type="radio" name="radio" value="polarBear" />{' '}
-Polar bear            </Label>
+  Polar bear            </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>

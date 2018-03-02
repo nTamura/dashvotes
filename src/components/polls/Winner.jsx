@@ -13,8 +13,8 @@ export default class Winner extends Component {
     super(props);
     this.state={
       pollId: '',
-      userId: '',
-      userVote: ''
+      user: this.props.user,
+      userVoted: false
       // get userID from logged in user props 
     }
   }
@@ -25,7 +25,6 @@ export default class Winner extends Component {
     let vote = ""
     this.setState({
       pollId: '1st',
-      userId: 'Ant',
       userVote: e.target.radio.value
     }, () => {
       vote = this.state
