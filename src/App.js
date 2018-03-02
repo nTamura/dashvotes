@@ -115,7 +115,7 @@ class App extends Component {
 
         <Switch>
           {/* Route for sign up */}
-          <Route path="/" render={() => {
+          <Route exact path="/" render={() => {
             return <Home
                       {...this.state}
                       isLoggedIn={this.state.isLoggedIn}
