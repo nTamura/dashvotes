@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { Switch, Route, Link} from 'react-router-dom'
-import Poll from './Poll'
+import Winner from './polls/Winner'
+import Poll1 from './polls/Poll1'
 import Results from './Results'
 
 export default class Main extends Component {
   render() {
     return (
       <div>
-        <h1>hello name</h1>
+        <h1>hello {this.props.user.username}</h1>
 
         <Link to="/polls">
           <button>POLLS boi</button>
@@ -18,7 +19,7 @@ export default class Main extends Component {
 
         <Switch>
           <Route path="/polls" render={() => {
-            return <Poll votePoll={this.props.votePoll} />
+            return <Winner votePoll={this.props.votePoll} />
           }} />
           <Route path="/results" render={() => {
             return <Results />

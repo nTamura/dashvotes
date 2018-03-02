@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import fire from '../firebase'
+import fire from '../../firebase'
 import { Form, FormGroup, Label, Input, Button} from 'reactstrap'
 // Main page gets data from db
 // maps out polls, dynamic route '/:pollId'
 // for now static dummy data 
 
-export default class Poll extends Component {
+export default class Poll1 extends Component {
   // capture state? 
   // save state as object and add event handler to pass back 
   // push object to db 
@@ -38,7 +38,7 @@ export default class Poll extends Component {
   render() {
     return (
       <div>
-        <h1>Overall Best Vote</h1>
+        <h1>Which bear is best</h1>
         <hr/>
         {/* if voted, show result, else show form  */}
 
@@ -54,20 +54,19 @@ export default class Poll extends Component {
           <p>Vote for the team that demonstrated </p>
           <FormGroup check>
             <Label check>
-              <Input type="radio" name="radio" value="noodleBabies" />{' '}
-              Noodle Babies
-            </Label>
+              <Input type="radio" name="radio" value="polarBear" />{' '}
+Polar bear            </Label>
           </FormGroup>
           <FormGroup check>
             <Label check>
-              <Input type="radio" name="radio" value="unicornHub" />{' '}
-              Unicorn Hub
+              <Input type="radio" name="radio" value="brownBear" />{' '}
+          Brown bear
             </Label>
           </FormGroup>
           <FormGroup check disabled>
             <Label check>
-              <Input type="radio" name="radio" value="hackstreetBoys" />{' '}
-              Hackstreet Boys
+              <Input type="radio" name="radio" value="blackBear" />{' '}
+Black bear
             </Label>
           </FormGroup>
           <Button type="submit">Submit Vote</Button>

@@ -5,7 +5,6 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 export default class Navbar extends Component {
   render() {
 
-
     return (
       <div 
         className="container-fluid" 
@@ -16,33 +15,29 @@ export default class Navbar extends Component {
         {/* if logged in */}
 
         {/* why the fuck does this not appear until you click login */}
+        {/* only show if you are on /:something, not on root */}
           <Link to="/">
           <FontAwesomeIcon size='2x' 
               style={styles.backIcon}
             icon="caret-square-left"/>
           </Link>
 
-        {/* else  */}
-
-        {(!this.props.isLoggedIn) &&
+        {(this.props.isLoggedIn) &&
           <Link to="/">
             <button 
               style={styles.login}
-              onClick={this.props.login}
+              onClick={this.props.logout}
               >
-              Logout        
+              Logout
             </button>
           </Link>
-            }
+          }
 
         </nav>
       </div>
     )
   }
 }
-
-// implement flex for nav component only, 
-// back button on left, login on right
 
 const styles = {
   navBar: {

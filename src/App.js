@@ -14,22 +14,49 @@ class App extends Component {
       fireRedirect: false,      
       isLoggedIn: false, 
       user: '',
-      polls: [] 
+      // polls: [] 
       //dont need this until we create dynamic polls
     }    
   }
 
   login = (e) => {
-    e.preventDefault
-    console.log(e.target);
-    
-    // this.setState({
-    //   isLoggedIn: !this.state.isLoggedIn, 
-    //   user: 'Poop',
-    // }, () => {
-    //   console.log('isLoggedIn:', this.state.isLoggedIn)
-    //   console.log('YOU ARE LOGGED IN');
-    // })
+    e.preventDefault()
+    let user = {
+      username: e.target.userName.value,
+      email: e.target.userEmail.value
+    }
+    this.setState({
+      isLoggedIn: true, 
+      user: user,
+    }, () => {
+      console.log('isLoggedIn:', this.state.isLoggedIn)
+      console.log(this.state);
+      // need to store login to local storage 
+    })
+  }
+  hacker = () => {
+    // e.preventDefault()
+    let user = {
+      username: 'Hacker',
+      email: "hacking@1337.com"
+    }
+    this.setState({
+      isLoggedIn: true, 
+      user: user,
+    }, () => {
+      console.log('welcome hack0r')
+      console.log(this.state);
+    })
+  }
+
+  logout = () => {
+    this.setState({
+      user: null, 
+      isLoggedIn: false
+    }, () => {
+      console.log('Successfully logged out');
+      console.log(this.state);
+    })
   }
 
   submitForm = (ev) => {
@@ -58,40 +85,16 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar 
-          login={this.login} 
+          logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
-        {/* <form onSubmit={this.addMessage.bind(this)}>
-        <input type="text" ref={ el => this.inputEl = el }/>
-        <input type="submit"/>
-        <ul>
-          {renderMsg}
-        </ul>
-      </form> */}
+        
         {(!this.state.isLoggedIn) ? (
-          <Signin />
+          <Signin login={this.login} hacker={this.hacker}/>
         ):(
-          'you are logged in' 
-          // render switch here, main as '/'
-        )
-      }
-      {/* <Switch>
-        {(!this.state.isLoggedIn) ? (
-          <Route path="/" render={() => {
-            <Signin 
-              submitForm={this.submitForm}
-              fireRedirect={this.state.fireRedirect}/>
-          }} />
-        ) : (
-        <Route exact path="/" render={() => {
-          return <Welcome />
-          }} />
+          <Main 
+            {...this.state}
+            votePoll={this.votePoll} />
         )}
-  
-        <Route path="/main" render={() => {
-          return <Main votePoll={this.votePoll} />
-        }} />
-      </Switch> */}
-
       </div>
     );
   }

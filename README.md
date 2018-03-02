@@ -7,6 +7,7 @@
 - anonymous login (no QC)
 - firebase post to db
 - results page from db 
+- local storage session 
 
 ## Nice to have 
 - firebase login
@@ -25,11 +26,12 @@
 - nav back button
 - login
 
-
 ## Notes
 - Main page gets data from db
   - maps out polls
   - dynamic route '/:pollId'
+
+- User sessions 
 
 ## Data structure 
 has multiple polls
