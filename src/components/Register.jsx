@@ -13,7 +13,8 @@ export default class Register extends Component {
           If you have already registered, you can use the same credentials here to login
         </p>
 
-        <Form onSubmit={this.props.register}>
+        {/* <Form onSubmit={this.props.register}> */}
+        <Form onSubmit={(e)=>{this.props.login(e)}}>
           <FormGroup>
             <Input required autoFocus name="userEmail" placeholder="E-mail" />
           </FormGroup>

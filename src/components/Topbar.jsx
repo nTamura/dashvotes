@@ -6,6 +6,7 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
 
 export default class Topbar extends Component {
   render() {
+    
     return (
       <div style={styles.navBar}
         className="container-fluid" >
@@ -17,13 +18,17 @@ export default class Topbar extends Component {
             
             <Nav className="ml-auto" >
               <NavItem>
-                {(this.props.isLoggedIn) && 
-                //   <NavLink href="/Login" style={styles.login} >
-                //   Log out
-                // </NavLink>
+                {(this.props.isLoggedIn) ? (
                   <Link to="/" logout={this.props.logout} style={styles.login}>
                   Log out
                   </Link>
+                ) : (
+                  <Link to="/register"  style={styles.login}>
+                    Register
+                  </Link>
+
+                )
+                
                 }
               </NavItem>
             </Nav>
@@ -39,7 +44,8 @@ const styles = {
     paddingBottom: 10
   },
   login: {
-    color: 'white'
+    color: 'white', 
+    textDecoration: 'none'
   },
   logo: {
     height: 40,

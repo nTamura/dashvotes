@@ -52,13 +52,13 @@ if user has voted (userId in array), poll is greyed and cannot vote anymore
 ## Screens 
 ```
 ~/App
-  ├─Navbar (login, username)
-  └─Signin (if signed in... then )
-    └─Main page 
-      └─Poll 1 to '/poll1'
-      └─Poll 2 to '/poll2'
-      └─Admin to '/admin' (live results, current state, user count)
-      └─Results to '/results' (final result)
+  ├─Navbar (Register, Logout button)
+  ├─Register to '/' (!isLoggedIn)
+  └─Main page  to '/' (isLoggedIn)
+    └─Poll 1 to '/poll1'
+    └─Poll 2 to '/poll2'
+    └─Admin to '/admin' (live results, current state, user count)
+    └─Results to '/results', render Results (pass props for poll)
 ```
 
 / 

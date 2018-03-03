@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route, Link} from 'react-router-dom'
+import { Switch, Route, Link, Redirect} from 'react-router-dom'
 import Results from './Results'
 import { Button } from 'reactstrap'
 
@@ -7,8 +7,13 @@ import Winner from './polls/Winner'
 import Poll1 from './polls/Poll1'
 
 export default class Home extends Component {
+  constructor(){
+    super()
+  }
   render() {
-    console.log(...this.props);
+    const {history} = this.props
+    
+    this.props.isLoggedIn && <Redirect to="/register" />
     
     return (
       <div>

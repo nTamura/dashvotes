@@ -28,7 +28,7 @@ class App extends Component {
     let email = e.target.userEmail.value
     let password = e.target.userPassword.value
     let user = { email, password }
-
+    const {history} = this.props
     console.table([{
       email, password
     }])
@@ -36,62 +36,51 @@ class App extends Component {
     //   .catch((err) => {
     //     console.log(err.code, err.message)
     //   })
-    // this.setState({
-    //   user: email, 
-    //   isLoggedIn: true
-    // }, () => {
-    //   console.log(this.state);
-    //   console.log(email, 'is logged in');
-    //   this.triggerLoggedInAlert()
-    // })
+    this.setState({
+      user,
+      isLoggedIn: true
+    }, () => {
+      console.log(this.state);
+      // console.log(email, 'is logged in');
+      // this.triggerLoggedInAlert()
+      // history.push('/')
+    })
   }
 
   // Log in to app
   login = (e) => {
+    e.preventDefault()
     let email = e.target.userEmail.value
     let password = e.target.userPassword.value
     let user = {
       email: e.target.userEmail.value,
       password: e.target.userPassword.value
     }
-    fire.auth().signInWithEmailAndPassword(email, password)
-      .catch(function (error) {
-      // Handle Errors here.
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-    });
+    // fire.auth().signInWithEmailAndPassword(email, password)
+    //   .catch(function (error) {
+    //   // Handle Errors here.
+    //     let errorCode = error.code;
+    //     let errorMessage = error.message;
+    //     console.log(errorCode, errorMessage)
+    // });
     this.setState({
       isLoggedIn: true,
       user: user
     }, () => {
       console.log('isLoggedIn:', this.state.isLoggedIn)
       console.log(this.state);
+      this.state.history.push("/");
     })
   }
 
-  hacker = () => {
-    // e.preventDefault()
-    let user = {
-      username: 'Hacker',
-      email: "hacking@1337.com"
-    }
-    this.setState({
-      isLoggedIn: true, 
-      user: user,
-    }, () => {
-      console.log('welcome hack0r')
-      console.log(this.state);
-    })
-  }
-
-  logout = () => {
+  logout = (history) => {
     this.setState({
       user: null, 
       isLoggedIn: false
     }, () => {
       console.log('Successfully logged out');
       console.log(this.state);
+      // history.push('/register')
     })
   }
 
@@ -133,16 +122,20 @@ class App extends Component {
     return (
       <div className="App">
         <Topbar 
+          {...this.props}
           logout={this.logout} 
           isLoggedIn={this.state.isLoggedIn} />
         
         <div className="container">
-          {(this.state.isLoggedIn) ? (
-            
+
           <Switch>
+            <Route path="/register" render={() => {
+              return <Register register={this.register} {...this.props} />
+            }} />
             <Route exact path="/" render={() => {
               return <Home
                 {...this.state}
+                {...this.props}
                 isLoggedIn={this.state.isLoggedIn}
                 login={this.login}
                 hacker={this.hacker}
@@ -156,8 +149,6 @@ class App extends Component {
                 return <Winner {...this.state} votePoll={this.votePoll}/>
               }} />
           </Switch> 
-          ) : (
-            <Register register={this.register} />
           )}
         </div>
       </div>
