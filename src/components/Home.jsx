@@ -24,12 +24,12 @@ export default class Home extends Component {
             </Button>
           </Link>
 
-          <Link to="/Poll1">
+          {/* <Link to="/Poll1">
             <Button type="button" size="lg" block outline 
               style={styles.button} >
               Go to 'Sample Poll'
             </Button>
-          </Link>
+          </Link> */}
           
           <Link to="/results">
             <Button type="button" size="lg" block outline 

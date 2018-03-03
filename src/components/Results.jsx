@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
+import fire from '../firebase'
+
 
 export default class Results extends Component {
+
+copmponentDidMount(){
+  // get data hre,
+  fire.database().ref('/polls').once('winningVote').then(function(snapshot) {
+    
+    console.log(snapshot);
+    
+    // var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    // ...
+  });
+}
+
   render() {
 
+    // const getData
+
     const data = {
-      labels: ["January", "February", "March", "April", "May", "June", "July"],
+      labels: ["Team1", "Team2", "Team3"],
       datasets: [
         {
           label: "Nic dataset",
@@ -28,6 +44,7 @@ export default class Results extends Component {
 
     return (
       <div>
+        <p>The results are in!</p>
         <Bar
           data={data}
           width={100}

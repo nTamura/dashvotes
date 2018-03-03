@@ -62,7 +62,12 @@ export default class Winner extends Component {
                 Hackstreet Boys
               </Label>
             </FormGroup>
-            <Button type="submit">Submit Vote</Button>
+            <Button type="button" size="lg" block outline 
+              style={styles.button} >
+              Submit Vote
+            </Button>
+
+
           </FormGroup>
         </Form>
 
@@ -75,5 +80,11 @@ const styles = {
     textAlign: 'left',
     fontSize: 20,
     padding: 30
-  }
+  },
+  button: {
+    borderColor: '#fff',
+    borderWidth: 'medium',
+    color: '#fff',
+    marginTop: 25
+  },
 }
