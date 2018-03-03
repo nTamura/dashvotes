@@ -15,28 +15,35 @@ class App extends Component {
     this.state={    
       isLoggedIn: false, 
       user: '',
-      pollData: ''
+      pollData: '', 
       //dont need this until we create dynamic polls
+
+      // isAuthenticated: '',
     }    
   }
   
-  // Register user to Firebase
+  // Register user to Firebase, login if registered
   register = (e) => {
     e.preventDefault()
     let email = e.target.userEmail.value
-    // let password = e.target.userPassword.value
+    let password = e.target.userPassword.value
+    let user = { email, password }
+
+    console.table([{
+      email, password
+    }])
     // fire.auth().createUserWithEmailAndPassword(email, password)
-    //   .catch(function (err) {
-    //     console.log('signed up')
+    //   .catch((err) => {
+    //     console.log(err.code, err.message)
     //   })
-    this.setState({
-      user: email, 
-      isLoggedIn: true
-    }, () => {
-      console.log(this.state);
-      console.log(email, 'is logged in');
-      this.triggerLoggedInAlert()
-    })
+    // this.setState({
+    //   user: email, 
+    //   isLoggedIn: true
+    // }, () => {
+    //   console.log(this.state);
+    //   console.log(email, 'is logged in');
+    //   this.triggerLoggedInAlert()
+    // })
   }
 
   // Log in to app
@@ -131,6 +138,7 @@ class App extends Component {
         
         <div className="container">
           {(this.state.isLoggedIn) ? (
+            
           <Switch>
             <Route exact path="/" render={() => {
               return <Home

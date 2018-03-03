@@ -7,16 +7,19 @@ export default class Register extends Component {
       <div>
 
         <p style={styles.introText}>
-          Please sign in to continue
+          Please register to continue
+        </p>
+        <p style={styles.smallText}>
+          If you have already registered, you can use the same credentials here to login
         </p>
 
         <Form onSubmit={this.props.register}>
           <FormGroup>
             <Input required autoFocus name="userEmail" placeholder="E-mail" />
           </FormGroup>
-          {/* <FormGroup>
+          <FormGroup>
             <Input type="password" required name="userPassword" placeholder="Password" />
-          </FormGroup> */}
+          </FormGroup>
           <Button type="submit" size="lg" block outline 
             style={styles.button} >
             Register
@@ -29,8 +32,11 @@ export default class Register extends Component {
 
 const styles={
   introText: {
-    // paddingBottom: 20
   }, 
+  smallText: {
+    fontSize: '.9rem',
+    paddingBottom: 20
+  },
   button: {
     borderColor: '#fff',
     borderWidth: 'medium',
