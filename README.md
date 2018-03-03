@@ -1,10 +1,9 @@
-# React voting app 
-
+# DashVotes
+DashVotes is a voting SPA with React, Firebase, ChartsJS and ReactStrap. 
 ## MVP
 - main page 
-- vote 1 page
-- vote 2 page
-- anonymous login (no QC)
+- vote page
+- user login
 - firebase post to db
 - results page from db 
 - local storage session 
@@ -18,20 +17,20 @@
 - admin can create polls
   - poll title
   - add option 
+- Brand custom CSS import 
 
-# TODOS 
-- font awesome
-- Bootstrap 
-- color palete 
-- nav back button
+## TODOS 
+- Subnav back button
 - login
-
+- post to db with login info 
+- get data 
+- chart test
 ## Notes
 - Main page gets data from db
   - maps out polls
-  - dynamic route '/:pollId'
-
-- User sessions 
+  - dynamic route '/polls/:pollId'
+  - dynamic route '/results/:pollId'
+- User sessions from FB
 
 ## Data structure 
 has multiple polls
@@ -54,17 +53,9 @@ if user has voted (userId in array), poll is greyed and cannot vote anymore
 ~/App
   ├─Navbar (Register, Logout button)
   ├─Register to '/' (!isLoggedIn)
-  └─Main page  to '/' (isLoggedIn)
-    └─Poll 1 to '/poll1'
-    └─Poll 2 to '/poll2'
+  └─Home page  to '/' (isLoggedIn)
+    └─Poll 1 to '/polls/poll1'
+    └─Polls to '/polls/:pollId' (eventually dynamic)
     └─Admin to '/admin' (live results, current state, user count)
-    └─Results to '/results', render Results (pass props for poll)
+    └─Results to '/results/:pollId', render Results (pass props for poll)
 ```
-
-/ 
-  if not login
-    show register 
-      /login
-
-
-  else show main
