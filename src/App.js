@@ -8,68 +8,51 @@ import Results from './components/Results'
 import Signin from './components/Signin'
 import fire from './firebase'
 import './App.css';
-import { Alert } from 'reactstrap';
+// import { Alert } from 'reactstrap';
+// import AuthRoute from './components/AuthRoute';
+// import jwtDecode from 'jwt-decode';
+import {reactLocalStorage} from 'reactjs-localstorage';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state={    
       isLoggedIn: false, 
-      user: '',
+      user: reactLocalStorage.getObject('user'),
       pollData: '', 
       //dont need this until we create dynamic polls
 
       // isAuthenticated: '',
     }    
   }
+
   
-  // Register user to Firebase, login if registered
-  register = (e) => {
-    e.preventDefault()
-    let email = e.target.userEmail.value
-    let password = e.target.userPassword.value
-    let user = { email, password }
-    const {history} = this.props
-    console.table([{
-      email, password
-    }])
-    // fire.auth().createUserWithEmailAndPassword(email, password)
-    //   .catch((err) => {
-    //     console.log(err.code, err.message)
-    //   })
-    this.setState({
-      user,
-      isLoggedIn: true
-    }, () => {
-      console.log(this.state);
-      // console.log(email, 'is logged in');
-      // this.triggerLoggedInAlert()
-      // history.push('/')
-    })
+  componentWillMount() {
+    let user = reactLocalStorage.getObject('user')
+    (user.hasOwnProperty('name', 'email')) ?
+    this.setState({ user }) :
+    this.setState({ user: '' }) 
   }
+  
+  // how to use reactLocalStorage
+  // reactLocalStorage.set('user', true);
+  // reactLocalStorage.get('user', true);
+  // reactLocalStorage.setObject('user', {'test': 'test'});
+  // reactLocalStorage.getObject('user');
 
   // Log in to app
   login = (e) => {
     e.preventDefault()
+    let name = e.target.userName.value
     let email = e.target.userEmail.value
-    let password = e.target.userPassword.value
-    let user = {
-      email: e.target.userEmail.value,
-      password: e.target.userPassword.value
-    }
-    // fire.auth().signInWithEmailAndPassword(email, password)
-    //   .catch(function (error) {
-    //   // Handle Errors here.
-    //     let errorCode = error.code;
-    //     let errorMessage = error.message;
-    //     console.log(errorCode, errorMessage)
-    // });
+
+    let user = { name, email }
+    reactLocalStorage.setObject('user', user)
     this.setState({
       isLoggedIn: true,
-      user: user
+      user: reactLocalStorage.getObject('user')
     }, () => {
-      console.log('isLoggedIn:', this.state.isLoggedIn)
-      console.log(this.state);
-      this.state.history.push("/");
+      console.log(this.state)
+      // redirect to /
     })
   }
 
@@ -79,17 +62,18 @@ class App extends Component {
       isLoggedIn: false
     }, () => {
       console.log('Successfully logged out');
-      console.log(this.state);
+      console.table(this.state);
       // history.push('/register')
     })
   }
-
+ 
+// 
   triggerLoggedInAlert = () => {
-    return (
-      <Alert color="primary">
-        This is a primary alert — check it out!
-      </Alert>
-    )
+    // return (
+    //   <Alert color="primary">
+    //     This is a primary alert — check it out!
+    //   </Alert>
+    // )
   }
   
   submitForm = (ev) => {
@@ -118,7 +102,6 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <Topbar 
@@ -129,6 +112,60 @@ class App extends Component {
         <div className="container">
 
           <Switch>
+
+            <Route exact path="/register" 
+              render={() => {
+              return <Register 
+                {...this.props} 
+                login={this.login} 
+              />
+            }} />
+            
+            <Route exact path="/" 
+              render={() => {
+              return <Home 
+                {...this.state}
+                {...this.props}
+                isLoggedIn={this.state.isLoggedIn}
+                login={this.login}
+                hacker={this.hacker}
+                votePoll={this.votePoll}
+              />
+            }} />
+            
+
+            {/* <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/questions"
+              exact
+              component={QuestionIndexPage}
+            />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/questions/new"
+              component={QuestionNewPage}
+            />
+            <AuthRoute
+              isAuthenticated={this.isAuth()}
+              path="/questions/:id"
+              component={QuestionShowPage}
+            /> */}
+            {/*
+              To match all routes that aren't matched in
+              a Switch component, create a Route without
+              a `path` prop. We can use it to implement a 404
+              page.
+             */}
+            {/* <Route component={} /> */}
+          </Switch>
+
+
+
+
+
+
+
+          {/* <Switch>
             <Route path="/register" render={() => {
               return <Register register={this.register} {...this.props} />
             }} />
@@ -148,8 +185,8 @@ class App extends Component {
               <Route path="/winner" render={() => {
                 return <Winner {...this.state} votePoll={this.votePoll}/>
               }} />
-          </Switch> 
-          )}
+          </Switch>  */}
+
         </div>
       </div>
     );
