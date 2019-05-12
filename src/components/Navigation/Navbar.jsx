@@ -4,16 +4,18 @@ import { Link } from 'react-router-dom'
 
 function Navbar({ classes }) {
   return (
-    <nav>
+    <nav className={classes.root}>
       <Link to="/">Home</Link>
+      <p>Menu</p>
     </nav>
   )
 }
 
 const styles = {
-  root: {},
-  body: {
-    flex: 1,
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 }
 
