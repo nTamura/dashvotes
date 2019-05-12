@@ -32,7 +32,7 @@ function Container({ classes }) {
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="title" className={classes.label}>
-          Title
+          Title*
           <input
             type="text"
             placeholder="Is ketchup actually a jam?"
@@ -53,15 +53,17 @@ function Container({ classes }) {
         </label>
 
         <label htmlFor="option" className={classes.label}>
-          Options
+          Options*
           <input
             type="text"
+            placeholder="Required"
             name="option"
             aria-labelledby="option"
             className={classes.input}
           />
           <input
             type="text"
+            placeholder="Required"
             name="option"
             aria-labelledby="option"
             className={classes.input}
@@ -126,7 +128,11 @@ const styles = {
     flexDirection: 'column',
   },
   input: {
-    marginBottom: 8,
+    marginBottom: 16,
+    padding: 8,
+    borderRadius: 5,
+    border: 'none',
+    fontSize: '1rem',
   },
 }
 export default withStyles(styles)(Container)
