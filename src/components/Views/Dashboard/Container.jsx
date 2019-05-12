@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
+import Button from 'components/Common/Button'
 
 function Container({ classes }) {
   return (
@@ -8,9 +9,11 @@ function Container({ classes }) {
       <h2>Welcome username</h2>
       <p>You currently have X active polls</p>
       <div className={classes.menuList}>
-        <Link to="/trending" className={classes.button}>
-          Trending Polls
-        </Link>
+        <Button>
+          <Link to="/trending" className={classes.button}>
+            Trending Polls
+          </Link>
+        </Button>
         <Link to="/active" className={classes.button}>
           Active Polls
         </Link>
@@ -34,10 +37,11 @@ const styles = {
     flexDirection: 'column',
   },
   button: {
-    border: '1px solid #FFF',
-    padding: 8,
-    marginBottom: 8,
-    textAlign: 'center',
+    fontSize: '1.2rem',
+    // border: '1px solid #FFF',
+    // padding: 8,
+    // marginBottom: 8,
+    // textAlign: 'center',
   },
 }
 export default withStyles(styles)(Container)
