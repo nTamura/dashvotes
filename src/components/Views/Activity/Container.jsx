@@ -8,21 +8,11 @@ function Container({ classes }) {
       <h2>Welcome username</h2>
       <p>You currently have X active polls</p>
       <div className={classes.menuList}>
-        <Link to="/trending" className={classes.button}>
-          Trending Polls
-        </Link>
-        <Link to="/active" className={classes.button}>
-          Active Polls
-        </Link>
-        <Link to="/create" className={classes.button}>
-          Create Poll
-        </Link>
-        <Link to="/edit" className={classes.button}>
-          Edit Poll
-        </Link>
-        <Link to="/results" className={classes.button}>
-          Poll Results
-        </Link>
+        <Link className={classes.button}>Trending Polls</Link>
+        <Link className={classes.button}>Active Polls</Link>
+        <Link className={classes.button}>Create Poll</Link>
+        <Link className={classes.button}>Edit Poll</Link>
+        <Link className={classes.button}>Poll Results</Link>
       </div>
     </div>
   )
