@@ -1,0 +1,4 @@
+.circleci/*
+dist/*
+build/*
+coverage/*
