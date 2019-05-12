@@ -1,7 +1,13 @@
-html {
+html,
+body,
+#root,
+.container {
   display: flex;
-  height: 100%;
+  flex: 1;
+}
 
+html {
+  height: 100%;
   font-family: 'Quicksand', sans-serif;
   font-weight: 300;
   color: white;
@@ -12,13 +18,24 @@ html {
 }
 
 body {
-  display: flex;
-  flex: 1;
   margin: 0;
 }
 
 #root {
-  display: flex;
-  flex: 1;
   flex-direction: column;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+@media (min-width: 620px) {
+  .container {
+    width: 550px;
+  }
 }
