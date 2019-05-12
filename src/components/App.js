@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
-import { Link } from 'react-router-dom'
+import { Link, Route, Switch } from 'react-router-dom'
+import Navbar from 'components/Navigation/Navbar'
+import Dashboard from 'components/Views/Dashboard'
 
 function App({ classes }) {
   return (
-    <>
-      <nav>
-        <Link to="/">Home</Link>
-      </nav>
+    <div className="container">
+      <Navbar />
       <div className={classes.body}>
-        <header className="App-header">
-          <p>Dashvotes</p>
-        </header>
+        <Switch>
+          <Route exact path="/" component={Dashboard} />
+          {/* <Route
+            path="/about"
+            render={props => <About {...props} extra={someVariable} />}
+          /> */}
+        </Switch>
       </div>
       <footer>footer</footer>
-    </>
+    </div>
   )
 }
 
