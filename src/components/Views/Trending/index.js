@@ -1,3 +1,3 @@
-import Container from 'components/Views/Dashboard/Container'
+import Container from 'components/Views/Trending/Container'
 
 export default Container

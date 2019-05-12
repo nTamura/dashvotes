@@ -5,14 +5,19 @@ import withStyles from 'react-jss'
 function Container({ classes }) {
   return (
     <div className={classes.root}>
-      <h2>Welcome username</h2>
-      <p>You currently have X active polls</p>
+      <h2>Trending</h2>
+      <p>Sort by</p>
       <div className={classes.menuList}>
-        <Link className={classes.button}>Trending Polls</Link>
-        <Link className={classes.button}>Active Polls</Link>
-        <Link className={classes.button}>Create Poll</Link>
-        <Link className={classes.button}>Edit Poll</Link>
-        <Link className={classes.button}>Poll Results</Link>
+        <div className={classes.item}>
+          <Link className={classes.itemTitle}>
+            This is an example of a long poll title text
+          </Link>
+          <p>1150 votes</p>
+        </div>
+        <div className={classes.item}>
+          <Link className={classes.itemTitle}>This is a poll</Link>
+          <p>50 votes</p>
+        </div>
       </div>
     </div>
   )
@@ -23,11 +28,23 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-  button: {
-    border: '1px solid #FFF',
+  item: {
+    border: '2px solid #FFF',
+    borderRadius: 5,
     padding: 8,
-    marginBottom: 8,
-    textAlign: 'center',
+    margin: '8px 0',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemTitle: {
+    flex: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    marginRight: 8,
+    padding: '8px 0',
+    fontWeight: 'bold',
   },
 }
 export default withStyles(styles)(Container)
