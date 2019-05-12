@@ -9,22 +9,20 @@ function Container({ classes }) {
       <h2>Welcome username</h2>
       <p>You currently have X active polls</p>
       <div className={classes.menuList}>
-        <Button>
-          <Link to="/trending" className={classes.button}>
-            Trending Polls
-          </Link>
-        </Button>
-        <Link to="/active" className={classes.button}>
-          Active Polls
+        <Link to="/trending">
+          <Button>Trending Polls</Button>
         </Link>
-        <Link to="/create" className={classes.button}>
-          Create Poll
+        <Link to="/active">
+          <Button>Active Polls</Button>
         </Link>
-        <Link to="/edit" className={classes.button}>
-          Edit Poll
+        <Link to="/create">
+          <Button>Create Poll</Button>
         </Link>
-        <Link to="/results" className={classes.button}>
-          Poll Results
+        <Link to="/edit">
+          <Button>Edit Poll</Button>
+        </Link>
+        <Link to="/results">
+          <Button>Poll Results</Button>
         </Link>
       </div>
     </div>
@@ -35,13 +33,6 @@ const styles = {
   menuList: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  button: {
-    fontSize: '1.2rem',
-    // border: '1px solid #FFF',
-    // padding: 8,
-    // marginBottom: 8,
-    // textAlign: 'center',
   },
 }
 export default withStyles(styles)(Container)

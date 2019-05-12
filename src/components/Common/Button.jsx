@@ -3,18 +3,19 @@ import withStyles from 'react-jss'
 
 function Button({ classes, children, ...rest }) {
   return (
-    <button {...rest} className={classes.button}>
+    <button type="button" className={classes.root} {...rest}>
       {children}
     </button>
   )
 }
 const styles = {
-  button: {
+  root: {
+    fontSize: '1.2rem',
     border: '2px solid #FFF',
     borderRadius: 5,
     color: '#FFF',
     padding: 8,
-    marginBottom: 8,
+    margin: '8px 0',
     textAlign: 'center',
     backgroundColor: 'transparent',
     width: '100%',
