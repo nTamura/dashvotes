@@ -1,6 +1,14 @@
 html {
   display: flex;
   height: 100%;
+
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 300;
+  color: white;
+  background: #4568dc;
+  background: -webkit-linear-gradient(to bottom, #b06ab3, #4568dc);
+  background: linear-gradient(to bottom, #b06ab3, #4568dc);
+  background-attachment: fixed;
 }
 
 body {
