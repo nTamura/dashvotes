@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
+import Form from 'components/Views/Create/Form'
 
 function Container({ classes }) {
   const handleSubmit = e => {
@@ -24,115 +25,31 @@ function Container({ classes }) {
   return (
     <div className={classes.root}>
       <h4>Create a Poll</h4>
-      <p className={styles.smallText}>Tips:</p>
+      <p className={classes.tips}>Tips:</p>
       <ul>
-        <li>Keep title and options concice</li>
-        <li>Provide context if needed</li>
+        <li className={classes.tipTxt}>Keep title and options concice</li>
+        <li className={classes.tipTxt}>Provide context if needed</li>
       </ul>
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title" className={classes.label}>
-          Title*
-          <input
-            type="text"
-            placeholder="Is ketchup actually a jam?"
-            name="title"
-            id="title"
-            className={classes.input}
-          />
-        </label>
-        <label htmlFor="description" className={classes.label}>
-          Description
-          <input
-            type="text"
-            placeholder="Provide optional context"
-            name="description"
-            id="description"
-            className={classes.input}
-          />
-        </label>
-
-        <label htmlFor="option" className={classes.label}>
-          Options*
-          <input
-            type="text"
-            placeholder="Required"
-            name="option"
-            aria-labelledby="option"
-            className={classes.input}
-          />
-          <input
-            type="text"
-            placeholder="Required"
-            name="option"
-            aria-labelledby="option"
-            className={classes.input}
-          />
-          <input
-            type="text"
-            placeholder="Optional"
-            name="option"
-            aria-labelledby="option"
-            className={classes.input}
-          />
-          <input
-            type="text"
-            placeholder="Optional"
-            name="option"
-            aria-labelledby="option"
-            className={classes.input}
-          />
-          {/* add fields button, appends optional input  */}
-        </label>
-
-        {/* expiry fields, not for MVP */}
-        {/* <label htmlFor="expiry">
-          Will expire after:
-          <input
-            type="text"
-            size={4}
-            maxLength={4}
-            placeholder=""
-            name="expiry"
-            id="expiry"
-          />
-          <select name="type">
-            <option value="hours">Hours</option>
-            <option value="days">Days</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
-            <option value="votes">Votes</option>
-          </select>
-        </label> */}
-
-        <Button type="submit">Create</Button>
-        {/* <button type="submit" className={classes.button}>
-          Create
-        </button> */}
-      </form>
+      <Form handleSubmit={handleSubmit} />
     </div>
   )
 }
 const styles = {
   root: {},
-  field: {
-    display: 'flex',
-    flexDirection: 'column',
+  tips: {
+    marginBottom: 0,
   },
-  label: {
+  tipTxt: {
+    fontStyle: 'italic',
+  },
+  field: {
     display: 'flex',
     flexDirection: 'column',
   },
   menuList: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  input: {
-    marginBottom: 16,
-    padding: 8,
-    borderRadius: 5,
-    border: 'none',
-    fontSize: '1rem',
   },
 }
 export default withStyles(styles)(Container)

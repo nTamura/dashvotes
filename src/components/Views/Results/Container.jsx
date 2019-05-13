@@ -1,19 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
+import PollsList from 'components/Common/Polls/PollsList'
 
 function Container({ classes }) {
   return (
     <div className={classes.root}>
-      <h2>Welcome username</h2>
-      <p>You currently have X active polls</p>
-      <div className={classes.menuList}>
-        <Link className={classes.button}>Trending Polls</Link>
-        <Link className={classes.button}>Active Polls</Link>
-        <Link className={classes.button}>Create Poll</Link>
-        <Link className={classes.button}>Edit Poll</Link>
-        <Link className={classes.button}>Poll Results</Link>
-      </div>
+      <h2>Poll Results</h2>
+      <hr />
+      <h3>Active Polls</h3>
+      <PollsList />
+
+      <h3>Expired Polls</h3>
+      <PollsList />
     </div>
   )
 }
@@ -23,11 +22,23 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-  button: {
-    border: '1px solid #FFF',
+  item: {
+    border: '2px solid #FFF',
+    borderRadius: 5,
     padding: 8,
-    marginBottom: 8,
-    textAlign: 'center',
+    margin: '8px 0',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  itemTitle: {
+    flex: 1,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    marginRight: 8,
+    padding: '8px 0',
+    fontWeight: 'bold',
   },
 }
 export default withStyles(styles)(Container)

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
+import Search from 'components/Common/Search'
 
 function Container({ classes }) {
   return (
@@ -9,17 +10,12 @@ function Container({ classes }) {
       <h2>Welcome username</h2>
       <p>You currently have X active polls</p>
       <div className={classes.menuList}>
+        <Search />
         <Link to="/trending">
           <Button>Trending Polls</Button>
         </Link>
-        <Link to="/active">
-          <Button>Active Polls</Button>
-        </Link>
         <Link to="/create">
           <Button>Create Poll</Button>
-        </Link>
-        <Link to="/edit">
-          <Button>Edit Poll</Button>
         </Link>
         <Link to="/results">
           <Button>Poll Results</Button>

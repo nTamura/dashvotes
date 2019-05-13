@@ -1,24 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
+import PollsList from 'components/Common/Polls/PollsList'
 
-function Container({ classes }) {
+function Container({ classes, ...props }) {
   return (
     <div className={classes.root}>
       <h2>Trending</h2>
       <p>Sort by</p>
-      <div className={classes.menuList}>
-        <div className={classes.item}>
-          <Link className={classes.itemTitle}>
-            This is an example of a long poll title text
-          </Link>
-          <p>1150 votes</p>
-        </div>
-        <div className={classes.item}>
-          <Link className={classes.itemTitle}>This is a poll</Link>
-          <p>50 votes</p>
-        </div>
-      </div>
+      <PollsList />
     </div>
   )
 }
