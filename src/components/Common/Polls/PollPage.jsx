@@ -26,7 +26,6 @@ function PollPage({ classes, poll, ...props }) {
                 className={classes.radioButton}
               />
               {item}
-              {/* <p className={classes.radioLabel}>{item}</p> */}
             </label>
           ))}
           <Button>Vote</Button>
@@ -42,6 +41,7 @@ function PollPage({ classes, poll, ...props }) {
 
       <div className={classes.metaInfo}>
         <span className={classes.metaText}>Author: username</span>
+        <span className={classes.metaText}>Poll ID: 123456</span>
         <span className={classes.metaText}>Created: {toDate(date)}</span>
       </div>
     </div>
@@ -77,8 +77,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+    marginBottom: 8,
   },
   metaText: {
+    // fontSize: '.9rem',
     color: 'rgba(255,255,255,0.4)',
   },
 }

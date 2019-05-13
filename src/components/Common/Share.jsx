@@ -7,6 +7,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 function Share({ classes, ...rest }) {
   const [copied, setCopied] = useState(false)
 
+  useEffect(() => {}, [])
+
   const handleOnCopy = () => {
     setCopied(true)
     setTimeout(() => {

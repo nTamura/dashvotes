@@ -5,9 +5,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 function Search({ classes }) {
+  const handleQuery = e => {
+    e.preventDefault()
+    const query = e.target.search.value
+    if (query !== '' && query.length >= 6) {
+      const id = query.substr(-6)
+      console.log(id)
+      try {
+        // call cloud func with this query
+      } catch (err) {
+        // no results or bad query
+      }
+    } else {
+      console.log('invalid query')
+    }
+  }
+
   return (
     <div className={classes.root}>
-      <div className={classes.inputGroup}>
+      <form className={classes.inputGroup} onSubmit={e => handleQuery(e)}>
         <input
           className={classes.input}
           placeholder=" Search for poll by URL or ID"
@@ -15,10 +31,10 @@ function Search({ classes }) {
           id="search"
           name="search"
         />
-        <button type="button" className={classes.button}>
+        <button type="submit" className={classes.button}>
           <FontAwesomeIcon className={classes.icon} icon={faSearch} />
         </button>
-      </div>
+      </form>
     </div>
   )
 }
