@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
+import Share from 'components/Common/Share'
 import toDate from 'helpers/toDate'
+
 function PollPage({ classes, poll, ...props }) {
   // cal cloud func, get poll by id
   const { id } = props.match.params
@@ -28,6 +30,7 @@ function PollPage({ classes, poll, ...props }) {
             </label>
           ))}
           <Button>Vote</Button>
+          <Share />
         </form>
       </div>
       {/* { hasVoted &&

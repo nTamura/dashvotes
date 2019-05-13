@@ -14,6 +14,9 @@ import PollPage from 'components/Common/Polls/PollPage'
 
 import NotFound from 'components/Views/NotFound'
 
+// trending / results show same poll list, just filtered.
+// getting to pollpage will fetch specific poll data
+
 function App({ classes, ...props }) {
   return (
     <div className="container">
