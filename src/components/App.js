@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import { Route, Switch } from 'react-router-dom'
 import Navbar from 'components/Navigation/Navbar'
+import SignIn from 'components/Auth/SignIn'
+import SignUp from 'components/Auth/SignUp'
 
 import Dashboard from 'components/Views/Dashboard'
 import Create from 'components/Views/Create'
@@ -23,6 +25,9 @@ function App({ classes, ...props }) {
       <Navbar />
       <div className={classes.body}>
         <Switch>
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
+
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/trending" component={Trending} />
           <Route exact path="/create" component={Create} />
