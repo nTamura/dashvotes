@@ -1,25 +1,24 @@
 import React from 'react'
 import withStyles from 'react-jss'
-
+import { withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux'
 
-function Search({ classes }) {
+function Search({ classes, history, ...props }) {
   const handleQuery = e => {
     e.preventDefault()
     const query = e.target.search.value
-    if (query !== '' && query.length >= 6) {
-      const id = query.substr(-6)
-      console.log(id)
-      try {
-        // call cloud func with this query
-      } catch (err) {
-        // no results or bad query
-      }
+    const id = scrubUrl(query)
+    const found = props.polls.find(p => p.id === id)
+    if (found) {
+      history.push(`/poll/${id}`)
     } else {
-      console.log('invalid query')
+      console.log('Invalid query')
     }
   }
+
+  const scrubUrl = q => Number(q.substr(q.lastIndexOf('/') + 1))
 
   return (
     <div className={classes.root}>
@@ -42,10 +41,10 @@ const styles = {
   root: {},
   inputGroup: {
     display: 'flex',
-    margin: '8px 0',
+    margin: '8px 0 16px',
   },
   icon: {
-    margin: 8,
+    padding: 8,
   },
   input: {
     flex: 1,
@@ -61,4 +60,6 @@ const styles = {
     backgroundColor: 'transparent',
   },
 }
-export default withStyles(styles)(Search)
+const mapStateToProps = state => ({ polls: state.polls.polls })
+
+export default withStyles(styles)(connect(mapStateToProps)(withRouter(Search)))
