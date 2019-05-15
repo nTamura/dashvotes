@@ -13,7 +13,7 @@ function Container({ classes }) {
       title: data.get('title'),
       description: data.get('description'),
       options: data.getAll('option').filter(p => p !== ''),
-      createdBy: 'user',
+      createdBy: 'user.username',
       createdAt: Date.now(),
       expireAt: '',
       isPublic: true,
@@ -24,7 +24,7 @@ function Container({ classes }) {
 
   return (
     <div className={classes.root}>
-      <h4>Create a Poll</h4>
+      <h2>Trending</h2>
       <p className={classes.tips}>Tips:</p>
       <ul>
         <li className={classes.tipTxt}>Keep title and options concice</li>
