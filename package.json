@@ -8,11 +8,15 @@
     "@fortawesome/free-regular-svg-icons": "^5.8.1",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "firebase": "^6.0.2",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-jss": "^8.6.1",
-    "react-scripts": "3.0.1"
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
