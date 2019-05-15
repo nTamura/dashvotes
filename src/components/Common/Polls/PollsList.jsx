@@ -1,17 +1,19 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import withStyles from 'react-jss'
-import samples from 'helpers/samples'
 import PollsListItem from 'components/Common/Polls/PollsListItem'
 
+import { connect } from 'react-redux'
+
 function PollsList({ classes, ...props }) {
-  const polls = samples
+  const { polls } = props
   return (
     <div className={classes.root}>
       <div className={classes.menuList}>
-        {polls.map(poll => {
-          return <PollsListItem key={poll.id} poll={poll} />
-        })}
+        {polls &&
+          polls.map(poll => {
+            return <PollsListItem key={poll.id} />
+          })}
       </div>
     </div>
   )
@@ -23,4 +25,9 @@ const styles = {
     flexDirection: 'column',
   },
 }
-export default withRouter(withStyles(styles)(PollsList))
+
+const mapStateToProps = state => ({ polls: state.polls.polls })
+
+export default withRouter(
+  connect(mapStateToProps)(withStyles(styles)(PollsList))
+)
