@@ -22,6 +22,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flexShrink: 0,
   },
   logo: {
     height: 32,
