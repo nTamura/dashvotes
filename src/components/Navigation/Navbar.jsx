@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import { Link } from 'react-router-dom'
 import logo from 'assets/dashSm.png'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import NavMenu from 'components/Navigation/NavMenu'
 
 function Navbar({ classes }) {
   return (
@@ -11,7 +10,7 @@ function Navbar({ classes }) {
       <Link to="/">
         <img src={logo} className={classes.logo} alt="Dash Logo" />
       </Link>
-      <FontAwesomeIcon icon={faBars} className={classes.menu} />
+      <NavMenu />
     </nav>
   )
 }
@@ -27,10 +26,6 @@ const styles = {
   logo: {
     height: 32,
     // padding: 8,
-  },
-  menu: {
-    fontSize: '1.5rem',
-    margin: 8,
   },
 }
 
