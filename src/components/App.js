@@ -14,6 +14,7 @@ import PollPage from 'components/Common/Polls/PollPage'
 import NotFound from 'components/Views/NotFound'
 import Private from 'components/Common/Private'
 
+import Alert from 'components/Common/Alert'
 // import AuthContext from 'context/AuthContext';
 
 function App({ classes, ...props }) {
@@ -30,9 +31,9 @@ function App({ classes, ...props }) {
       <Navbar />
       <div className={classes.body}>
         <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route exact path="/trending" component={Trending} />
-          <Route exact path="/create" component={Create} />
+          <Private exact path="/" component={Dashboard} />
+          <Private exact path="/trending" component={Trending} />
+          <Private exact path="/create" component={Create} />
           <Route exact path="/results" component={Results} />
           <Route exact path="/poll/:id" component={PollPage} />
 
@@ -43,6 +44,8 @@ function App({ classes, ...props }) {
           <Route component={NotFound} />
         </Switch>
       </div>
+      <Alert />
+      {/* move alert component here for global error handling */}
     </div>
   )
 }
