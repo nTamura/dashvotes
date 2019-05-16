@@ -3,20 +3,19 @@ import { Link, withRouter } from 'react-router-dom'
 import withStyles from 'react-jss'
 import { Transition } from 'react-transition-group'
 import HamburgerMenu from 'react-hamburger-menu'
-
+import { signOut } from 'store/actions/authActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux'
 
-function NavMenu({ classes, ...props }) {
+function NavMenu({ classes, signOut, ...props }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const toggleMenu = () => {
-    console.log('click')
-    setMenuOpen(!menuOpen)
-  }
+
   const handleSignout = () => {
-    console.log('sign out')
-    // handle signout
-    props.history.push('/')
+    setMenuOpen(false)
+    signOut()
+    // trigger logged out notification
+    // case user is on public page so no redirect
   }
 
   return (
@@ -69,13 +68,13 @@ function NavMenu({ classes, ...props }) {
               >
                 Profile
               </Link>
-              <a
-                href=""
-                onClick={() => handleSignout()}
+              <button
+                type="button"
+                onClick={handleSignout}
                 className={classes.menuItem}
               >
                 Log Out
-              </a>
+              </button>
             </ul>
           </>
         )}
@@ -129,9 +128,29 @@ const styles = {
     whiteSpace: 'nowrap',
     margin: '16px 0',
     padding: 4,
+    fontSize: '1rem',
+    fontWeight: 300,
+    color: '#FFF',
+    width: 'fit-content',
     '&:active': {
       fontWeight: 'bolder',
     },
   },
 }
-export default withStyles(styles)(withRouter(NavMenu))
+// export default withStyles(styles)(withRouter(NavMenu))
+
+const mapStateToProps = state => {
+  // get user for username
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: () => dispatch(signOut()),
+  }
+}
+
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(withRouter(NavMenu))
+)

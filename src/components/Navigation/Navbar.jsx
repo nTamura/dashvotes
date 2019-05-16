@@ -3,14 +3,15 @@ import withStyles from 'react-jss'
 import { Link } from 'react-router-dom'
 import logo from 'assets/dashSm.png'
 import NavMenu from 'components/Navigation/NavMenu'
+import { connect } from 'react-redux'
 
-function Navbar({ classes }) {
+function Navbar({ classes, userExists }) {
   return (
     <nav className={classes.root}>
       <Link to="/">
         <img src={logo} className={classes.logo} alt="Dash Logo" />
       </Link>
-      <NavMenu />
+      {userExists ? <NavMenu /> : <Link to="/">Sign in</Link>}
     </nav>
   )
 }
@@ -25,8 +26,14 @@ const styles = {
   },
   logo: {
     height: 32,
-    // padding: 8,
   },
 }
 
-export default withStyles(styles)(Navbar)
+const mapStateToProps = state => {
+  return {
+    userExists: state.firebase.auth.uid,
+    profile: state.firebase.profile,
+  }
+}
+
+export default withStyles(styles)(connect(mapStateToProps)(Navbar))
