@@ -1,17 +1,19 @@
-// import React, { useContext } from 'react'
-// import { Route, Redirect } from 'react-router-dom'
-// import Entry from 'components/Auth/Entry'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import Entry from 'components/Auth/Entry'
 
-// const Private = ({ component: RouteComponent, ...rest }) => {
-//   const { currentUser } = useContext(AuthContext)
-//   return (
-//     <Route
-//       {...rest}
-//       render={routeProps =>
-//         !currentUser ? <RouteComponent {...routeProps} /> : <Entry />
-//       }
-//     />
-//   )
-// }
+const Private = ({ component: RouteComponent, userExists, ...rest }) => (
+  <Route
+    {...rest}
+    render={routeProps =>
+      userExists ? <RouteComponent {...routeProps} /> : <Entry />
+    }
+  />
+)
 
-// export default Private
+const mapStateToProps = state => ({
+  userExists: state.firebase.auth.uid,
+})
+
+export default connect(mapStateToProps)(Private)
