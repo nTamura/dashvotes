@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
+import { withRouter } from 'react-router-dom'
 import Default from 'components/Auth/Default'
 import Alert from 'components/Common/Alert'
 import SignInForm from 'components/Auth/SignInForm'
 import SignUpForm from 'components/Auth/SignUpForm'
 import app from 'config/firebaseConfig'
 
-function SignIn({ classes }) {
+import { connect } from 'react-redux'
+// import { signUp } from 'store/actions/authActions'
+
+function Entry({ classes, location }) {
   const [formShow, setFormShow] = useState(undefined)
   const [error, setError] = useState()
 
@@ -73,5 +77,16 @@ const styles = {
     fontWeight: 'bold',
   },
 }
+const mapStateToProps = state => {
+  return {
+    authMessage: state.auth.authMessage,
+  }
+}
 
-export default withStyles(styles)(SignIn)
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     signIn: user => dispatch(signIn(user)),
+//   }
+// }
+
+export default withStyles(styles)(connect(mapStateToProps)(Entry))

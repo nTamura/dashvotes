@@ -10,10 +10,8 @@ function Button({ classes, children, ...rest }) {
 }
 const styles = {
   root: {
-    // fontSize: '1.2rem',
     fontSize: '1rem',
     margin: '8px 0 16px',
-    // marginBottom: 16,
     border: '2px solid #FFF',
     borderRadius: 5,
     color: '#FFF',
@@ -21,6 +19,10 @@ const styles = {
     textAlign: 'center',
     backgroundColor: 'transparent',
     width: '100%',
+    '&:disabled': {
+      color: '#c7c7c7',
+      border: '2px solid #c7c7c7',
+    },
   },
 }
 export default withStyles(styles)(Button)

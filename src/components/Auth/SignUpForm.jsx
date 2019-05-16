@@ -1,19 +1,21 @@
 import React from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
+import { connect } from 'react-redux'
+import { signUp } from 'store/actions/authActions'
 
-function SignUpForm({ classes, handleSignUp, cancel }) {
+function SignUpForm({ classes, signUp, cancel }) {
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
     const data = new FormData(form)
-    const template = {
+    const user = {
       fname: data.get('fname'),
       lname: data.get('lname'),
       email: data.get('email'),
       password: data.get('password'),
     }
-    handleSignUp(template)
+    signUp(user)
   }
 
   return (
@@ -64,7 +66,7 @@ function SignUpForm({ classes, handleSignUp, cancel }) {
 
         <Button type="submit">Create</Button>
       </form>
-      <button onClick={() => cancel()} className={classes.cancel}>
+      <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
       </button>
     </>
@@ -86,10 +88,28 @@ const styles = {
     fontSize: '1rem',
   },
   cancel: {
-    marginTop: 16,
     textAlign: 'center',
     fontStyle: 'italic',
+    fontSize: '1rem',
     color: '#FFF',
+    padding: 8,
   },
 }
-export default withStyles(styles)(SignUpForm)
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: user => dispatch(signUp(user)),
+  }
+}
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUpForm)
+)

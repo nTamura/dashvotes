@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
-
+import { signIn } from 'store/actions/authActions'
+import { connect } from 'react-redux'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
-function SignInForm({ classes, handleSignIn, cancel }) {
+function SignInForm({ classes, signingIn, signIn, cancel }) {
   // const { email, setEmail } = useState('')
   // const { password, setPassword } = useState('')
   // const { input, setInput } = useState()
@@ -18,12 +19,9 @@ function SignInForm({ classes, handleSignIn, cancel }) {
       email: data.get('email'),
       password: data.get('password'),
     }
-    handleSignIn(template)
+    signIn(template)
   }
 
-  // const handleInputChange = e => {
-  //   setInput({ [e.target.name]: e.target.value })
-  // }
   return (
     <>
       <h2>Sign in</h2>
@@ -35,7 +33,6 @@ function SignInForm({ classes, handleSignIn, cancel }) {
             name="email"
             id="email"
             className={classes.input}
-            // onChange={handleInputChange}
           />
         </label>
 
@@ -47,13 +44,18 @@ function SignInForm({ classes, handleSignIn, cancel }) {
             id="password"
             className={classes.input}
             // onChange={handleInputChange}
+            // icon to show PW value
           />
         </label>
 
-        <Button type="submit">Sign in with Email</Button>
-        <Button type="submit">Sign in with Google</Button>
+        <Button type="submit" disabled={signingIn}>
+          Sign in with Email
+        </Button>
+        <Button type="submit" disabled={signingIn}>
+          Sign in with Google
+        </Button>
       </form>
-      <button onClick={() => cancel()} className={classes.cancel}>
+      <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
       </button>
     </>
@@ -73,10 +75,30 @@ const styles = {
     fontSize: '1rem',
   },
   cancel: {
-    marginTop: 16,
     textAlign: 'center',
     fontStyle: 'italic',
+    fontSize: '1rem',
     color: '#FFF',
+    padding: 8,
   },
 }
-export default withStyles(styles)(SignInForm)
+
+const mapStateToProps = state => {
+  return {
+    authError: state.auth.authError,
+    signingIn: state.auth.signingIn,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: user => dispatch(signIn(user)),
+  }
+}
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignInForm)
+)
