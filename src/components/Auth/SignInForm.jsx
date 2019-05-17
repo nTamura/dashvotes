@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
-import { signIn } from 'store/actions/authActions'
-import { connect } from 'react-redux'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-function SignInForm({ classes, signingIn, signIn, cancel }) {
-  // const { email, setEmail } = useState('')
-  // const { password, setPassword } = useState('')
-  // const { input, setInput } = useState()
-
+function SignInForm({
+  classes,
+  signingIn,
+  authProvider,
+  handleSignIn,
+  cancel,
+}) {
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -19,7 +20,7 @@ function SignInForm({ classes, signingIn, signIn, cancel }) {
       email: data.get('email'),
       password: data.get('password'),
     }
-    signIn(template)
+    handleSignIn(template)
   }
 
   return (
@@ -32,6 +33,7 @@ function SignInForm({ classes, signingIn, signIn, cancel }) {
             type="text"
             name="email"
             id="email"
+            type="email"
             className={classes.input}
           />
         </label>
@@ -49,13 +51,20 @@ function SignInForm({ classes, signingIn, signIn, cancel }) {
         </label>
 
         <Button type="submit" disabled={signingIn}>
+          <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
           Sign in with Email
         </Button>
-        <Button type="submit" disabled={signingIn}>
+        <Button type="button" disabled={signingIn} onClick={authProvider}>
+          <FontAwesomeIcon icon={faGoogle} className={classes.icon} />
           Sign in with Google
         </Button>
       </form>
-      <button type="button" onClick={cancel} className={classes.cancel}>
+      <button
+        type="button"
+        onClick={cancel}
+        disabled={signingIn}
+        className={classes.cancel}
+      >
         Cancel
       </button>
     </>
@@ -74,31 +83,17 @@ const styles = {
     border: 'none',
     fontSize: '1rem',
   },
+  icon: {
+    float: 'left',
+  },
   cancel: {
     textAlign: 'center',
     fontStyle: 'italic',
     fontSize: '1rem',
-    color: '#FFF',
     padding: 8,
+    width: 'fit-content',
+    alignSelf: 'center',
   },
 }
 
-const mapStateToProps = state => {
-  return {
-    authError: state.auth.authError,
-    signingIn: state.auth.signingIn,
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    signIn: user => dispatch(signIn(user)),
-  }
-}
-
-export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignInForm)
-)
+export default withStyles(styles)(SignInForm)

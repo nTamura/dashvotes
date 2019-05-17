@@ -5,48 +5,63 @@ import Default from 'components/Auth/Default'
 import Alert from 'components/Common/Alert'
 import SignInForm from 'components/Auth/SignInForm'
 import SignUpForm from 'components/Auth/SignUpForm'
-import app from 'config/firebaseConfig'
+// import app from 'config/firebaseConfig'
 
 import { connect } from 'react-redux'
-// import { signUp } from 'store/actions/authActions'
+import { signUp, signIn, signInAuth } from 'store/actions/authActions'
 
-function Entry({ classes, location }) {
+function Entry({ classes, location, signUp, signIn, signInAuth, signingIn }) {
   const [formShow, setFormShow] = useState(undefined)
-  const [error, setError] = useState()
+  // const [error, setError] = useState()
 
   const cancel = () => setFormShow(undefined)
-
-  const handleSignIn = async user => {
+  const authProvider = () => {
+    signInAuth()
+  }
+  const handleSignIn = user => {
     try {
-      await app.signin(user).then(() => {
-        console.log('worked')
-      })
+      console.log('trying')
+
+      signIn(user)
     } catch (err) {
-      setError(err)
-      setTimeout(() => {
-        setError()
-      }, 3500)
+      console.log(err)
     }
   }
-  const handleSignUp = async user => {
+
+  const handleSignUp = user => {
     try {
-      await app.register(user).then(() => {
-        console.log('it worked')
-      })
+      signUp(user)
+      console.log('it worked')
     } catch (err) {
-      setError(err)
-      setTimeout(() => {
-        setError()
-      }, 3500)
+      console.log('Err', err)
+
+      // setError(err)
+      // setTimeout(() => {
+      //   setError()
+      // }, 3500)
     }
   }
 
   const showBody = () => {
     switch (formShow) {
       case 'signin':
-        return <SignInForm handleSignIn={handleSignIn} cancel={cancel} />
+        return (
+          <SignInForm
+            handleSignIn={handleSignIn}
+            authProvider={authProvider}
+            signingIn={signingIn}
+            cancel={cancel}
+          />
+        )
       case 'signup':
-        return <SignUpForm handleSignUp={handleSignUp} cancel={cancel} />
+        return (
+          <SignUpForm
+            handleSignUp={handleSignUp}
+            authProvider={authProvider}
+            signingIn={signingIn}
+            cancel={cancel}
+          />
+        )
       default:
         return <Default setFormShow={setFormShow} />
     }
@@ -55,7 +70,7 @@ function Entry({ classes, location }) {
   return (
     <div className={classes.root}>
       {showBody()}
-      {error && <Alert error={error} />}
+      {/* {error && <Alert error={error} />} */}
     </div>
   )
 }
@@ -80,13 +95,21 @@ const styles = {
 const mapStateToProps = state => {
   return {
     authMessage: state.auth.authMessage,
+    authError: state.auth.authError,
+    signingIn: state.auth.signingIn,
   }
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     signIn: user => dispatch(signIn(user)),
-//   }
-// }
-
-export default withStyles(styles)(connect(mapStateToProps)(Entry))
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: user => dispatch(signUp(user)),
+    signIn: user => dispatch(signIn(user)),
+    signInAuth: () => dispatch(signInAuth()),
+  }
+}
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Entry)
+)

@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
-import { connect } from 'react-redux'
-import { signUp } from 'store/actions/authActions'
+import { capitalize, lowercase } from 'helpers/strMethods'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-function SignUpForm({ classes, signUp, cancel }) {
+function SignUpForm({
+  classes,
+  handleSignUp,
+  signingIn,
+  authProvider,
+  cancel,
+}) {
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
     const data = new FormData(form)
     const user = {
-      fname: data.get('fname'),
-      lname: data.get('lname'),
-      email: data.get('email'),
+      fname: capitalize(data.get('fname')),
+      lname: capitalize(data.get('lname')),
+      email: lowercase(data.get('email')),
       password: data.get('password'),
     }
-    signUp(user)
+    // console.log(user)
+    handleSignUp(user)
   }
 
   return (
@@ -29,6 +38,7 @@ function SignUpForm({ classes, signUp, cancel }) {
             type="text"
             name="fname"
             id="fname"
+            required
             className={classes.input}
           />
         </label>
@@ -38,6 +48,7 @@ function SignUpForm({ classes, signUp, cancel }) {
             type="text"
             name="lname"
             id="lname"
+            required
             className={classes.input}
           />
         </label>
@@ -48,6 +59,7 @@ function SignUpForm({ classes, signUp, cancel }) {
             type="text"
             name="email"
             id="email"
+            required
             placeholder="Valid email requried for verification"
             className={classes.input}
           />
@@ -59,12 +71,19 @@ function SignUpForm({ classes, signUp, cancel }) {
             type="password"
             name="password"
             id="password"
+            required
             placeholder="6 character minimum"
             className={classes.input}
           />
         </label>
-
-        <Button type="submit">Create</Button>
+        <Button type="submit" disabled={signingIn}>
+          <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
+          Create account
+        </Button>
+        <Button type="button" disabled={signingIn} onClick={authProvider}>
+          <FontAwesomeIcon icon={faGoogle} className={classes.icon} />
+          Register with Google
+        </Button>
       </form>
       <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
@@ -87,6 +106,9 @@ const styles = {
     border: 'none',
     fontSize: '1rem',
   },
+  icon: {
+    float: 'left',
+  },
   cancel: {
     textAlign: 'center',
     fontStyle: 'italic',
@@ -95,21 +117,5 @@ const styles = {
     padding: 8,
   },
 }
-const mapStateToProps = state => {
-  return {
-    authError: state.auth.authError,
-  }
-}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signUp: user => dispatch(signUp(user)),
-  }
-}
-
-export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignUpForm)
-)
+export default withStyles(styles)(SignUpForm)
