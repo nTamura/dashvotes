@@ -14,10 +14,8 @@ const styles = {
     margin: '8px 0 16px',
     border: '2px solid #FFF',
     borderRadius: 5,
-    color: '#FFF',
     padding: 8,
     textAlign: 'center',
-    backgroundColor: 'transparent',
     width: '100%',
     '&:disabled': {
       color: '#c7c7c7',

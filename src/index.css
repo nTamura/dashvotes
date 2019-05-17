@@ -46,3 +46,12 @@ a {
   color: inherit;
   cursor: pointer;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+button:focus {
+  outline: 0;
+}
