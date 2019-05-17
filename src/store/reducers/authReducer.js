@@ -5,6 +5,11 @@ const initState = {
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
+    case 'SIGNIN_TRY':
+      return {
+        authMessage: 'Signing in',
+        signingIn: true,
+      }
     case 'SIGNIN_SUCCESS':
       return {
         ...state,
@@ -17,21 +22,31 @@ const authReducer = (state = initState, action) => {
         authMessage: 'Signin failed',
         signingIn: false,
       }
+    case 'SIGNUP_TRY':
+      return {
+        authMessage: 'Creating account',
+      }
+    case 'SIGNUP_SUCCESS':
+      return {
+        ...state,
+        authMessage: 'Account created!',
+      }
+    case 'SIGNUP_FAIL':
+      return {
+        ...state,
+        authMessage: 'Problem creating account',
+        signingIn: false,
+      }
     case 'SIGNOUT_SUCCESS':
       return {
         state,
-        authMessage: 'Successfully signed out!',
+        authMessage: 'Successfully signed out',
+        signingIn: false,
       }
     case 'SIGNOUT_FAIL':
       return {
         ...state,
         authMessage: 'Signout failed',
-      }
-    case 'SIGNIN_TRY':
-      return {
-        ...state,
-        authMessage: 'Signing in',
-        signingIn: true,
       }
     default:
       return state

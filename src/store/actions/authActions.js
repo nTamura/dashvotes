@@ -1,48 +1,108 @@
-export const signIn = user => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase()
-    dispatch({ type: 'SIGNIN_TRY' })
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(user.email, user.password)
-      .then(() => {
+export const signIn = user => (dispatch, getState, { getFirebase }) => {
+  const firebase = getFirebase()
+  dispatch({ type: 'SIGNIN_TRY' })
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then(() => {
+      dispatch({ type: 'SIGNIN_SUCCESS' })
+    })
+    .catch(err => {
+      dispatch({ type: 'SIGNIN_FAIL', err })
+    })
+}
+
+export const signInAuth = () => (
+  dispatch,
+  getState,
+  { getFirebase, getFirestore }
+) => {
+  const firebase = getFirebase()
+  const firestore = getFirestore()
+  const provider = new firebase.auth.GoogleAuthProvider()
+  dispatch({ type: 'SIGNIN_TRY' })
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(u => {
+      if (u.user.uid) {
         dispatch({ type: 'SIGNIN_SUCCESS' })
-      })
-      .catch(err => {
-        dispatch({ type: 'SIGNIN_FAIL', err })
-      })
-  }
+      } else {
+        return firestore
+          .collection('users')
+          .doc(u.user.uid)
+          .set({
+            fname: u.user.displayName.split(' ').shift(),
+            lname: u.user.displayName
+              .split(' ')
+              .slice(1)
+              .join(' '),
+            email: u.user.email,
+            displayName: u.user.displayName,
+            votedOn: [],
+            pollsCreated: [],
+            score: 0,
+          })
+          .then(() => {
+            dispatch({ type: 'SIGNIN_SUCCESS' })
+          })
+          .catch(err => {
+            console.log('Signin popup create profile failed')
+            dispatch({ type: 'SIGNIN_FAIL', err })
+          })
+      }
+    })
+    .catch(err => {
+      console.log('Signin popup failed')
+      dispatch({ type: 'SIGNIN_FAIL', err })
+    })
 }
 
-export const signUp = user => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase()
-    console.log('sign up')
-
-    // firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(user.email, user.password)
-    //   .then(() => {
-    //     dispatch({ type: 'SIGNIN_SUCCESS' })
-    //   })
-    //   .catch(err => {
-    //     dispatch({ type: 'SIGNIN_FAIL', err })
-    //   })
-  }
+export const signUp = user => (
+  dispatch,
+  getState,
+  { getFirebase, getFirestore }
+) => {
+  const { email, password, fname, lname } = user
+  const firebase = getFirebase()
+  const firestore = getFirestore()
+  dispatch({ type: 'SIGNUP_TRY' })
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(u =>
+      firestore
+        .collection('users')
+        .doc(u.user.uid)
+        .set({
+          fname,
+          lname,
+          email,
+          displayName: `${fname} ${lname.charAt(0)}`,
+          votedOn: [],
+          pollsCreated: [],
+        })
+        .then(() => {
+          dispatch({ type: 'SIGNUP_SUCCESS' })
+        })
+        .catch(err => {
+          dispatch({ type: 'SIGNUP_FAIL', err })
+        })
+    )
+    .catch(err => {
+      dispatch({ type: 'SIGNUP_FAIL', err })
+    })
 }
 
-export const signOut = () => {
-  return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase()
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        console.log('ree')
-        dispatch({ type: 'SIGNOUT_SUCCESS' })
-      })
-      .catch(err => {
-        dispatch({ type: 'SIGNOUT_FAIL', err })
-      })
-  }
+export const signOut = () => (dispatch, getState, { getFirebase }) => {
+  const firebase = getFirebase()
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      dispatch({ type: 'SIGNOUT_SUCCESS' })
+    })
+    .catch(err => {
+      dispatch({ type: 'SIGNOUT_FAIL', err })
+    })
 }
