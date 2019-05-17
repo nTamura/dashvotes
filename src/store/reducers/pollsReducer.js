@@ -1,46 +1,59 @@
 const initState = {
-  polls: [
-    {
-      id: 785632,
-      title: 'Where in the world is waldo',
-      description: 'Where could he be',
-      options: ['Africa', 'Canada', 'Japan'],
-      createdBy: 'Nix',
-      createdAt: Date.now(),
-      expireAt: '',
-      isPublic: true,
-    },
-    {
-      id: 553795,
-      title: 'How many chucks could a woodchuck chuck',
-      description: 'If a woodchuck could chuck wood',
-      options: [12, 53, 374, 575],
-      createdBy: 'Nix',
-      createdAt: Date.now(),
-      expireAt: '',
-      isPublic: true,
-    },
-    {
-      id: 543684,
-      title: 'React, Vue, Angular?',
-      description: '',
-      options: ['React', 'Vue', 'Angular'],
-      createdBy: 'Nix',
-      createdAt: Date.now(),
-      expireAt: '',
-      isPublic: true,
-    },
-  ],
+  polls: [],
+  poll: null,
+  pollsMessage: null,
+  submitting: false,
+  pollNotFound: false,
+  pid: null,
 }
+
+// FIX
+// issue with clicking one poll, going back and clicking next
+// will show the old poll for a brief moment
 
 const pollsReducer = (state = initState, action) => {
   switch (action.type) {
+    case 'FETCH_POLLS':
+      return {
+        ...state,
+        polls: action.payload,
+      }
+    case 'FETCH_POLL':
+      return {
+        ...state,
+        poll: action.payload,
+      }
+    case 'FETCH_POLL_NOT_FOUND':
+      return {
+        ...state,
+        pollNotFound: true,
+        pollsMessage: action.payload,
+      }
+    case 'FETCH_POLL_ERR':
+      return {
+        pollsMessage: action.payload,
+        ...state,
+      }
     case 'CREATE_POLL':
-      console.log('success')
-      return state
+      return {
+        ...state,
+        pollsMessage: 'Successfully created!',
+        pid: action.payload,
+        submitting: false,
+      }
     case 'CREATE_POLL_ERR':
-      console.log('create poll error', action.err)
-      return state
+      return {
+        state,
+        pollsMessage: 'Problem creating poll',
+        pid: null,
+        submitting: false,
+      }
+    case 'TRY_CREATE_POLL':
+      return {
+        pollsMessage: 'Submitting...',
+        pid: null,
+        submitting: true,
+      }
     default:
       return state
   }
