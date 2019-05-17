@@ -6,7 +6,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 const Loading = ({ classes }) => (
   <div style={styles.root}>
     <FontAwesomeIcon spin className={classes.icon} icon={faSpinner} />
-    <p>No data available</p>
+    <p>Loading...</p>
   </div>
 )
 const styles = {
