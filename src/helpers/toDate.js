@@ -1,4 +1,9 @@
-const toDate = date => new Date().toDateString()
-// const toDate = date => new Date(date * 1000).toDateString()
+import { DateTime } from 'luxon'
+
+export const toDate = timestamp => {
+  const dt = DateTime.fromMillis(timestamp)
+  const format = Object.assign({ weekday: 'short' }, DateTime.DATE_MED)
+  return dt.toLocaleString(format)
+}
 
 export default toDate
