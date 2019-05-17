@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
 
-function Form({ classes, handleSubmit }) {
+function Form({ classes, submitting, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="title" className={classes.label}>
         Title*
         <input
+          autoFocus
           type="text"
-          placeholder="Is ketchup actually a jam?"
+          placeholder="Is ketchup technically a jam?"
           name="title"
           id="title"
+          required
           className={classes.input}
         />
       </label>
@@ -33,6 +35,7 @@ function Form({ classes, handleSubmit }) {
           type="text"
           placeholder="Required"
           name="option"
+          required
           aria-labelledby="option"
           className={classes.input}
         />
@@ -40,6 +43,7 @@ function Form({ classes, handleSubmit }) {
           type="text"
           placeholder="Required"
           name="option"
+          required
           aria-labelledby="option"
           className={classes.input}
         />
@@ -80,7 +84,9 @@ function Form({ classes, handleSubmit }) {
           </select>
         </label> */}
 
-      <Button type="submit">Create</Button>
+      <Button disabled={submitting} type="submit">
+        Create
+      </Button>
       {/* <button type="submit" className={classes.button}>
           Create
         </button> */}

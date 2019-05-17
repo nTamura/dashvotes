@@ -1,55 +1,50 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
 import withStyles from 'react-jss'
-import Button from 'components/Common/Button'
-import Form from 'components/Views/Create/Form'
+import FormContainer from 'components/Views/Create/FormContainer'
+import ThanksCreate from 'components/Views/Create/ThanksCreate'
+import { createPoll } from 'store/actions/pollsActions'
+import { connect } from 'react-redux'
 
-function Container({ classes }) {
-  const handleSubmit = e => {
-    e.preventDefault()
-    const form = e.target
-    const data = new FormData(form)
-    const template = {
-      title: data.get('title'),
-      description: data.get('description'),
-      options: data.getAll('option').filter(p => p !== ''),
-      createdBy: 'user.username',
-      createdAt: Date.now(),
-      expireAt: '',
-      isPublic: true,
-    }
-    console.table('Form', template)
-    // ...post to db, fireRedirect, update polls list
+function Container({ classes, auth, pid, submitting, createPoll }) {
+  const formSubmit = async form => {
+    await createPoll(form)
+    // } else {
+    // dispatch form error
+    // console.log('error')
+    // }
   }
 
   return (
     <div className={classes.root}>
-      <h2>Trending</h2>
-      <p className={classes.tips}>Tips:</p>
-      <ul>
-        <li className={classes.tipTxt}>Keep title and options concice</li>
-        <li className={classes.tipTxt}>Provide context if needed</li>
-      </ul>
-
-      <Form handleSubmit={handleSubmit} />
+      {/* pid acts as successfully submitted, after retrieving id from firestore */}
+      {!pid ? (
+        <FormContainer
+          auth={auth}
+          submitting={submitting}
+          formSubmit={formSubmit}
+        />
+      ) : (
+        <ThanksCreate pid={pid} />
+      )}
     </div>
   )
 }
 const styles = {
   root: {},
-  tips: {
-    marginBottom: 0,
-  },
-  tipTxt: {
-    fontStyle: 'italic',
-  },
-  field: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  menuList: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
 }
-export default withStyles(styles)(Container)
+
+const mapDispatchToProps = dispatch => ({
+  createPoll: poll => dispatch(createPoll(poll)),
+})
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  pid: state.polls.pid,
+  submitting: state.polls.submitting,
+})
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Container)
+)
