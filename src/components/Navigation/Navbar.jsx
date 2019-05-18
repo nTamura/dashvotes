@@ -5,13 +5,14 @@ import logo from 'assets/dashSm.png'
 import NavMenu from 'components/Navigation/NavMenu'
 import { connect } from 'react-redux'
 
-function Navbar({ classes, userExists }) {
+function Navbar({ classes, profile, userExists, ...props }) {
+  console.log(profile)
   return (
     <nav className={classes.root}>
       <Link to="/">
         <img src={logo} className={classes.logo} alt="Dash Logo" />
       </Link>
-      {userExists ? <NavMenu /> : <Link to="/">Sign in</Link>}
+      {userExists ? <NavMenu profile={profile} /> : <Link to="/">Sign in</Link>}
     </nav>
   )
 }

@@ -3,12 +3,10 @@ import { Link, withRouter } from 'react-router-dom'
 import withStyles from 'react-jss'
 import { Transition } from 'react-transition-group'
 import HamburgerMenu from 'react-hamburger-menu'
-import { signOut } from 'store/actions/authActions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
-import { connect } from 'react-redux'
 
-function NavMenu({ classes, signOut, ...props }) {
+function NavMenu({ classes, signOut, profile }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const handleSignout = () => {
@@ -51,7 +49,7 @@ function NavMenu({ classes, signOut, ...props }) {
                 ...transitionStyles[state],
               }}
             >
-              <p className={classes.menuItem}>Hi Nic</p>
+              <p className={classes.menuItem}>{`Hi ${profile.fname}`}</p>
               <hr />
               <Link
                 to="/activity"
@@ -137,20 +135,5 @@ const styles = {
     },
   },
 }
-// export default withStyles(styles)(withRouter(NavMenu))
 
-const mapStateToProps = state => {
-  // get user for username
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    signOut: () => dispatch(signOut()),
-  }
-}
-
-export default withStyles(styles)(
-  connect(
-    null,
-    mapDispatchToProps
-  )(withRouter(NavMenu))
-)
+export default withStyles(styles)(withRouter(NavMenu))
