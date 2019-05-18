@@ -34,3 +34,10 @@ export const titleCase = str => {
     .map(v => v.charAt(0).toUpperCase() + v.substr(1).toLowerCase())
     .join(' ')
 }
+
+export const initial = name => {
+  const n = name.split(' ')
+  const fname = n.shift()
+  const lname = n.map(s => s.charAt(0).toUpperCase()).join(' ')
+  return `${fname} ${lname}`
+}

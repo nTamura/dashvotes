@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "firebase": "^6.0.2",
     "local-storage": "^2.0.0",
+    "luxon": "^1.13.2",
     "react": "^16.8.6",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
