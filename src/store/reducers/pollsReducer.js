@@ -23,6 +23,11 @@ const pollsReducer = (state = initState, action) => {
         ...state,
         poll: action.payload,
       }
+    case 'TRY_FETCH_POLL':
+      return {
+        ...state,
+        poll: null,
+      }
     case 'FETCH_POLL_NOT_FOUND':
       return {
         ...state,
@@ -53,6 +58,10 @@ const pollsReducer = (state = initState, action) => {
         pollsMessage: 'Submitting...',
         pid: null,
         submitting: true,
+      }
+    case 'CLEAR_PID':
+      return {
+        pid: null,
       }
     default:
       return state

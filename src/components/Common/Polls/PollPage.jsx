@@ -3,20 +3,38 @@ import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
 import Share from 'components/Common/Share'
 import toDate from 'helpers/toDate'
+import { fetchPoll } from 'store/actions/pollsActions'
 import { connect } from 'react-redux'
+import NotFound from 'components/Common/Polls/NotFound'
 
-function PollPage({ classes, ...props }) {
-  const [poll, setPoll] = useState()
+function PollPage({
+  classes,
+  fetchPoll,
+  match,
+  uid,
+  pollsMessage,
+  poll,
+  pollNotFound,
+}) {
+  const [loading, setLoading] = useState(true)
+  const [signedIn, setSignedIn] = useState()
 
   useEffect(() => {
     getPoll()
-  }, [])
+    checkAuth()
+  }, [uid])
 
-  const getPoll = () => {
-    const { match, polls } = props
+  const getPoll = async () => {
     const { id } = match.params
-    const found = polls.find(p => p.id === Number(id))
-    setPoll(found)
+    await fetchPoll(id)
+    setLoading(false)
+  }
+  const checkAuth = () => {
+    if (uid) {
+      setSignedIn(true)
+    } else {
+      setSignedIn(false)
+    }
   }
 
   const handleSubmit = e => {
@@ -34,35 +52,41 @@ function PollPage({ classes, ...props }) {
 
   return (
     <div className={classes.root}>
-      {poll && (
+      {!loading && poll && (
         <>
           <div className={classes.flex}>
             <h2>{poll.title}</h2>
-            <p>Poll Description to provide context for the poll</p>
+            <p>{poll.description}</p>
             <form className={classes.form} onSubmit={handleSubmit}>
               {poll.options.map((item, i) => (
-                <label key={i} htmlFor="option" className={classes.radioLabel}>
+                <label key={i} htmlFor={item} className={classes.radioLabel}>
                   <input
                     type="radio"
                     value={item}
+                    id={item}
                     name="option"
-                    aria-labelledby="option"
+                    aria-label={item}
                     className={classes.radioButton}
                   />
                   {item}
                 </label>
               ))}
-              <Button type="submit">Vote</Button>
+              {!signedIn && <p>You must be signed in to vote!</p>}
+              <Button disabled={!signedIn} type="submit">
+                Vote
+              </Button>
               <Share />
             </form>
           </div>
           <div className={classes.metaInfo}>
             <span className={classes.metaText}>
-              {`Author: ${poll.createdBy}`}
+              {`Author: ${poll.createdBy.displayName}`}
             </span>
-            <span className={classes.metaText}>{`Poll ID: ${poll.id}`}</span>
             <span className={classes.metaText}>
               {`Created: ${toDate(poll.createdAt)}`}
+            </span>
+            <span className={classes.metaText}>
+              {`Poll ID: ${match.params.id}`}
             </span>
           </div>
           {/* { hasVoted &&
@@ -73,6 +97,7 @@ function PollPage({ classes, ...props }) {
           } */}
         </>
       )}
+      {pollNotFound && <NotFound />}
     </div>
   )
 }
@@ -106,6 +131,18 @@ const styles = {
   },
   metaText: { color: 'rgba(255,255,255,0.4)' },
 }
-const mapStateToProps = state => ({ polls: state.polls.polls })
+const mapStateToProps = state => ({
+  uid: state.firebase.auth.uid,
+  poll: state.polls.poll,
+  pollNotFound: state.polls.pollNotFound,
+  pollsMessage: state.polls.poll,
+})
 
-export default connect(mapStateToProps)(withStyles(styles)(PollPage))
+const mapDispatchToProps = dispatch => ({
+  fetchPoll: id => dispatch(fetchPoll(id)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(PollPage))

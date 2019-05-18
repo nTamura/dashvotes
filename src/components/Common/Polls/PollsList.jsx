@@ -3,17 +3,22 @@ import { withRouter } from 'react-router-dom'
 import withStyles from 'react-jss'
 import PollsListItem from 'components/Common/Polls/PollsListItem'
 
-import { connect } from 'react-redux'
-
-function PollsList({ classes, ...props }) {
-  const { polls } = props
+function PollsList({ classes, polls, ...props }) {
   return (
     <div className={classes.root}>
+      {polls.length === 0 && (
+        <div className={classes.errorContainer}>
+          <p>Sorry, there is currently nothing here.</p>
+          <p>
+            There may be a problem with the database, or there are currently no
+            polls posted. Just be calm and stop freaking out.
+          </p>
+        </div>
+      )}
       <div className={classes.menuList}>
-        {polls &&
-          polls.map(poll => {
-            return <PollsListItem key={poll.id} />
-          })}
+        {polls.map(poll => (
+          <PollsListItem key={poll.id} poll={poll} />
+        ))}
       </div>
     </div>
   )
@@ -24,10 +29,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
+  errorContainer: {
+    textAlign: 'center',
+    marginTop: '45%',
+  },
 }
 
-const mapStateToProps = state => ({ polls: state.polls.polls })
-
-export default withRouter(
-  connect(mapStateToProps)(withStyles(styles)(PollsList))
-)
+export default withRouter(withStyles(styles)(PollsList))
