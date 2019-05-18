@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import withStyles from 'react-jss'
 import PollsList from 'components/Common/Polls/PollsList'
+import SortMenu from 'components/Views/Trending/SortMenu'
 import Loading from 'components/Common/Loading'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
@@ -15,50 +16,30 @@ function Container({ classes, polls, ...props }) {
     setShowMenu(!showMenu)
   }
   const sortBy = e => {
+    setShowMenu(false)
     const query = e.target.id
+    console.log(query)
     // sort polls by query
   }
   return (
     <div className={classes.root}>
+      {console.log(polls)}
       <h2>Trending</h2>
       <div className={classes.flex}>
         <p>Browsing top polls</p>
         <button type="button" className={classes.sortBy} onClick={toggleMenu}>
-          Sort by <FontAwesomeIcon icon={faSortDown} className={classes.icon} />
+          Sort by
+          <FontAwesomeIcon icon={faSortDown} className={classes.icon} />
         </button>
-        {!showMenu && (
-          <div className={classes.menu}>
-            <ul className={classes.menuList}>
-              <li
-                id="popularity"
-                className={classes.menuItem}
-                onClick={e => {
-                  sortBy(e)
-                }}
-              >
-                Popularity
-              </li>
-              <li
-                id="newest"
-                className={classes.menuItem}
-                onClick={e => {
-                  sortBy(e)
-                }}
-              >
-                Newest
-              </li>
-              <li
-                id="oldest"
-                className={classes.menuItem}
-                onClick={e => {
-                  sortBy(e)
-                }}
-              >
-                Oldest
-              </li>
-            </ul>
-          </div>
+
+        {showMenu && (
+          <div
+            className={classes.overlay}
+            role="presentation"
+            onClick={toggleMenu}
+          />
         )}
+        {showMenu && <SortMenu toggleMenu={toggleMenu} sortBy={sortBy} />}
       </div>
       {polls ? <PollsList polls={polls} /> : <Loading />}
     </div>
@@ -72,22 +53,14 @@ const styles = {
     alignItems: 'center',
     position: 'relative',
   },
-  menu: {
-    position: 'absolute',
-    backgroundColor: '#444661',
+  overlay: {
+    position: 'fixed',
+    top: 0,
     right: 0,
-    top: 38,
-    borderRadius: 5,
+    bottom: 0,
+    left: 0,
+    zIndex: 1,
   },
-  menuList: {
-    padding: 0,
-  },
-  menuItem: {
-    padding: 8,
-    margin: 16,
-    listStyle: 'none',
-  },
-
   sortBy: {
     color: '#FFF',
     margin: 0,
@@ -99,7 +72,6 @@ const styles = {
   },
 }
 const mapStateToProps = state => {
-  // console.log(state)
   return { polls: state.firestore.ordered.polls }
 }
 
