@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom'
 import logo from 'assets/dashSm.png'
 import NavMenu from 'components/Navigation/NavMenu'
 import { connect } from 'react-redux'
+import { signOut } from 'store/actions/authActions'
 
-function Navbar({ classes, profile, userExists, ...props }) {
-  console.log(profile)
+function Navbar({ classes, profile, userExists, signOut }) {
   return (
     <nav className={classes.root}>
       <Link to="/">
         <img src={logo} className={classes.logo} alt="Dash Logo" />
       </Link>
-      {userExists ? <NavMenu profile={profile} /> : <Link to="/">Sign in</Link>}
+      {userExists ? (
+        <NavMenu signOut={signOut} profile={profile} />
+      ) : (
+        <Link to="/">Sign in</Link>
+      )}
     </nav>
   )
 }
@@ -30,6 +34,10 @@ const styles = {
   },
 }
 
+const mapDispatchToProps = dispatch => ({
+  signOut: () => dispatch(signOut()),
+})
+
 const mapStateToProps = state => {
   return {
     userExists: state.firebase.auth.uid,
@@ -37,4 +45,9 @@ const mapStateToProps = state => {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps)(Navbar))
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Navbar)
+)
