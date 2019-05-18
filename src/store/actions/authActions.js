@@ -1,3 +1,5 @@
+import { initial } from 'helpers/strMethods'
+
 export const signIn = user => (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase()
   dispatch({ type: 'SIGNIN_TRY' })
@@ -25,32 +27,36 @@ export const signInAuth = () => (
     .auth()
     .signInWithPopup(provider)
     .then(u => {
-      if (u.user.uid) {
-        dispatch({ type: 'SIGNIN_SUCCESS' })
-      } else {
-        return firestore
-          .collection('users')
-          .doc(u.user.uid)
-          .set({
-            fname: u.user.displayName.split(' ').shift(),
-            lname: u.user.displayName
-              .split(' ')
-              .slice(1)
-              .join(' '),
-            email: u.user.email,
-            displayName: u.user.displayName,
-            votedOn: [],
-            pollsCreated: [],
-            score: 0,
-          })
-          .then(() => {
+      firestore
+        .collection('users')
+        .doc(u.user.uid)
+        .get()
+        .then(docSnapshot => {
+          if (docSnapshot.exists) {
             dispatch({ type: 'SIGNIN_SUCCESS' })
-          })
-          .catch(err => {
-            console.log('Signin popup create profile failed')
-            dispatch({ type: 'SIGNIN_FAIL', err })
-          })
-      }
+          } else {
+            firestore
+              .collection('users')
+              .doc(u.user.uid)
+              .set({
+                fname: u.user.displayName.split(' ').shift(),
+                lname: u.user.displayName
+                  .split(' ')
+                  .slice(1)
+                  .join(' '),
+                email: u.user.email,
+                displayName: initial(u.user.displayName),
+                votedOn: [],
+                pollsCreated: [],
+                score: 0,
+              })
+            dispatch({ type: 'SIGNIN_SUCCESS' })
+          }
+        })
+        .catch(err => {
+          console.log('Signin popup create profile failed')
+          dispatch({ type: 'SIGNIN_FAIL', err })
+        })
     })
     .catch(err => {
       console.log('Signin popup failed')
