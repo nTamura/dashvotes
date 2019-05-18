@@ -4,24 +4,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShare } from '@fortawesome/free-solid-svg-icons'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-function Share({ classes, ...rest }) {
+function Share({ classes, pid }) {
   const [copied, setCopied] = useState(false)
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    return () => setCopied(false)
+  }, [])
 
   const handleOnCopy = () => {
     setCopied(true)
-    setTimeout(() => {
-      setCopied(false)
-    }, 3000)
   }
+
+  const normalizeURL = url => {}
 
   return (
     <div className={classes.root}>
-      <CopyToClipboard
-        text={window.location.href}
-        onCopy={() => handleOnCopy()}
-      >
+      <CopyToClipboard text={pid || window.location.href} onCopy={handleOnCopy}>
         <button type="button" className={classes.button}>
           {!copied ? (
             <span>

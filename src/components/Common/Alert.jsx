@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import { connect } from 'react-redux'
 
-const Alert = ({ classes, authMessage, dismiss }) => {
+const Alert = ({ classes, authMessage, pollsMessage, dismiss }) => {
   const [alert, setAlert] = useState('custom/fields-missing')
-  // timeout hide after 3
+  const message = authMessage || pollsMessage
+
   useEffect(() => {
-    setMessage(authMessage)
-  }, [authMessage])
+    setMessage(message)
+  }, [message])
 
   const setMessage = msg => {
     console.log('Alert:', msg)
@@ -16,35 +17,13 @@ const Alert = ({ classes, authMessage, dismiss }) => {
       setAlert(null)
       // also update store to clear error
     }, 3500)
-
-    //   switch (err) {
-    //     case 'custom/fields-missing':
-    //       return setErrorMsg('Missing first or last name.')
-    //   }
-    // const msg = err.code || err.message
-    // switch (msg) {
-    //   case 'custom/fields-missing':
-    //     return setErrorMsg('Missing first or last name.')
-    //   case 'custom/fields-too-short':
-    //     return setErrorMsg('First or last name too short.')
-    //   case 'auth/invalid-email':
-    //     return setErrorMsg('Invalid email.')
-    //   case 'auth/email-already-in-use':
-    //     return setErrorMsg('Email already in use.')
-    //   case 'auth/weak-password':
-    //     return setErrorMsg('Password requirements not met')
-    //   default:
-    //     return 'Problem with authentication service.'
-    // }
   }
 
   return (
     <>
       {alert && (
         <div className={classes.root}>
-          <p className={classes.message} onClick={() => console.log('dismiss')}>
-            {alert}
-          </p>
+          <p className={classes.message}>{alert}</p>
         </div>
       )}
     </>
@@ -71,10 +50,9 @@ const styles = {
   // },
 }
 
-const mapStateToProps = state => {
-  return {
-    authMessage: state.auth.authMessage,
-  }
-}
+const mapStateToProps = state => ({
+  authMessage: state.auth.authMessage,
+  pollsMessage: state.polls.pollsMessage,
+})
 
 export default withStyles(styles)(connect(mapStateToProps)(Alert))
