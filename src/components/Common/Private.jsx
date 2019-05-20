@@ -1,13 +1,13 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { connect } from 'react-redux'
-import Entry from 'components/Auth/Entry'
+import Auth from 'components/Views/Auth'
 
 const Private = ({ component: RouteComponent, userExists, ...rest }) => (
   <Route
     {...rest}
     render={routeProps =>
-      userExists ? <RouteComponent {...routeProps} /> : <Entry />
+      userExists ? <RouteComponent {...routeProps} /> : <Auth />
     }
   />
 )

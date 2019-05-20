@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import { withRouter } from 'react-router-dom'
-import Default from 'components/Auth/Default'
+import Default from 'components/Views/Auth/Default'
 import Alert from 'components/Common/Alert'
-import SignInForm from 'components/Auth/SignInForm'
-import SignUpForm from 'components/Auth/SignUpForm'
+import SignInForm from 'components/Views/Auth/SignInForm'
+import SignUpForm from 'components/Views/Auth/SignUpForm'
 // import app from 'config/firebaseConfig'
 
 import { connect } from 'react-redux'
 import { signUp, signIn, signInAuth } from 'store/actions/authActions'
 
-function Entry({ classes, location, signUp, signIn, signInAuth, signingIn }) {
+function Container({
+  classes,
+  location,
+  signUp,
+  signIn,
+  signInAuth,
+  signingIn,
+}) {
   const [formShow, setFormShow] = useState(undefined)
   // const [error, setError] = useState()
 
@@ -111,5 +118,5 @@ export default withStyles(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Entry)
+  )(Container)
 )
