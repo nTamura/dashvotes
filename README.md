@@ -3,7 +3,7 @@
 
 # DashVotes
 
-DashVotes is a mobile PWA which allows users to create and vote on polls. The votes will be collected and shown in a visual representation. You can share your (or other's) polls and get instant feedback from the results.
+Dashvotes is a mobile PWA which allows users to create and vote on polls. The votes will be collected and shown in a visual representation. You can share your (or other's) polls and get instant feedback from the results.
 
 <!-- ![screen](https://raw.githubusercontent.com/nTamura/dashvotes/master/public/img/screen1.png) -->
 
@@ -14,15 +14,25 @@ Dashvotes is created with React, Firebase/Firestore, Redux, Recharts and JSS.
 ## Data structure
 
 ```
-APP
-  └─polls
-    └─pollId
-      ├─pollData
-      └─results: [array of userVotes]
-  └─users
+firestore
+ ├─polls
+ │  └─pollId
+ │     ├─createdBy: uid
+ │     ├─pollTitle: str
+ │     ├─pollInfo: str
+ │     ├─pollOptions: [array]
+ │     └─results: [array of options]
+ │        └─option
+ │           └─vote: { userName, uid }
+ └─users
     └─userId
-      ├─userName
-      └─userEmail
+      ├─displayName: str
+      ├─fName: str
+      ├─lName: str
+      ├─email: str
+      ├─pollsCreated: [array of pid]
+      ├─pollsVoted: [array of pid]
+      └─score
 ```
 
 Data is posted to Cloud Firestore, synced with Firebase auth service.
@@ -31,6 +41,7 @@ Data is posted to Cloud Firestore, synced with Firebase auth service.
 
 ## Todo
 
+- extend client side form validation
 - voter can only vote once
 - voter can change vote (overwrite)
 - creator cannot vote on own polls
