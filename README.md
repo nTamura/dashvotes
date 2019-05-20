@@ -1,9 +1,8 @@
-`Original version has been scrapped and is being completely redone.`
-`Deployed app may be unstable or broken at this time.`
+`Original version has been scrapped and is being completely redone with hooks, Redux, and JSS. Deployed app may be unstable or broken at this time.`
 
 # DashVotes
 
-Dashvotes is a mobile PWA which allows users to create and vote on polls. The votes will be collected and shown in a visual representation. You can share your (or other's) polls and get instant feedback from the results.
+Dashvotes is a mobile PWA which allows users to create and vote on polls. You can share your (or other's) polls and get instant feedback from the results.
 
 <!-- ![screen](https://raw.githubusercontent.com/nTamura/dashvotes/master/public/img/screen1.png) -->
 
@@ -17,10 +16,14 @@ Dashvotes is created with React, Firebase/Firestore, Redux, Recharts and JSS.
 firestore
  ├─polls
  │  └─pollId
- │     ├─createdBy: uid
- │     ├─pollTitle: str
- │     ├─pollInfo: str
- │     ├─pollOptions: [array]
+ │     ├─pid
+ │     ├─createdBy: { displayName, uid}
+ │     ├─createdAt: timestamp
+ │     ├─title: str
+ │     ├─description: str
+ │     ├─expireAt: timestamp
+ │     ├─isPublic: bool
+ │     ├─options: [array]
  │     └─results: [array of options]
  │        └─option
  │           └─vote: { userName, uid }
@@ -41,6 +44,8 @@ Data is posted to Cloud Firestore, synced with Firebase auth service.
 
 ## Todo
 
+- private polls viewable to only user with invite
+- poll expiration date
 - extend client side form validation
 - voter can only vote once
 - voter can change vote (overwrite)
