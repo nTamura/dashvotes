@@ -5,7 +5,11 @@ import logo from 'assets/logo.png'
 function Default({ classes, setFormShow }) {
   return (
     <div className={classes.root}>
-      <img src={logo} alt="logo" className={classes.logo} />
+      <div className={[classes.outer, classes.ripple].join(' ')}>
+        <div className={[classes.inner, classes.ripple].join(' ')}>
+          <img src={logo} alt="logo" className={classes.logo} />
+        </div>
+      </div>
       <h1 className={classes.title}>DASHVOTES</h1>
       <p className={classes.text}>
         Please
@@ -31,10 +35,6 @@ function Default({ classes, setFormShow }) {
 
 const styles = {
   root: { textAlign: 'center' },
-  logo: {
-    margin: 32,
-    width: 180,
-  },
   title: {
     fontWeight: 'lighter',
     margin: 0,
@@ -49,6 +49,45 @@ const styles = {
     fontStyle: 'oblique',
     fontWeight: 'bold',
   },
+  logo: {
+    maxWidth: 180,
+    padding: 8,
+    borderRadius: '50%',
+    boxShadow: '0 0 0 rgba(255,255,255, 1)',
+    animation: 'ripple 3s linear infinite',
+  },
+  ripple: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    borderRadius: '50%',
+    boxShadow: '0 0 0 rgba(255,255,255, 1)',
+  },
+  outer: {
+    margin: 16,
+    padding: 24,
+    animation: 'ripple 3s .2s linear infinite',
+  },
+  inner: {
+    padding: 24,
+    animation: 'ripple 3s .1s linear infinite',
+  },
+  // '@keyframes pulse': {
+  //   '0%': { boxShadow: '0 0 0 0 rgba(255,255,255, 0.4)' },
+  //   '70%': { boxShadow: '0 0 0 10px rgba(204,169,44, 0)' },
+  //   '100%': { boxShadow: '0 0 0 0 rgba(204,169,44, 0)' },
+  // },
+
+  '@keyframes ripple': {
+    '0%': { boxShadow: '0 0 0 0 rgba(255,255,255, 0.4)' },
+    '70%': { boxShadow: '0 0 0 6px rgba(255,255,255, 0)' },
+    '100%': { boxShadow: '0 0 0 0 rgba(255,255,255, 0)' },
+  },
+
+  // '@keyframes heart': {
+  //   '0%': { transform: 'scale(1)' },
+  //   '50%': { transform: 'scale(1.1)' },
+  //   '100%': { transform: 'scale(1)' },
+  // },
 }
 
 export default withStyles(styles)(Default)
