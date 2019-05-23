@@ -30,10 +30,9 @@ function SignInForm({
         <label htmlFor="email" className={classes.label}>
           Email
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
-            type="email"
             className={classes.input}
           />
         </label>

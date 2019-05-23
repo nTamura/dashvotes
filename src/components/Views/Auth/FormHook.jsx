@@ -2,13 +2,27 @@ import React, { useState, useEffect } from 'react'
 // import { validateFields } from 'helpers/validator'
 import { capitalize, lowercase } from 'helpers/strMethods'
 
-function FormHook(initialState, validateFields) {
+function FormHook(initialState, validateFields, triggerAuthError) {
   const [values, setValues] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [hasValue, setHasValue] = useState(false)
 
   useEffect(() => {
+    checkErrors()
+    if (errors) {
+      console.log(Object.entries(errors)[0])
+      // const error = Object.entries(errors)[0]
+      // console.log(error)
+      // triggerAuthError(error)
+    }
+  }, [errors])
+
+  useEffect(() => {
+    checkValues()
+  }, [values])
+
+  const checkErrors = () => {
     if (submitting) {
       if (!Object.keys(errors).length) {
         console.log('registering', values.fname, values.lname, values.email)
@@ -17,7 +31,16 @@ function FormHook(initialState, validateFields) {
         setSubmitting(false)
       }
     }
-  }, [errors])
+  }
+
+  const checkValues = () => {
+    const checkHasValue = Object.values(values).every(i => i != '')
+    if (checkHasValue) {
+      setHasValue(true)
+    } else {
+      setHasValue(false)
+    }
+  }
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -25,19 +48,6 @@ function FormHook(initialState, validateFields) {
       ...values,
       [name]: value,
     })
-
-    const checkHasValue = Object.values(values).every(i => i.length)
-
-    if (checkHasValue) {
-      console.log('has')
-
-      setHasValue(true)
-    } else {
-      console.log('doesnt ')
-      console.log(values)
-
-      setHasValue(false)
-    }
   }
 
   function handleBlur() {

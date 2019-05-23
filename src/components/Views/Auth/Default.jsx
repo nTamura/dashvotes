@@ -61,22 +61,15 @@ const styles = {
     alignItems: 'center',
     borderRadius: '50%',
     boxShadow: '0 0 0 rgba(255,255,255, 1)',
+    padding: 24,
   },
   outer: {
     margin: 16,
-    padding: 24,
     animation: 'ripple 3s .2s linear infinite',
   },
   inner: {
-    padding: 24,
     animation: 'ripple 3s .1s linear infinite',
   },
-  // '@keyframes pulse': {
-  //   '0%': { boxShadow: '0 0 0 0 rgba(255,255,255, 0.4)' },
-  //   '70%': { boxShadow: '0 0 0 10px rgba(204,169,44, 0)' },
-  //   '100%': { boxShadow: '0 0 0 0 rgba(204,169,44, 0)' },
-  // },
-
   '@keyframes ripple': {
     '0%': { boxShadow: '0 0 0 0 rgba(255,255,255, 0.4)' },
     '70%': { boxShadow: '0 0 0 6px rgba(255,255,255, 0)' },

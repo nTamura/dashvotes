@@ -8,7 +8,12 @@ import SignUpForm from 'components/Views/Auth/SignUpForm'
 // import app from 'config/firebaseConfig'
 
 import { connect } from 'react-redux'
-import { signUp, signIn, signInAuth } from 'store/actions/authActions'
+import {
+  signUp,
+  signIn,
+  signInAuth,
+  triggerAuthError,
+} from 'store/actions/authActions'
 
 function Container({
   classes,
@@ -17,6 +22,7 @@ function Container({
   signIn,
   signInAuth,
   signingIn,
+  triggerAuthError,
 }) {
   const [formShow, setFormShow] = useState(undefined)
   // const [error, setError] = useState()
@@ -26,13 +32,14 @@ function Container({
     signInAuth()
   }
   const handleSignIn = user => {
-    try {
-      console.log('trying')
+    console.log(user)
 
-      signIn(user)
-    } catch (err) {
-      console.log(err)
-    }
+    // try {
+    //   console.log('trying')
+    //   signIn(user)
+    // } catch (err) {
+    //   console.log(err)
+    // }
   }
 
   const handleSignUp = user => {
@@ -57,6 +64,7 @@ function Container({
             handleSignIn={handleSignIn}
             authProvider={authProvider}
             signingIn={signingIn}
+            triggerAuthError={triggerAuthError}
             cancel={cancel}
           />
         )
@@ -66,6 +74,7 @@ function Container({
             handleSignUp={handleSignUp}
             authProvider={authProvider}
             signingIn={signingIn}
+            triggerAuthError={triggerAuthError}
             cancel={cancel}
           />
         )
@@ -112,6 +121,7 @@ const mapDispatchToProps = dispatch => {
     signUp: user => dispatch(signUp(user)),
     signIn: user => dispatch(signIn(user)),
     signInAuth: () => dispatch(signInAuth()),
+    triggerAuthError: () => dispatch(triggerAuthError()),
   }
 }
 export default withStyles(styles)(

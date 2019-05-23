@@ -19,6 +19,7 @@ function SignUpForm({
   classes,
   handleSignUp,
   // handleSubmit,
+  triggerAuthError,
   signingIn,
   authProvider,
   cancel,
@@ -31,7 +32,7 @@ function SignUpForm({
     errors,
     hasValue,
     values,
-  } = FormHook(INIT_STATE, validateFields)
+  } = FormHook(INIT_STATE, validateFields, triggerAuthError)
   // const handleSubmit = e => {
   //   e.preventDefault()
   //   const form = e.target
@@ -118,7 +119,6 @@ function SignUpForm({
             placeholder="6 character minimum"
             className={classes.input}
           />
-          {errors.password && <p>{errors.password}</p>}
         </label>
         <Button type="submit" disabled={!hasValue || signingIn}>
           <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
@@ -132,7 +132,8 @@ function SignUpForm({
       <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
       </button>
-      {/* <pre>{JSON.stringify({ state }, null, 2)}</pre> */}
+      <pre>{JSON.stringify({ errors }, null, 2)}</pre>
+      <pre>{}</pre>
     </>
   )
 }
