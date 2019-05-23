@@ -2,35 +2,67 @@ import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
 import { capitalize, lowercase } from 'helpers/strMethods'
+import { validateFields } from 'helpers/validator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import FormHook from 'components/Views/Auth/FormHook'
+
+const INIT_STATE = {
+  fname: '',
+  lname: '',
+  email: '',
+  password: '',
+}
 
 function SignUpForm({
   classes,
   handleSignUp,
+  // handleSubmit,
   signingIn,
   authProvider,
   cancel,
 }) {
-  const handleSubmit = e => {
-    e.preventDefault()
-    const form = e.target
-    const data = new FormData(form)
-    const user = {
-      fname: capitalize(data.get('fname')),
-      lname: capitalize(data.get('lname')),
-      email: lowercase(data.get('email')),
-      password: data.get('password'),
-    }
-    // console.log(user)
-    handleSignUp(user)
-  }
+  const {
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    submitting,
+    errors,
+    hasValue,
+    values,
+  } = FormHook(INIT_STATE, validateFields)
+  // const handleSubmit = e => {
+  //   e.preventDefault()
+  //   const form = e.target
+  //   const data = new FormData(form)
+  //   const user = {
+  //     fname: capitalize(data.get('fname')),
+  //     lname: capitalize(data.get('lname')),
+  //     email: lowercase(data.get('email')),
+  //     password: data.get('password'),
+  //   }
+  //   console.log(user)
+  //   // handleSignUp(user)
+  // }
+
+  // const handleForm = e => {
+  //   let err = {}
+  //   e.preventDefault()
+  //   const form = e.target
+  //   const data = new FormData(form)
+  //   const user = {
+  //     fname: capitalize(data.get('fname')),
+  //     lname: capitalize(data.get('lname')),
+  //     email: lowercase(data.get('email')),
+  //     password: data.get('password'),
+  //   }
+  //   console.log(user)
+  // }
 
   return (
     <>
       <h2>Register</h2>
-
       <form onSubmit={handleSubmit} className={classes.root}>
         <label htmlFor="fname" className={classes.label}>
           First name
@@ -38,7 +70,10 @@ function SignUpForm({
             type="text"
             name="fname"
             id="fname"
-            required
+            onChange={handleChange}
+            autoComplete="off"
+            // onBlur={handleBlur}
+            value={values.fname}
             className={classes.input}
           />
         </label>
@@ -48,7 +83,10 @@ function SignUpForm({
             type="text"
             name="lname"
             id="lname"
-            required
+            onChange={handleChange}
+            autoComplete="off"
+            // onBlur={handleBlur}
+            value={values.lname}
             className={classes.input}
           />
         </label>
@@ -59,7 +97,10 @@ function SignUpForm({
             type="text"
             name="email"
             id="email"
-            required
+            onChange={handleChange}
+            autoComplete="off"
+            // onBlur={handleBlur}
+            value={values.email}
             placeholder="Valid email requried for verification"
             className={classes.input}
           />
@@ -71,12 +112,15 @@ function SignUpForm({
             type="password"
             name="password"
             id="password"
-            required
+            onChange={handleChange}
+            // onBlur={handleBlur}
+            value={values.password}
             placeholder="6 character minimum"
             className={classes.input}
           />
+          {errors.password && <p>{errors.password}</p>}
         </label>
-        <Button type="submit" disabled={signingIn}>
+        <Button type="submit" disabled={!hasValue || signingIn}>
           <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
           Create account
         </Button>
@@ -88,6 +132,7 @@ function SignUpForm({
       <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
       </button>
+      {/* <pre>{JSON.stringify({ state }, null, 2)}</pre> */}
     </>
   )
 }

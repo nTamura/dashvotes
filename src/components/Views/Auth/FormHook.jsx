@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { validateName, validateEmail, validatePw } from 'helpers/validator'
+// import { validateFields } from 'helpers/validator'
 import { capitalize, lowercase } from 'helpers/strMethods'
 
-function FormHook(initialState, validate) {
-  const [values, setValues] = useState({})
+function FormHook(initialState, validateFields) {
+  const [values, setValues] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
+  const [hasValue, setHasValue] = useState(false)
 
   useEffect(() => {
     if (submitting) {
       if (!Object.keys(errors).length) {
-        console.log('no errors ')
+        console.log('registering', values.fname, values.lname, values.email)
         setSubmitting(false)
       } else {
         setSubmitting(false)
@@ -24,10 +25,25 @@ function FormHook(initialState, validate) {
       ...values,
       [name]: value,
     })
+
+    const checkHasValue = Object.values(values).every(i => i.length)
+
+    if (checkHasValue) {
+      console.log('has')
+
+      setHasValue(true)
+    } else {
+      console.log('doesnt ')
+      console.log(values)
+
+      setHasValue(false)
+    }
   }
 
   function handleBlur() {
-    setErrors(validate(values))
+    // const validationErrors = validateFields(values)
+    // console.log(validationErrors)
+    // setErrors(validationErrors)
   }
 
   function handleSubmit(e) {
@@ -40,10 +56,8 @@ function FormHook(initialState, validate) {
       email: lowercase(data.get('email')),
       password: data.get('password'),
     }
-
-    const validationErr = validate(values)
-    console.log('handle sumit from hook')
-    console.log(values.fname, values.lname)
+    setErrors(validateFields(user))
+    setSubmitting(true)
   }
 
   return {
@@ -53,6 +67,7 @@ function FormHook(initialState, validate) {
     submitting,
     errors,
     values,
+    hasValue,
   }
 }
 
