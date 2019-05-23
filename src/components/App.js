@@ -9,7 +9,7 @@ import Results from 'components/Views/Results'
 import Trending from 'components/Views/Trending'
 // import Activity from 'components/Views/Activity'
 // import Profile from 'components/Views/Profile'
-import PollPage from 'components/Common/Polls/PollPage'
+import PollPage from 'components/Views/Polls'
 import NotFound from 'components/Views/NotFound'
 import Private from 'components/Common/Private'
 
