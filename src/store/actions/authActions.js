@@ -10,7 +10,7 @@ export const signIn = user => (dispatch, getState, { getFirebase }) => {
       dispatch({ type: 'SIGNIN_SUCCESS' })
     })
     .catch(err => {
-      dispatch({ type: 'SIGNIN_FAIL', err })
+      dispatch({ type: 'SIGNIN_FAIL', payload: err.message })
     })
 }
 
@@ -56,12 +56,12 @@ export const signInAuth = () => (
         })
         .catch(err => {
           console.log('Signin popup create profile failed')
-          dispatch({ type: 'SIGNIN_FAIL', err })
+          dispatch({ type: 'SIGNIN_FAIL', payload: err.message })
         })
     })
     .catch(err => {
       console.log('Signin popup failed')
-      dispatch({ type: 'SIGNIN_FAIL', err })
+      dispatch({ type: 'SIGNIN_FAIL', payload: err.message })
     })
 }
 
@@ -98,12 +98,12 @@ export const signUp = user => (
         .catch(err => {
           console.log('user create err')
           console.log(err)
-          dispatch({ type: 'SIGNUP_FAIL', err })
+          dispatch({ type: 'SIGNUP_FAIL', payload: err.message })
         })
     )
     .catch(err => {
       console.log('fb create fail')
-      dispatch({ type: 'SIGNUP_FAIL', err: err.message })
+      dispatch({ type: 'SIGNUP_FAIL', payload: err.message })
     })
 }
 
@@ -116,11 +116,11 @@ export const signOut = () => (dispatch, getState, { getFirebase }) => {
       dispatch({ type: 'SIGNOUT_SUCCESS' })
     })
     .catch(err => {
-      dispatch({ type: 'SIGNOUT_FAIL', err })
+      dispatch({ type: 'SIGNOUT_FAIL', payload: err.message })
     })
 }
 
 export const triggerAuthError = error => (dispatch, getState) => {
   console.log('action', error)
-  dispatch({ type: 'SIGNUP_FAIL', err: error })
+  dispatch({ type: 'SIGNUP_FAIL', payload: error })
 }
