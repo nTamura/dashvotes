@@ -72,7 +72,7 @@ function SignUpForm({
             name="fname"
             id="fname"
             onChange={handleChange}
-            autoComplete="off"
+            autoComplete="new-password"
             // onBlur={handleBlur}
             value={values.fname}
             className={classes.input}
@@ -85,7 +85,7 @@ function SignUpForm({
             name="lname"
             id="lname"
             onChange={handleChange}
-            autoComplete="off"
+            autoComplete="new-password"
             // onBlur={handleBlur}
             value={values.lname}
             className={classes.input}
@@ -99,7 +99,7 @@ function SignUpForm({
             name="email"
             id="email"
             onChange={handleChange}
-            autoComplete="off"
+            autoComplete="new-password"
             // onBlur={handleBlur}
             value={values.email}
             placeholder="Valid email requried for verification"
