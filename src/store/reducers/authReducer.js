@@ -32,9 +32,11 @@ const authReducer = (state = initState, action) => {
         authMessage: 'Account created!',
       }
     case 'SIGNUP_FAIL':
+      console.log(action.payload)
       return {
         ...state,
-        authMessage: 'Problem creating account',
+        // authMessage: 'Problem creating account',
+        authMessage: action.payload,
         signingIn: false,
       }
     case 'SIGNOUT_SUCCESS':

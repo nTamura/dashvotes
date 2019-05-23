@@ -39,6 +39,7 @@ export const signInAuth = () => (
               .collection('users')
               .doc(u.user.uid)
               .set({
+                uid: u.user.uid,
                 fname: u.user.displayName.split(' ').shift(),
                 lname: u.user.displayName
                   .split(' ')
@@ -81,22 +82,28 @@ export const signUp = user => (
         .collection('users')
         .doc(u.user.uid)
         .set({
+          uid: u.user.uid,
           fname,
           lname,
           email,
           displayName: `${fname} ${lname.charAt(0)}`,
           votedOn: [],
           pollsCreated: [],
+          score: 0,
         })
         .then(() => {
+          console.log('user created')
           dispatch({ type: 'SIGNUP_SUCCESS' })
         })
         .catch(err => {
+          console.log('user create err')
+          console.log(err)
           dispatch({ type: 'SIGNUP_FAIL', err })
         })
     )
     .catch(err => {
-      dispatch({ type: 'SIGNUP_FAIL', err })
+      console.log('fb create fail')
+      dispatch({ type: 'SIGNUP_FAIL', err: err.message })
     })
 }
 
@@ -111,4 +118,9 @@ export const signOut = () => (dispatch, getState, { getFirebase }) => {
     .catch(err => {
       dispatch({ type: 'SIGNOUT_FAIL', err })
     })
+}
+
+export const triggerAuthError = error => (dispatch, getState) => {
+  console.log('action', error)
+  dispatch({ type: 'SIGNUP_FAIL', err: error })
 }
