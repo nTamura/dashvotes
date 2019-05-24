@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
-import { withRouter } from 'react-router-dom'
-import Default from 'components/Views/Auth/Default'
-import Alert from 'components/Common/Alert'
-import SignInForm from 'components/Views/Auth/SignInForm'
-import SignUpForm from 'components/Views/Auth/SignUpForm'
-// import app from 'config/firebaseConfig'
-
 import { connect } from 'react-redux'
 import {
   signUp,
@@ -14,10 +7,12 @@ import {
   signInAuth,
   triggerAuthError,
 } from 'store/actions/authActions'
+import Default from 'components/Views/Auth/Default'
+import SignInForm from 'components/Views/Auth/SignInForm'
+import SignUpForm from 'components/Views/Auth/SignUpForm'
 
 function Container({
   classes,
-  location,
   signUp,
   signIn,
   signInAuth,
@@ -25,35 +20,21 @@ function Container({
   triggerAuthError,
 }) {
   const [formShow, setFormShow] = useState(undefined)
-  // const [error, setError] = useState()
-
   const cancel = () => setFormShow(undefined)
-  const authProvider = () => {
-    signInAuth()
-  }
   const handleSignIn = user => {
     console.log(user)
 
-    // try {
-    //   console.log('trying')
-    //   signIn(user)
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    // sign in user
   }
 
   const handleSignUp = user => {
-    try {
-      signUp(user)
-      console.log('it worked')
-    } catch (err) {
-      console.log('Err', err)
+    signUp(user)
+  }
 
-      // setError(err)
-      // setTimeout(() => {
-      //   setError()
-      // }, 3500)
-    }
+  const handleAuthSign = user => {
+    console.log(user)
+
+    // sign in or sign up user with firebase
   }
 
   const showBody = () => {
@@ -62,8 +43,8 @@ function Container({
         return (
           <SignInForm
             handleSignIn={handleSignIn}
-            authProvider={authProvider}
-            signingIn={signingIn}
+            handleAuthSign={handleAuthSign}
+            // signingIn={signingIn}
             triggerAuthError={triggerAuthError}
             cancel={cancel}
           />
@@ -72,8 +53,8 @@ function Container({
         return (
           <SignUpForm
             handleSignUp={handleSignUp}
-            authProvider={authProvider}
-            signingIn={signingIn}
+            handleAuthSign={handleAuthSign}
+            // signingIn={signingIn}
             triggerAuthError={triggerAuthError}
             cancel={cancel}
           />
@@ -83,19 +64,13 @@ function Container({
     }
   }
 
-  return (
-    <div className={classes.root}>
-      {showBody()}
-      {/* {error && <Alert error={error} />} */}
-    </div>
-  )
+  return <div className={classes.root}>{showBody()}</div>
 }
+
 const styles = {
   root: {
-    // textAlign: 'left',
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
   },
   text: {
     marginTop: '1.5em',
@@ -108,6 +83,7 @@ const styles = {
     fontWeight: 'bold',
   },
 }
+
 const mapStateToProps = state => {
   return {
     authMessage: state.auth.authMessage,
@@ -121,7 +97,7 @@ const mapDispatchToProps = dispatch => {
     signUp: user => dispatch(signUp(user)),
     signIn: user => dispatch(signIn(user)),
     signInAuth: () => dispatch(signInAuth()),
-    triggerAuthError: () => dispatch(triggerAuthError()),
+    triggerAuthError: error => dispatch(triggerAuthError(error)),
   }
 }
 export default withStyles(styles)(

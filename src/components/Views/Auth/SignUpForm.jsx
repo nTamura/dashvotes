@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
 import { capitalize, lowercase } from 'helpers/strMethods'
-import { validateFields } from 'helpers/validator'
+import { validate } from 'helpers/validator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import FormHook from 'components/Views/Auth/FormHook'
 
 const INIT_STATE = {
   fname: '',
@@ -18,48 +17,61 @@ const INIT_STATE = {
 function SignUpForm({
   classes,
   handleSignUp,
-  // handleSubmit,
+  handleAuthSign,
   triggerAuthError,
   signingIn,
-  authProvider,
   cancel,
 }) {
-  const {
-    handleChange,
-    handleSubmit,
-    handleBlur,
-    submitting,
-    errors,
-    hasValue,
-    values,
-  } = FormHook(INIT_STATE, validateFields, triggerAuthError)
-  // const handleSubmit = e => {
-  //   e.preventDefault()
-  //   const form = e.target
-  //   const data = new FormData(form)
-  //   const user = {
-  //     fname: capitalize(data.get('fname')),
-  //     lname: capitalize(data.get('lname')),
-  //     email: lowercase(data.get('email')),
-  //     password: data.get('password'),
-  //   }
-  //   console.log(user)
-  //   // handleSignUp(user)
-  // }
+  const [values, setValues] = useState(INIT_STATE)
+  const [errors, setErrors] = useState({})
+  const [missingFields, setMissingFields] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  // const handleForm = e => {
-  //   let err = {}
-  //   e.preventDefault()
-  //   const form = e.target
-  //   const data = new FormData(form)
-  //   const user = {
-  //     fname: capitalize(data.get('fname')),
-  //     lname: capitalize(data.get('lname')),
-  //     email: lowercase(data.get('email')),
-  //     password: data.get('password'),
-  //   }
-  //   console.log(user)
-  // }
+  useEffect(() => {
+    checkValues()
+  }, [values])
+
+  useEffect(() => {
+    const hasErrors = Object.keys(errors).length
+    if (submitting && hasErrors) {
+      const error = errors[Object.keys(errors)[0]]
+      triggerAuthError(error)
+    } else if (submitting && !hasErrors) {
+      handleSignUp(values)
+    }
+  }, [errors])
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
+  }
+
+  const checkValues = () => {
+    // for disable submit if fields not complete
+    const checkHasValue = Object.values(values).every(i => i != '')
+    if (checkHasValue) {
+      setMissingFields(true)
+    } else {
+      setMissingFields(false)
+    }
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    const form = e.target
+    const data = new FormData(form)
+    const user = {
+      fname: capitalize(data.get('fname')),
+      lname: capitalize(data.get('lname')),
+      email: lowercase(data.get('email')),
+      password: data.get('password'),
+    }
+    setErrors(validate(user))
+    setSubmitting(true)
+  }
 
   return (
     <>
@@ -73,9 +85,8 @@ function SignUpForm({
             id="fname"
             onChange={handleChange}
             autoComplete="new-password"
-            // onBlur={handleBlur}
             value={values.fname}
-            className={classes.input}
+            className={`${classes.input} ${errors.fname && classes.error}`}
           />
         </label>
         <label htmlFor="lname" className={classes.label}>
@@ -86,9 +97,8 @@ function SignUpForm({
             id="lname"
             onChange={handleChange}
             autoComplete="new-password"
-            // onBlur={handleBlur}
             value={values.lname}
-            className={classes.input}
+            className={`${classes.input} ${errors.lname && classes.error}`}
           />
         </label>
 
@@ -100,10 +110,9 @@ function SignUpForm({
             id="email"
             onChange={handleChange}
             autoComplete="new-password"
-            // onBlur={handleBlur}
             value={values.email}
             placeholder="Valid email requried for verification"
-            className={classes.input}
+            className={`${classes.input} ${errors.email && classes.error}`}
           />
         </label>
 
@@ -114,17 +123,16 @@ function SignUpForm({
             name="password"
             id="password"
             onChange={handleChange}
-            // onBlur={handleBlur}
             value={values.password}
             placeholder="6 character minimum"
-            className={classes.input}
+            className={`${classes.input} ${errors.password && classes.error}`}
           />
         </label>
-        <Button type="submit" disabled={!hasValue || signingIn}>
+        <Button type="submit" disabled={!missingFields || signingIn}>
           <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
           Create account
         </Button>
-        <Button type="button" disabled={signingIn} onClick={authProvider}>
+        <Button type="button" disabled={signingIn} onClick={handleAuthSign}>
           <FontAwesomeIcon icon={faGoogle} className={classes.icon} />
           Register with Google
         </Button>
@@ -137,6 +145,7 @@ function SignUpForm({
     </>
   )
 }
+
 const styles = {
   root: {
     width: '100%',
@@ -149,8 +158,10 @@ const styles = {
     marginBottom: 16,
     padding: 8,
     borderRadius: 5,
-    border: 'none',
     fontSize: '1rem',
+  },
+  error: {
+    borderColor: '#ff0000',
   },
   icon: {
     float: 'left',
