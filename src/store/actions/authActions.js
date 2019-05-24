@@ -1,4 +1,4 @@
-import { initial } from 'helpers/strMethods'
+import { initial, capitalize, lowercase } from 'helpers/strMethods'
 
 export const signIn = user => (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase()
@@ -83,10 +83,10 @@ export const signUp = user => (
         .doc(u.user.uid)
         .set({
           uid: u.user.uid,
-          fname,
-          lname,
-          email,
-          displayName: `${fname} ${lname.charAt(0)}`,
+          fname: capitalize(fname),
+          lname: capitalize(lname),
+          email: lowercase(email),
+          displayName: `${capitalize(fname)} ${lname.charAt(0).toUpperCase()}`,
           votedOn: [],
           pollsCreated: [],
           score: 0,

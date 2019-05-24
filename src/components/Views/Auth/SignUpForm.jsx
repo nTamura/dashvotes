@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
-import { capitalize, lowercase } from 'helpers/strMethods'
 import { validate } from 'helpers/validator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -64,11 +63,12 @@ function SignUpForm({
     const form = e.target
     const data = new FormData(form)
     const user = {
-      fname: capitalize(data.get('fname')),
-      lname: capitalize(data.get('lname')),
-      email: lowercase(data.get('email')),
+      fname: data.get('fname'),
+      lname: data.get('lname'),
+      email: data.get('email'),
       password: data.get('password'),
     }
+    setValues(user)
     setErrors(validate(user))
     setSubmitting(true)
   }
