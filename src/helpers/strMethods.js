@@ -9,6 +9,7 @@ export const lowercase = str => {
 }
 
 export const titleCase = str => {
+  // need a case for letter 'a'
   const ommit = [
     'a',
     'an',
@@ -20,24 +21,37 @@ export const titleCase = str => {
     'at',
     'by',
     'for',
+    'the',
     'in',
+    'is',
     'of',
     'on',
     'per',
     'to',
     'via',
   ]
-  // set case for ommit strings
-  if (typeof str !== 'string') return
+  if (typeof str !== 'string') {
+    return
+  }
+
+  const firstWord = str.split(' ')[0]
+
   return str
     .split(' ')
-    .map(v => v.charAt(0).toUpperCase() + v.substr(1).toLowerCase())
+    .map(word => {
+      if (word !== firstWord && ommit.includes(word)) {
+        return word
+      } else {
+        return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase()
+      }
+    })
     .join(' ')
 }
 
-export const initial = name => {
+export const abbrev = name => {
   const n = name.split(' ')
-  const fname = n.shift()
+  let fname = n.shift()
+  fname = fname.charAt(0).toUpperCase() + fname.toLowerCase().slice(1)
   const lname = n.map(s => s.charAt(0).toUpperCase()).join(' ')
   return `${fname} ${lname}`
 }
