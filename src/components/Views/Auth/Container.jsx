@@ -22,19 +22,15 @@ function Container({
   const [formShow, setFormShow] = useState(undefined)
   const cancel = () => setFormShow(undefined)
   const handleSignIn = user => {
-    console.log(user)
-
-    // sign in user
+    signIn(user)
   }
 
   const handleSignUp = user => {
     signUp(user)
   }
 
-  const handleAuthSign = user => {
-    console.log(user)
-
-    // sign in or sign up user with firebase
+  const handleAuthSign = () => {
+    signInAuth()
   }
 
   const showBody = () => {
@@ -44,7 +40,7 @@ function Container({
           <SignInForm
             handleSignIn={handleSignIn}
             handleAuthSign={handleAuthSign}
-            // signingIn={signingIn}
+            signingIn={signingIn}
             triggerAuthError={triggerAuthError}
             cancel={cancel}
           />
@@ -54,7 +50,7 @@ function Container({
           <SignUpForm
             handleSignUp={handleSignUp}
             handleAuthSign={handleAuthSign}
-            // signingIn={signingIn}
+            signingIn={signingIn}
             triggerAuthError={triggerAuthError}
             cancel={cancel}
           />

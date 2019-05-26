@@ -23,7 +23,7 @@ function SignUpForm({
 }) {
   const [values, setValues] = useState(INIT_STATE)
   const [errors, setErrors] = useState({})
-  const [missingFields, setMissingFields] = useState(false)
+  const [missingFields, setMissingFields] = useState(true)
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
@@ -52,9 +52,9 @@ function SignUpForm({
     // for disable submit if fields not complete
     const checkHasValue = Object.values(values).every(i => i != '')
     if (checkHasValue) {
-      setMissingFields(true)
-    } else {
       setMissingFields(false)
+    } else {
+      setMissingFields(true)
     }
   }
 
@@ -68,7 +68,6 @@ function SignUpForm({
       email: data.get('email'),
       password: data.get('password'),
     }
-    setValues(user)
     setErrors(validate(user))
     setSubmitting(true)
   }
@@ -128,7 +127,7 @@ function SignUpForm({
             className={`${classes.input} ${errors.password && classes.error}`}
           />
         </label>
-        <Button type="submit" disabled={!missingFields || signingIn}>
+        <Button type="submit" disabled={missingFields || signingIn}>
           <FontAwesomeIcon icon={faEnvelope} className={classes.icon} />
           Create account
         </Button>
@@ -140,8 +139,6 @@ function SignUpForm({
       <button type="button" onClick={cancel} className={classes.cancel}>
         Cancel
       </button>
-      <pre>{JSON.stringify({ errors }, null, 2)}</pre>
-      <pre>{}</pre>
     </>
   )
 }
@@ -159,6 +156,7 @@ const styles = {
     padding: 8,
     borderRadius: 5,
     fontSize: '1rem',
+    borderColor: '#FFF',
   },
   error: {
     borderColor: '#ff0000',
