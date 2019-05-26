@@ -19,7 +19,7 @@ const authReducer = (state = initState, action) => {
     case 'SIGNIN_FAIL':
       return {
         ...state,
-        authMessage: 'Signin failed',
+        authMessage: 'Invalid email or password',
         signingIn: false,
       }
     case 'SIGNUP_TRY':
@@ -32,7 +32,6 @@ const authReducer = (state = initState, action) => {
         authMessage: 'Account created!',
       }
     case 'SIGNUP_FAIL':
-      console.log('reducer', action.payload)
       return {
         ...state,
         authMessage: action.payload,

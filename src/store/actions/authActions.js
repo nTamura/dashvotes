@@ -1,4 +1,4 @@
-import { initial, capitalize, lowercase } from 'helpers/strMethods'
+import { abbrev, capitalize, lowercase } from 'helpers/strMethods'
 
 export const signIn = user => (dispatch, getState, { getFirebase }) => {
   const firebase = getFirebase()
@@ -46,7 +46,7 @@ export const signInAuth = () => (
                   .slice(1)
                   .join(' '),
                 email: u.user.email,
-                displayName: initial(u.user.displayName),
+                displayName: abbrev(u.user.displayName),
                 votedOn: [],
                 pollsCreated: [],
                 score: 0,
@@ -86,7 +86,7 @@ export const signUp = user => (
           fname: capitalize(fname),
           lname: capitalize(lname),
           email: lowercase(email),
-          displayName: `${capitalize(fname)} ${lname.charAt(0).toUpperCase()}`,
+          displayName: abbrev(`${fname} ${lname}`),
           votedOn: [],
           pollsCreated: [],
           score: 0,

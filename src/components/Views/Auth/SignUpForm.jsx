@@ -40,14 +40,6 @@ function SignUpForm({
     }
   }, [errors])
 
-  const handleChange = e => {
-    const { name, value } = e.target
-    setValues({
-      ...values,
-      [name]: value,
-    })
-  }
-
   const checkValues = () => {
     // for disable submit if fields not complete
     const checkHasValue = Object.values(values).every(i => i != '')
@@ -56,6 +48,14 @@ function SignUpForm({
     } else {
       setMissingFields(true)
     }
+  }
+
+  const handleChange = e => {
+    const { name, value } = e.target
+    setValues({
+      ...values,
+      [name]: value,
+    })
   }
 
   const handleSubmit = e => {
@@ -100,7 +100,6 @@ function SignUpForm({
             className={`${classes.input} ${errors.lname && classes.error}`}
           />
         </label>
-
         <label htmlFor="email" className={classes.label}>
           Email
           <input
@@ -114,7 +113,6 @@ function SignUpForm({
             className={`${classes.input} ${errors.email && classes.error}`}
           />
         </label>
-
         <label htmlFor="password" className={classes.label}>
           Password
           <input
@@ -144,9 +142,7 @@ function SignUpForm({
 }
 
 const styles = {
-  root: {
-    width: '100%',
-  },
+  root: { width: '100%' },
   label: {
     display: 'flex',
     flexDirection: 'column',

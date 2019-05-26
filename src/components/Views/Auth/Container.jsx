@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import withStyles from 'react-jss'
 import { connect } from 'react-redux'
 import {
@@ -21,6 +21,7 @@ function Container({
 }) {
   const [formShow, setFormShow] = useState(undefined)
   const cancel = () => setFormShow(undefined)
+
   const handleSignIn = user => {
     signIn(user)
   }
@@ -80,22 +81,19 @@ const styles = {
   },
 }
 
-const mapStateToProps = state => {
-  return {
-    authMessage: state.auth.authMessage,
-    authError: state.auth.authError,
-    signingIn: state.auth.signingIn,
-  }
-}
+const mapStateToProps = state => ({
+  authMessage: state.auth.authMessage,
+  authError: state.auth.authError,
+  signingIn: state.auth.signingIn,
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signUp: user => dispatch(signUp(user)),
-    signIn: user => dispatch(signIn(user)),
-    signInAuth: () => dispatch(signInAuth()),
-    triggerAuthError: error => dispatch(triggerAuthError(error)),
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  signUp: user => dispatch(signUp(user)),
+  signIn: user => dispatch(signIn(user)),
+  signInAuth: () => dispatch(signInAuth()),
+  triggerAuthError: error => dispatch(triggerAuthError(error)),
+})
+
 export default withStyles(styles)(
   connect(
     mapStateToProps,

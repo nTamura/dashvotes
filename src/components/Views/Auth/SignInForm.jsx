@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
+import { validate } from 'helpers/validator'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { validate } from 'helpers/validator'
 
 const INIT_STATE = {
   email: '',
@@ -86,7 +86,6 @@ function SignInForm({
             onChange={handleChange}
           />
         </label>
-
         <label htmlFor="password" className={classes.label}>
           Password
           <input
@@ -98,7 +97,6 @@ function SignInForm({
             // icon to show PW value
           />
         </label>
-
         <Button
           type="submit"
           disabled={missingFields || submitting || signingIn}
@@ -117,6 +115,7 @@ function SignInForm({
     </>
   )
 }
+
 const styles = {
   root: { width: '100%' },
   label: {
