@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import withStyles from 'react-jss'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import logo from 'assets/dashSm.png'
 import NavMenu from 'components/Navigation/NavMenu'
 import { connect } from 'react-redux'
 import { signOut } from 'store/actions/authActions'
 
-function Navbar({ classes, profile, userExists, signOut }) {
+function Navbar({ classes, profile, userExists, signOut, location }) {
   return (
     <nav className={classes.root}>
       <Link to="/">
@@ -15,7 +15,7 @@ function Navbar({ classes, profile, userExists, signOut }) {
       {userExists ? (
         <NavMenu signOut={signOut} profile={profile} />
       ) : (
-        <Link to="/">Sign in</Link>
+        <Link to="/">{location.pathname !== '/' && 'Sign in'}</Link>
       )}
     </nav>
   )
@@ -38,16 +38,14 @@ const mapDispatchToProps = dispatch => ({
   signOut: () => dispatch(signOut()),
 })
 
-const mapStateToProps = state => {
-  return {
-    userExists: state.firebase.auth.uid,
-    profile: state.firebase.profile,
-  }
-}
+const mapStateToProps = state => ({
+  userExists: state.firebase.auth.uid,
+  profile: state.firebase.profile,
+})
 
 export default withStyles(styles)(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Navbar)
+  )(withRouter(Navbar))
 )
