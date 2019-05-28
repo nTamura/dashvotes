@@ -29,14 +29,20 @@ const styles = {
     textAlign: 'center',
     padding: '10%',
   },
-  icon: {
-    fontSize: '4rem',
-  },
   link: {
     color: '#ffbb36',
     fontWeight: 'bold',
     fontStyle: 'oblique',
   },
+  icon: {
+    fontSize: '4rem',
+    // animation: 'pulse 3s .1s linear infinite',
+  },
+  // '@keyframes pulse': {
+  //   '0%': { transform: 'scale(1)' },
+  //   '50%': { transform: 'scale(1.1)' },
+  //   '100%': { transform: 'scale(1)' },
+  // },
 }
 
 export default withStyles(styles)(ThanksVote)
