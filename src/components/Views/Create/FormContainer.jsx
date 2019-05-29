@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import withStyles from 'react-jss'
 import Form from 'components/Views/Create/Form'
 
@@ -14,9 +14,9 @@ function FormContainer({ classes, auth, submitting, formSubmit }) {
       options: data.getAll('option').filter(p => p !== ''),
       createdBy: { uid, displayName },
     }
-    // if (checkForm(template)) {
-    formSubmit(template)
-    // } else {
+    if (checkForm(template)) {
+      formSubmit(template)
+    }
     // dispatch form error
     // console.log('error')
     // }
@@ -24,10 +24,10 @@ function FormContainer({ classes, auth, submitting, formSubmit }) {
 
   const checkForm = form => {
     // get proper value checking in form later
-    const { title, description, options } = form
+    const { title, options } = form
     if (!title || !options) {
       return false
-    }
+    } else return true
   }
 
   return (

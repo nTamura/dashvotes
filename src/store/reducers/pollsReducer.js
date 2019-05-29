@@ -31,6 +31,7 @@ const pollsReducer = (state = initState, action) => {
     case 'FETCH_POLL_NOT_FOUND':
       return {
         ...state,
+        poll: null,
         pollNotFound: true,
         pollsMessage: action.payload,
       }
@@ -49,7 +50,7 @@ const pollsReducer = (state = initState, action) => {
     case 'CREATE_POLL_ERR':
       return {
         state,
-        pollsMessage: 'Problem creating poll',
+        pollsMessage: action.payload,
         pid: null,
         submitting: false,
       }
@@ -63,6 +64,13 @@ const pollsReducer = (state = initState, action) => {
       return {
         pid: null,
       }
+
+    case 'CLEAR_POLL':
+      return {
+        pid: null,
+        poll: null,
+      }
+
     default:
       return state
   }

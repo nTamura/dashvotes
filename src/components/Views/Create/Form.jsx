@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
 import Button from 'components/Common/Button'
 
-function Form({ classes, submitting, handleSubmit }) {
+// disable button if no fields || submitting
+// need onchange handlers for each input
+
+function Form({ classes, submitting, fieldsEmpty, handleSubmit }) {
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="title" className={classes.label}>
@@ -14,7 +17,6 @@ function Form({ classes, submitting, handleSubmit }) {
           placeholder="Is ketchup technically a jam?"
           name="title"
           id="title"
-          required
           className={classes.input}
         />
       </label>
@@ -64,32 +66,11 @@ function Form({ classes, submitting, handleSubmit }) {
         {/* add fields button, appends optional input  */}
       </label>
 
-      {/* expiry fields, not for MVP */}
-      {/* <label htmlFor="expiry">
-          Will expire after:
-          <input
-            type="text"
-            size={4}
-            maxLength={4}
-            placeholder=""
-            name="expiry"
-            id="expiry"
-          />
-          <select name="type">
-            <option value="hours">Hours</option>
-            <option value="days">Days</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
-            <option value="votes">Votes</option>
-          </select>
-        </label> */}
+      {/* add in poll expiry fields, private/invite only checkbox */}
 
-      <Button disabled={submitting} type="submit">
+      <Button disabled={fieldsEmpty || submitting} type="submit">
         Create
       </Button>
-      {/* <button type="submit" className={classes.button}>
-          Create
-        </button> */}
     </form>
   )
 }
@@ -103,8 +84,11 @@ const styles = {
     marginBottom: 16,
     padding: 8,
     borderRadius: 5,
-    border: 'none',
+    borderColor: '#FFF',
     fontSize: '1rem',
+  },
+  error: {
+    borderColor: '#ff0000',
   },
 }
 export default withStyles(styles)(Form)

@@ -30,24 +30,24 @@ export const createPoll = poll => (dispatch, getState, { getFirestore }) => {
     })
 }
 
-export const votePoll = (id, user) => (
-  dispatch,
-  getState,
-  { getFirestore }
-) => {
+export const votePoll = poll => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
   dispatch({ type: 'TRY_VOTE_POLL' })
+  const { pid, options, voter } = poll
+  const x = {
+    [options]: [voter],
+  }
+  console.log(poll)
   firestore
     .collection('polls')
-    .doc(id)
-    .get()
-    .then(docRef => {
-      console.log(docRef)
+    .doc(pid)
+    // .update({
+    //   votes: firestore.FieldValue.arrayUnion(x),
+    // })
+    .then(() => {
+      console.log(poll)
 
-      // .update({
-      //   votes: firestore.FieldValue.arrayUnion(user)
-      // })
-      // .then(docRef => {
+      //   firestore.collection('users').doc(voter.id)
       //   const { id } = docRef
       //   firestore
       //     .collection('users')
@@ -66,6 +66,7 @@ export const votePoll = (id, user) => (
 export const fetchPoll = id => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
   dispatch({ type: 'TRY_FETCH_POLL' })
+
   firestore
     .collection('polls')
     .doc(id)
@@ -107,4 +108,10 @@ export const fetchPolls = () => (
     })
 }
 
+export const triggerError = error => (dispatch, getState) => {
+  console.log('action', error)
+  dispatch({ type: '', payload: error })
+}
+
 export const clearPid = () => dispatch => dispatch({ type: 'CLEAR_PID' })
+export const clearPoll = () => dispatch => dispatch({ type: 'CLEAR_POLL' })
