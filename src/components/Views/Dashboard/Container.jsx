@@ -10,9 +10,9 @@ function Container({ classes, profile }) {
   const { isLoaded, displayName, pollsCreated } = profile
   return (
     <div className={classes.root}>
-      {isLoaded ? (
+      {isLoaded && displayName ? (
         <>
-          <h2>{`Welcome ${displayName || ''}`}</h2>
+          <h2>{`Welcome ${displayName}`}</h2>
           <p>{`You currently have ${pollsCreated.length} active polls`}</p>
           <div className={classes.menuList}>
             <Search />
