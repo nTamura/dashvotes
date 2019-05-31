@@ -1,16 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
-import PollsList from 'components/Common/Polls/PollsList'
-import SortMenu from 'components/Views/Trending/SortMenu'
-import Loading from 'components/Common/Loading'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown } from '@fortawesome/free-solid-svg-icons'
+import Loading from 'components/Common/Loading'
+import PollsList from 'components/Common/Polls/PollsList'
+import SortMenu from 'components/Views/Trending/SortMenu'
 
-function Container({ classes, polls, ...props }) {
+function Container({ classes, polls }) {
   const [showMenu, setShowMenu] = useState(false)
+  const [sortedPolls, setSortedPolls] = useState()
+
+  useEffect(() => {
+    sortPolls(polls)
+  }, [sortedPolls])
+
+  const sortPolls = polls => {
+    // run default trending sort
+  }
 
   const toggleMenu = () => {
     setShowMenu(!showMenu)
@@ -18,12 +27,11 @@ function Container({ classes, polls, ...props }) {
   const sortBy = e => {
     setShowMenu(false)
     const query = e.target.id
+    // setSortedPolls(query)
     console.log(query)
-    // sort polls by query
   }
   return (
     <div className={classes.root}>
-      {console.log(polls)}
       <h2>Trending</h2>
       <div className={classes.flex}>
         <p>Browsing top polls</p>
