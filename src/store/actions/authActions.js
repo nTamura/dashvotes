@@ -25,6 +25,8 @@ export const signInAuth = () => (
   dispatch({ type: 'SIGNIN_TRY' })
   firebase
     .auth()
+    // .signInWithRedirect(provider)
+    // mobile tunnel has bug
     .signInWithPopup(provider)
     .then(u => {
       firestore
@@ -47,7 +49,7 @@ export const signInAuth = () => (
                   .join(' '),
                 email: u.user.email,
                 displayName: abbrev(u.user.displayName),
-                votedOn: [],
+                pollsVoted: [],
                 pollsCreated: [],
                 score: 0,
               })
@@ -87,7 +89,7 @@ export const signUp = user => (
           lname: capitalize(lname),
           email: lowercase(email),
           displayName: abbrev(`${fname} ${lname}`),
-          votedOn: [],
+          pollsVoted: [],
           pollsCreated: [],
           score: 0,
         })
