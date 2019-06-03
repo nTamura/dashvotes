@@ -23,7 +23,8 @@
     "react-transition-group": "^4.0.1",
     "redux": "^4.0.1",
     "redux-firestore": "^0.7.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "typeface-quicksand": "0.0.71"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -11,6 +11,7 @@ import thunk from 'redux-thunk'
 import { getFirestore, reduxFirestore } from 'redux-firestore'
 import { getFirebase, reactReduxFirebase } from 'react-redux-firebase'
 import firebase from 'config/firebaseConfig'
+import 'typeface-quicksand'
 
 const store = createStore(
   rootReducer,
