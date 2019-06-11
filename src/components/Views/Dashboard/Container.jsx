@@ -7,10 +7,10 @@ import Loading from 'components/Common/Loading'
 import { connect } from 'react-redux'
 
 function Container({ classes, profile }) {
-  const { isLoaded, displayName, pollsCreated } = profile
+  const { isLoaded, isEmpty, displayName, pollsCreated } = profile
   return (
     <div className={classes.root}>
-      {isLoaded && displayName ? (
+      {isLoaded && !isEmpty ? (
         <>
           <h2>{`Welcome ${displayName}`}</h2>
           <p>{`You currently have ${pollsCreated.length} active polls`}</p>
