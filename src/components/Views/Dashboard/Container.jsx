@@ -17,7 +17,7 @@ function Container({ classes, profile }) {
           <div className={classes.menuList}>
             <Search />
             <Link to="/trending">
-              <Button>Trending Polls</Button>
+              <Button>Polls List</Button>
             </Link>
             <Link to="/create">
               <Button>Create Poll</Button>
