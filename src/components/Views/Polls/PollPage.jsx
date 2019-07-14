@@ -63,7 +63,11 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
 }
 
 const styles = {
-  root: {},
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+  },
   flex: { flex: 1 },
   form: {
     display: 'flex',
@@ -76,10 +80,7 @@ const styles = {
     fontSize: '1.2rem',
   },
   radioButton: { marginRight: 8 },
-  share: {
-    color: '#FFF',
-    margin: 8,
-  },
+  share: { margin: 8 },
   metaInfo: {
     display: 'flex',
     flexDirection: 'column',
