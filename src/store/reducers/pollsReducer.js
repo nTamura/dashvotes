@@ -40,6 +40,10 @@ const pollsReducer = (state = initState, action) => {
         pollsMessage: action.payload,
         ...state,
       }
+
+    case 'TRY_VOTE_POLL':
+      console.log('try vote poll reducer')
+      return {}
     case 'CREATE_POLL':
       return {
         ...state,

@@ -32,37 +32,29 @@ export const createPoll = poll => (dispatch, getState, { getFirestore }) => {
 
 export const votePoll = poll => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
-  dispatch({ type: 'TRY_VOTE_POLL' })
+  // dispatch({ type: 'TRY_VOTE_POLL' })
   const { pid, options, voter } = poll
-  const vote = { [options]: voter }
+  const vote = { options, ...voter }
   firestore
     .collection('polls')
     .doc(pid)
-    // .get()
-    // .then(doc => {
-    //   if (doc.exists) {
-
     .update({
-      votes: firestore.FieldValue.arrayUnion({ [options]: voter }),
+      votes: firestore.FieldValue.arrayUnion(vote),
     })
-  // .update({
-  //   votes: firestore.FieldValue.arrayUnion(x),
-  // })
-  //   firestore.collection('users').doc(voter.id)
-  //   const { id } = docRef
-  //   firestore
-  //     .collection('users')
-  //     .doc(poll.createdBy.uid)
-  //     .update({
-  //       pollsCreated: firestore.FieldValue.arrayUnion(id),
-  //     })
-  //   dispatch({ type: 'CREATE_POLL', payload: id })
-  // })
-  // .catch(err => {
-  //   dispatch({ type: 'CREATE_POLL_ERR', err })
-  //   console.log('CreatePoll error:', err)
-  // }
-  // })
+    .then(() => {
+      firestore
+        .collection('users')
+        .doc(voter.uid)
+        .update({
+          pollsVoted: firestore.FieldValue.arrayUnion(pid),
+        })
+      // dispatch({ type: 'CREATE_POLL', payload: id })
+      // dispatch something and redirect
+    })
+    .catch(err => {
+      // dispatch({ type: 'CREATE_POLL_ERR', err })
+      console.log('CreatePoll error:', err)
+    })
 }
 
 export const fetchPoll = id => (dispatch, getState, { getFirestore }) => {
