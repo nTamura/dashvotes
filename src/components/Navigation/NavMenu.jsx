@@ -15,6 +15,9 @@ function NavMenu({ classes, signOut, profile }) {
     // trigger logged out notification
     // case user is on public page so no redirect
   }
+  // todo
+  // bring menu button forward on top of overlay
+  // tweak overlay exit, need fade out
 
   return (
     <div className={classes.root}>
@@ -91,8 +94,8 @@ const styles = {
   overlay: {
     zIndex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
-    position: 'fixed',
-    top: 52,
+    position: 'absolute',
+    top: 0,
     right: 0,
     left: 0,
     width: '100%',
@@ -114,7 +117,7 @@ const styles = {
     width: '35%',
     maxWidth: 200,
     right: 0,
-    top: 52,
+    top: 0,
     margin: 0,
     padding: 20,
     borderRadius: 5,
