@@ -1,6 +1,9 @@
 {
   "rules": {
-    ".read": "auth != null",
+    ".read": "true",
     ".write": "auth != null"
   }
 }
+
+// https://gist.github.com/codediodeio/6dbce1305b9556c2136492522e2100f6
+// reference for rules
