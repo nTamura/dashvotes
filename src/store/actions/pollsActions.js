@@ -32,27 +32,39 @@ export const createPoll = poll => (dispatch, getState, { getFirestore }) => {
 
 export const votePoll = poll => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
-  // dispatch({ type: 'TRY_VOTE_POLL' })
+  dispatch({ type: 'TRY_VOTE_POLL' })
   const { pid, options, voter } = poll
-  const vote = { options, ...voter }
+  const { uid, displayName } = voter
   firestore
     .collection('polls')
     .doc(pid)
-    .update({
-      votes: firestore.FieldValue.arrayUnion(vote),
-    })
+    .set(
+      {
+        votes: {
+          [uid]: {
+            options,
+            ...voter,
+            lastModified: firestore.FieldValue.serverTimestamp(),
+          },
+        },
+      },
+      { merge: true }
+    )
     .then(() => {
       firestore
         .collection('users')
-        .doc(voter.uid)
+        .doc(uid)
         .update({
           pollsVoted: firestore.FieldValue.arrayUnion(pid),
         })
-      // dispatch({ type: 'CREATE_POLL', payload: id })
-      // dispatch something and redirect
+
+      dispatch({
+        type: 'VOTE_POLL_SUCCESS',
+        payload: 'Your vote has been cast!',
+      })
     })
     .catch(err => {
-      // dispatch({ type: 'CREATE_POLL_ERR', err })
+      dispatch({ type: 'CREATE_POLL_ERR', err })
       console.log('CreatePoll error:', err)
     })
 }
