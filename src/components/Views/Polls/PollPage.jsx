@@ -8,6 +8,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function PollPage({ classes, votePoll, match, profile, poll }) {
+  const [hasVoted, setHasVoted] = useState(false)
+  useEffect(() => {
+    checkAlreadyVoted()
+  })
+
+  const checkAlreadyVoted = () => {
+    profile.pollsVoted.find(item => {
+      if (item === poll.pid) {
+        setHasVoted(true)
+      }
+    })
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
     const form = e.target
@@ -25,17 +38,23 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
 
   return (
     <div className={classes.root}>
+      {console.log(profile)}
       <div className={classes.flex}>
         <h2>
           {poll.title}
-          <FontAwesomeIcon
-            icon={faCheckCircle}
-            className={classes.votedCheck}
-          />
+          {hasVoted && (
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              className={classes.votedCheck}
+            />
+          )}
         </h2>
-        <p className={classes.votedText}>
-          You have already voted. Voting again will overwrite your previous vote
-        </p>
+        {hasVoted && (
+          <p className={classes.votedText}>
+            You have already voted. Voting again will overwrite your previous
+            vote
+          </p>
+        )}
 
         <p>{poll.description}</p>
         <form className={classes.form} onSubmit={handleSubmit}>
@@ -53,10 +72,6 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
             </label>
           ))}
           {profile.isEmpty && <p>You must be signed in to vote!</p>}
-
-          {/* if voted */}
-
-          {/*  */}
           <Button disabled={profile.isEmpty} type="submit">
             Vote
           </Button>
