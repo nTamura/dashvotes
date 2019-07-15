@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom'
 import Button from 'components/Common/Button'
 import Share from 'components/Common/Share'
 import toDate from 'helpers/toDate'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function PollPage({ classes, votePoll, match, profile, poll }) {
   const handleSubmit = e => {
@@ -24,7 +26,17 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
   return (
     <div className={classes.root}>
       <div className={classes.flex}>
-        <h2>{poll.title}</h2>
+        <h2>
+          {poll.title}
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            className={classes.votedCheck}
+          />
+        </h2>
+        <p className={classes.votedText}>
+          You have already voted. Voting again will overwrite your previous vote
+        </p>
+
         <p>{poll.description}</p>
         <form className={classes.form} onSubmit={handleSubmit}>
           {poll.options.map((item, i) => (
@@ -41,9 +53,14 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
             </label>
           ))}
           {profile.isEmpty && <p>You must be signed in to vote!</p>}
+
+          {/* if voted */}
+
+          {/*  */}
           <Button disabled={profile.isEmpty} type="submit">
             Vote
           </Button>
+
           <Share />
         </form>
       </div>
@@ -85,7 +102,17 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    marginBottom: 8,
+    marginBottom: 40,
+  },
+  votedCheck: {
+    color: '#fdab27',
+    fontSize: '1rem',
+    marginLeft: 8,
+    verticalAlign: 'middle',
+  },
+  votedText: {
+    marginTop: '-1rem',
+    color: 'rgba(255,255,255,0.4)',
   },
   metaText: { color: 'rgba(255,255,255,0.4)' },
 }
