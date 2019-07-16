@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import withStyles from 'react-jss'
+import { Redirect } from 'react-router-dom'
+
 import Loading from 'components/Common/Loading'
 import { fetchPoll, votePoll, clearPoll } from 'store/actions/pollsActions'
 import { connect } from 'react-redux'
@@ -14,6 +16,7 @@ function Container({
   match,
   profile,
   poll,
+  pollVoted,
   pollNotFound,
 }) {
   useEffect(() => {
@@ -37,7 +40,12 @@ function Container({
   return (
     <div className={classes.root}>
       {profile.isLoaded && poll ? (
-        <PollPage profile={profile} poll={poll} votePoll={votePoll} />
+        <PollPage
+          profile={profile}
+          poll={poll}
+          pollVoted={pollVoted}
+          votePoll={votePoll}
+        />
       ) : (
         detect()
       )}
@@ -59,6 +67,7 @@ const mapStateToProps = state => {
     profile: state.firebase.profile,
     poll: state.polls.poll,
     polls: state.polls.polls,
+    pollVoted: state.polls.pollVoted,
     pollNotFound: state.polls.pollNotFound,
     pollsMessage: state.polls.poll,
   }

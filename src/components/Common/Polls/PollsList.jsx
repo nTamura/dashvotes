@@ -5,13 +5,13 @@ import PollsListItem from 'components/Common/Polls/PollsListItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSadCry } from '@fortawesome/free-solid-svg-icons'
 
-function PollsList({ classes, polls, ...props }) {
+function PollsList({ classes, polls, profile, ...props }) {
   return (
     <div className={classes.root}>
       {polls.length >= 1 ? (
         <div className={classes.menuList}>
           {polls.map(poll => (
-            <PollsListItem key={poll.id} poll={poll} />
+            <PollsListItem key={poll.id} poll={poll} profile={profile} />
           ))}
         </div>
       ) : (
