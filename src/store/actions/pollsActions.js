@@ -121,6 +121,5 @@ export const triggerError = error => (dispatch, getState) => {
   dispatch({ type: '', payload: error })
 }
 
-export const clearVoted = () => dispatch => dispatch({ type: 'CLEAR_VOTED' })
 export const clearPid = () => dispatch => dispatch({ type: 'CLEAR_PID' })
 export const clearPoll = () => dispatch => dispatch({ type: 'CLEAR_POLL' })

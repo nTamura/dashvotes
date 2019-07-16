@@ -10,8 +10,11 @@ import ThanksVote from 'components/Common/Polls/ThanksVote'
 
 function PollPage({ classes, votePoll, match, profile, pollVoted, poll }) {
   const [hasVoted, setHasVoted] = useState(false)
+  const [radioOption, setRadioOption] = useState(null)
+
   useEffect(() => {
     checkAlreadyVoted()
+    console.log(poll.options)
   })
 
   const checkAlreadyVoted = () => {
@@ -69,6 +72,7 @@ function PollPage({ classes, votePoll, match, profile, pollVoted, poll }) {
                     value={item}
                     id={item}
                     name="option"
+                    onClick={() => setRadioOption(item)}
                     aria-label={item}
                     className={classes.radioButton}
                   />
@@ -76,7 +80,7 @@ function PollPage({ classes, votePoll, match, profile, pollVoted, poll }) {
                 </label>
               ))}
               {profile.isEmpty && <p>You must be signed in to vote!</p>}
-              <Button disabled={profile.isEmpty} type="submit">
+              <Button disabled={profile.isEmpty || !radioOption} type="submit">
                 Vote
               </Button>
               <Share />

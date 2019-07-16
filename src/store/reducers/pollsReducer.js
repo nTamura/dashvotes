@@ -49,7 +49,7 @@ const pollsReducer = (state = initState, action) => {
     case 'VOTE_POLL_TRY':
       return {
         ...state,
-        pollsMessage: null,
+        pollsMessage: 'Casting vote...',
         pollVoted: null,
       }
     case 'VOTE_POLL_OK':
