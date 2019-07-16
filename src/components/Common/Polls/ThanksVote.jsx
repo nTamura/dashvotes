@@ -29,7 +29,6 @@ function ThanksVote({ classes, pid }) {
 const styles = {
   root: {
     textAlign: 'center',
-    padding: '10%',
   },
   link: {
     color: '#ffbb36',

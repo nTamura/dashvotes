@@ -5,6 +5,7 @@ const initState = {
   submitting: false,
   pollNotFound: false,
   pid: null,
+  pollVoted: null,
 }
 
 // FIX
@@ -13,19 +14,23 @@ const initState = {
 
 const pollsReducer = (state = initState, action) => {
   switch (action.type) {
-    case 'FETCH_POLLS':
+    case 'FETCH_ALL_POLLS':
       return {
         ...state,
+        pollVoted: null,
         polls: action.payload,
       }
     case 'FETCH_POLL':
       return {
         ...state,
+        pollVoted: null,
+        pollNotFound: false,
         poll: action.payload,
       }
     case 'TRY_FETCH_POLL':
       return {
         ...state,
+        pollVoted: null,
         poll: null,
       }
     case 'FETCH_POLL_NOT_FOUND':
@@ -37,26 +42,38 @@ const pollsReducer = (state = initState, action) => {
       }
     case 'FETCH_POLL_ERR':
       return {
-        pollsMessage: action.payload,
         ...state,
+        pollsMessage: action.payload,
       }
 
-    case 'TRY_VOTE_POLL':
-      // console.log(state)
-      console.log('state')
+    case 'VOTE_POLL_TRY':
       return {
         ...state,
         pollsMessage: null,
-        //
+        pollVoted: null,
       }
-    case 'VOTE_POLL_SUCCESS':
-      // console.log(state)
+    case 'VOTE_POLL_OK':
       return {
         ...state,
         pollsMessage: action.payload,
+        pollVoted: true,
+      }
+    case 'VOTE_POLL_ERR':
+      return {
+        ...state,
+        pollsMessage: action.payload,
+        pollVoted: null,
       }
 
-    case 'CREATE_POLL':
+    case 'CREATE_POLL_TRY':
+      console.log('create poll try')
+      return {
+        ...state,
+        pollsMessage: 'Submitting...',
+        pid: null,
+        submitting: true,
+      }
+    case 'CREATE_POLL_OK':
       return {
         ...state,
         pollsMessage: 'Successfully created!',
@@ -65,24 +82,20 @@ const pollsReducer = (state = initState, action) => {
       }
     case 'CREATE_POLL_ERR':
       return {
-        state,
+        ...state,
         pollsMessage: action.payload,
         pid: null,
         submitting: false,
       }
-    case 'TRY_CREATE_POLL':
-      return {
-        pollsMessage: 'Submitting...',
-        pid: null,
-        submitting: true,
-      }
+
     case 'CLEAR_PID':
       return {
+        ...state,
         pid: null,
       }
-
     case 'CLEAR_POLL':
       return {
+        ...state,
         pid: null,
         poll: null,
       }

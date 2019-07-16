@@ -1,6 +1,8 @@
 export const createPoll = poll => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
-  dispatch({ type: 'TRY_CREATE_POLL' })
+  dispatch({ type: 'CREATE_POLL_TRY' })
+  console.log('hi')
+
   firestore
     .collection('polls')
     .add({
@@ -22,17 +24,17 @@ export const createPoll = poll => (dispatch, getState, { getFirestore }) => {
         .update({
           pollsCreated: firestore.FieldValue.arrayUnion(id),
         })
-      dispatch({ type: 'CREATE_POLL', payload: id })
+      dispatch({ type: 'CREATE_POLL_OK', payload: id })
     })
     .catch(err => {
-      dispatch({ type: 'CREATE_POLL_ERR', err })
+      dispatch({ type: 'CREATE_POLL_ERR', payload: err.message })
       console.log('CreatePoll error:', err)
     })
 }
 
 export const votePoll = poll => (dispatch, getState, { getFirestore }) => {
   const firestore = getFirestore()
-  dispatch({ type: 'TRY_VOTE_POLL' })
+  dispatch({ type: 'VOTE_POLL_TRY' })
   const { pid, options, voter } = poll
   const { uid, displayName } = voter
   firestore
@@ -59,13 +61,13 @@ export const votePoll = poll => (dispatch, getState, { getFirestore }) => {
         })
 
       dispatch({
-        type: 'VOTE_POLL_SUCCESS',
+        type: 'VOTE_POLL_OK',
         payload: 'Your vote has been cast!',
       })
     })
     .catch(err => {
-      dispatch({ type: 'CREATE_POLL_ERR', err })
-      console.log('CreatePoll error:', err)
+      dispatch({ type: 'VOTE_POLL_ERR', payload: err.message })
+      console.log('VOTE_POLL_ERR: ', err)
     })
 }
 
@@ -89,7 +91,7 @@ export const fetchPoll = id => (dispatch, getState, { getFirestore }) => {
       }
     })
     .catch(err => {
-      dispatch({ type: 'FETCH_POLL_ERR', err })
+      dispatch({ type: 'FETCH_POLL_ERR', payload: err.message })
       console.log('FETCHPOLL error:', err)
     })
 }
@@ -100,13 +102,13 @@ export const fetchPolls = () => (
   { getFirebase, getFirestore }
 ) => {
   const firestore = getFirestore()
-  dispatch({ type: 'TRY_FETCH_POLLS' })
+  dispatch({ type: 'TRY_FETCH_ALL_POLLS' })
 
   firestore
     .collection('polls')
     .get()
     .then(polls => {
-      dispatch({ type: 'FETCH_POLLS', polls })
+      dispatch({ type: 'FETCH_ALL_POLLS', polls })
     })
     .catch(err => {
       // dispatch({ type: 'CREATE_POLL_ERR', err })
@@ -119,5 +121,6 @@ export const triggerError = error => (dispatch, getState) => {
   dispatch({ type: '', payload: error })
 }
 
+export const clearVoted = () => dispatch => dispatch({ type: 'CLEAR_VOTED' })
 export const clearPid = () => dispatch => dispatch({ type: 'CLEAR_PID' })
 export const clearPoll = () => dispatch => dispatch({ type: 'CLEAR_POLL' })
