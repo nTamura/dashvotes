@@ -6,8 +6,9 @@ import Share from 'components/Common/Share'
 import toDate from 'helpers/toDate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import ThanksVote from 'components/Common/Polls/ThanksVote'
 
-function PollPage({ classes, votePoll, match, profile, poll }) {
+function PollPage({ classes, votePoll, match, profile, pollVoted, poll }) {
   const [hasVoted, setHasVoted] = useState(false)
   useEffect(() => {
     checkAlreadyVoted()
@@ -38,58 +39,62 @@ function PollPage({ classes, votePoll, match, profile, poll }) {
 
   return (
     <div className={classes.root}>
-      {console.log(profile)}
-      <div className={classes.flex}>
-        <h2>
-          {poll.title}
-          {hasVoted && (
-            <FontAwesomeIcon
-              icon={faCheckCircle}
-              className={classes.votedCheck}
-            />
-          )}
-        </h2>
-        {hasVoted && (
-          <p className={classes.votedText}>
-            You have already voted. Voting again will overwrite your previous
-            vote
-          </p>
-        )}
+      {pollVoted ? (
+        <ThanksVote pid={poll.id} />
+      ) : (
+        <>
+          <div className={classes.flex}>
+            <h2>
+              {poll.title}
+              {hasVoted && (
+                <FontAwesomeIcon
+                  icon={faCheckCircle}
+                  className={classes.votedCheck}
+                />
+              )}
+            </h2>
+            {hasVoted && (
+              <p className={classes.votedText}>
+                You have already voted. Voting again will overwrite your
+                previous vote
+              </p>
+            )}
 
-        <p>{poll.description}</p>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          {poll.options.map((item, i) => (
-            <label key={i} htmlFor={item} className={classes.radioLabel}>
-              <input
-                type="radio"
-                value={item}
-                id={item}
-                name="option"
-                aria-label={item}
-                className={classes.radioButton}
-              />
-              {item}
-            </label>
-          ))}
-          {profile.isEmpty && <p>You must be signed in to vote!</p>}
-          <Button disabled={profile.isEmpty} type="submit">
-            Vote
-          </Button>
-
-          <Share />
-        </form>
-      </div>
-      <div className={classes.metaInfo}>
-        <span className={classes.metaText}>
-          {`Author: ${poll.createdBy.displayName}`}
-        </span>
-        <span className={classes.metaText}>
-          {`Created: ${toDate(poll.createdAt)}`}
-        </span>
-        <span className={classes.metaText}>
-          {`Poll ID: ${match.params.id}`}
-        </span>
-      </div>
+            <p>{poll.description}</p>
+            <form className={classes.form} onSubmit={handleSubmit}>
+              {poll.options.map((item, i) => (
+                <label key={i} htmlFor={item} className={classes.radioLabel}>
+                  <input
+                    type="radio"
+                    value={item}
+                    id={item}
+                    name="option"
+                    aria-label={item}
+                    className={classes.radioButton}
+                  />
+                  {item}
+                </label>
+              ))}
+              {profile.isEmpty && <p>You must be signed in to vote!</p>}
+              <Button disabled={profile.isEmpty} type="submit">
+                Vote
+              </Button>
+              <Share />
+            </form>
+          </div>
+          <div className={classes.metaInfo}>
+            <span className={classes.metaText}>
+              {`Author: ${poll.createdBy.displayName}`}
+            </span>
+            <span className={classes.metaText}>
+              {`Created: ${toDate(poll.createdAt)}`}
+            </span>
+            <span className={classes.metaText}>
+              {`Poll ID: ${match.params.id}`}
+            </span>
+          </div>
+        </>
+      )}
     </div>
   )
 }

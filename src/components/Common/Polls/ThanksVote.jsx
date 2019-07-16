@@ -1,28 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import withStyles from 'react-jss'
+import Share from 'components/Common/Share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
-const ThanksVote = props => (
-  <div style={styles.root}>
-    <h2>Thanks for voting!</h2>
-    <FontAwesomeIcon icon={faHeart} className={classes.icon} />
-    <p>Your vote is appreciated. </p>
-    <p>
-      Click here for the
-      <Link to={`/results/${props.pollId}`} style={styles.link}>
-        {' results '}
+function ThanksVote({ classes, pid }) {
+  return (
+    <div className={classes.root}>
+      <h2>Thanks for voting!</h2>
+
+      {/* show cart results  */}
+
+      <FontAwesomeIcon icon={faHeart} className={classes.icon} />
+      <p>Your vote has been successfully cast.</p>
+      <p>
+        You can vote again, but note that it will overwrite your previous vote.
+      </p>
+      <Link to={'/'} className={classes.link}>
+        Go back
       </Link>
-    </p>
-    <p>
-      Or go back to
-      <Link to="/polls" style={styles.link}>
-        {' polls '}
-      </Link>
-    </p>
-  </div>
-)
+      <p>or</p>
+      <Share pid={pid} />
+    </div>
+  )
+}
 
 const styles = {
   root: {

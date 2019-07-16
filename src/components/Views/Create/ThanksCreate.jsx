@@ -5,19 +5,21 @@ import Share from 'components/Common/Share'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
-const ThanksCreate = ({ classes, pid }) => (
-  <div style={styles.root}>
-    <h2>Thanks for your post!</h2>
-    <FontAwesomeIcon icon={faHeart} className={classes.icon} />
-    <p>Your poll has been successfully submitted.</p>
-    <p>Check back soon to see the results!</p>
-    <Link to={'/'} style={styles.link}>
-      Go back
-    </Link>
-    <p>or</p>
-    <Share pid={pid} />
-  </div>
-)
+function ThanksCreate({ classes, pid }) {
+  return (
+    <div className={classes.root}>
+      <h2>Thanks for your post!</h2>
+      <FontAwesomeIcon icon={faHeart} className={classes.icon} />
+      <p>Your poll has been successfully submitted.</p>
+      <p>Check back soon to see the results!</p>
+      <Link to={'/'} className={classes.link}>
+        Go back
+      </Link>
+      <p>or</p>
+      <Share pid={pid} />
+    </div>
+  )
+}
 
 const styles = {
   root: {
