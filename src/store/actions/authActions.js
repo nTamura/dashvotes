@@ -51,6 +51,7 @@ export const signInAuth = () => (
                 displayName: abbrev(u.user.displayName),
                 pollsVoted: [],
                 pollsCreated: [],
+                pollsActive: [],
                 score: 0,
               })
             dispatch({ type: 'SIGNIN_SUCCESS' })
@@ -91,6 +92,7 @@ export const signUp = user => (
           displayName: abbrev(`${fname} ${lname}`),
           pollsVoted: [],
           pollsCreated: [],
+          pollsActive: [],
           score: 0,
         })
         .then(() => {
